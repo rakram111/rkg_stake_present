@@ -1,8 +1,9 @@
-var TronexSun = artifacts.require("./TronexSun.sol");
+var SweezGlobal = artifacts.require("./SweezGlobal.sol");
 
 module.exports = function (deployer) {
   // deployer.deploy(TRXMessages);
-  deployer.deploy(TronexSun,
+  deployer.deploy(SweezGlobal,
+    "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",
     "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",
     "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",
     "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",

