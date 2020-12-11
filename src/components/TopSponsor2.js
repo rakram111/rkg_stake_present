@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import 'react-toastify/dist/ReactToastify.css';
-const url = "https//tronexsun.net/";
+const url = "https//sweezglobal.com/";
 
 class TopSponsor2 extends Component {
 
@@ -59,7 +59,7 @@ class TopSponsor2 extends Component {
 
                             <br /><br />
                             <p>
-                                <a href="https://tronexsun.net" style={{ color: "red", textDecoration: "underline" }} >Back</a>
+                                <a href="https://sweezglobal.com" style={{ color: "red", textDecoration: "underline" }} >Back</a>
                             </p>
 
                             <br />

@@ -3,7 +3,7 @@ import back from "./Image1/back.jpg"
 
 import "./css/style.css";
 
-let url = "https://tronexsun.net/";
+let url = "http://localhost:3000/";
 
 
 class JoinGuide extends Component {
@@ -38,9 +38,9 @@ class JoinGuide extends Component {
 
                         <h4 style={{ color: "#1AE865" }}>Joining Guide</h4><hr />
                         <p style={{ color: "white" }}>
-                            To join Tronex Sun you need to use one of the following Dapp wallets.
+                            To join Sweez Global you need to use one of the following Dapp wallets.
                             <br /> To connect with the smart contract, please download, set up, and fund your preferred wallet from the instructions below.
-                            <br /> It is mandatory to use a referral link 1st time depositing to Tronex Sun smart contract, please get back to the person that introduced you to Tronex Sun.
+                            <br /> It is mandatory to use a referral link 1st time depositing to Sweez Global smart contract, please get back to the person that introduced you to Sweez Global.
                             <br /><br /> <span style={{ color: "#1AE865" }}>PHONE WALLETs - TRON Wallet or TOKEN POCKET</span>
                             <br /> TRON WALLET - download at offical site:<br />
                             <a href="https://www.tronwallet.me/">https://www.tronwallet.me/</a>
@@ -51,9 +51,9 @@ class JoinGuide extends Component {
                             <br /> TronLink generates passwords and keys on your device, so only you have access to your accounts and data
                             <br /><br /> How download TRONLINK browser extension?
                             <br /> Official website: <a href="https://www.tronlink.org/">Tron Link here</a>
-                            <br /> How to connect TRONLINK to Tronex Sun smart contract?
-                            <br /> Open Web browser with TronLink download<br /> Enter <a href="https://www.tronexsun.net/">tronexsun.net</a> (ref link) an click enter<br /> Allow TRONLINK wallet to connect to <a href="https://www.tronexsun.net/">tronexsun.net</a>
-                            <br /> First time joining Tronex Sun, follow these steps
+                            <br /> How to connect TRONLINK to Sweez Global smart contract?
+                            <br /> Open Web browser with TronLink download<br /> Enter <a href="https://www.sweezglobal.com/">sweezglobal.com</a> (ref link) an click enter<br /> Allow TRONLINK wallet to connect to <a href="https://www.sweezglobal.com/">sweezglobal.com</a>
+                            <br /> First time joining Sweez Global, follow these steps
                             <br /> Copy ref link from sponsor<br /> enter ref link into your pc browser with TRONLINK extension<br /> Select the amount you wish to deposit  <br /> Click join and confirm transaction in wallet
 
                             <hr />

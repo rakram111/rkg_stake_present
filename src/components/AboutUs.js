@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import back from "./Image1/back.jpg"
 import "./css/style.css";
-let url = "https://tronexsun.net/";
+let url = "http://localhost:3000/";
 
 class AboutUs extends Component {
 
@@ -33,26 +33,26 @@ class AboutUs extends Component {
                     </div>
                     <div className="container" style={{ backgroundColor: "black", opacity: "80%", padding: "20px" }}>
 
-                        <h4 style={{ color: "#1AE865" }}>About Tronex Sun</h4><hr />
+                        <h4 style={{ color: "#1AE865" }}>About Sweez Global</h4><hr />
                         <p style={{ color: "white" }}>
                             Welcome to the world´s best decentralized community support fund built on TRON blockchain and with the likes of smart contract technology.
                             <hr />
-                            The Tronex Sun Smart Contract is designed to provide everyone with an independent, financial support fund, based on Smart Contract technology, surrounded and supported by multiple services including DEFI and online gaming.
+                            The Sweez Global Smart Contract is designed to provide everyone with an independent, financial support fund, based on Smart Contract technology, surrounded and supported by multiple services including DEFI and online gaming.
                             <hr />
-                            Any participant can contribute TRX towards the community fund and support the Tronex Sun community members, the participant will now activate the contract code and will start to receive support back from other community members.
+                            Any participant can contribute TRX towards the community fund and support the Sweez Global community members, the participant will now activate the contract code and will start to receive support back from other community members.
                             <hr />
-                            Tronex Sun is 100% decentralized and a community-based project; Meaning that there are no guarantee nor additional profits made in Tronex Sun alone, all that you receive from Tronex Sun is received from other community members and based upon your own and the community efforts as this is a P2P support model
+                            Sweez Global is 100% decentralized and a community-based project; Meaning that there are no guarantee nor additional profits made in Sweez Global alone, all that you receive from Sweez Global is received from other community members and based upon your own and the community efforts as this is a P2P support model
                             <hr />
                             You support others and others support you back.
                             <hr />
-                            Tronex Sun can actually be viewed as a decentralized “third party” which insures complete fairness, transparency and justice for all according to the algorithm code.
+                            Sweez Global can actually be viewed as a decentralized “third party” which insures complete fairness, transparency and justice for all according to the algorithm code.
                             <hr />
                             There are no mediators or intermediaries, no owners, no company, no CEO and no human interaction, which is effectively guaranteeing the fairness of all participating partners and partners funds according to the rules of the Smart Contract.
                             <hr />
                             It is the most reasonable, safest, and best cutting-edge financial SUPPORT model available at this time.
                             <hr /><hr />
 
-                            You can participate in Tronex Sun by depositing a minimum of 100 TRX to the Fund, you are now eligible to receive 320% back
+                            You can participate in Sweez Global by depositing a minimum of 100 TRX to the Fund, you are now eligible to receive 320% back
                             <hr />
                             The 320% is returned to you in 4 ways (1 passive and 3 via marketing) and when the 320% is accumulated through any of the 4 ways, a new deposit must be made equal or greater to continue receiving from the fund.
                             <hr />
@@ -87,7 +87,7 @@ class AboutUs extends Component {
 
                             IMPORTANT NOTES*
                             <hr />
-                            *TRONEX SUN is a community-based project, 100% decentralized, P2P transactions through Smart Contract.
+                            *Sweez Global is a community-based project, 100% decentralized, P2P transactions through Smart Contract.
                             <hr />
                             *Each Deposit Cycle is 320%.
                             <hr />
@@ -97,7 +97,7 @@ class AboutUs extends Component {
                             <hr />
                             *No referrals required in order to receive. 1.1% to 5.0% Daily Bonus, it is 100% passive.
                             <hr />
-                            *Increase the speed of your returns by growing the community fund through marketing / sharing of TRONEX SUN.
+                            *Increase the speed of your returns by growing the community fund through marketing / sharing of Sweez Global.
                             <hr />
                             *Admin and Dev team is developing and deploying multiple services wihin DEFI, marketing, Online gaming, Crypto Debit card, Unified Tech Service and much more to complete the vision of a complete decentralized financial support system<hr />
                             <a href="https://drive.google.com/file/d/1LbAYOxkCBILDDGs1LnP4F_eoVKT-zi6y/view?usp=sharing">Check Out</a> our presentation here<hr />

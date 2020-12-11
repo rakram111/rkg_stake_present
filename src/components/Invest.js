@@ -112,8 +112,11 @@ export class Invest extends Component {
 
 
                         <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
-                            Deposit Section</div>
+                            INFINITY Deposit Section</div>
                         <br />
+                        <div style={{ textAlign: "center" }}>
+                            <img src={require("./Image1/plan.png")} alt="Logo" width="260px" />
+                        </div>
                         <form
                             onSubmit={(event) => {
 
@@ -135,24 +138,24 @@ export class Invest extends Component {
                             <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br /><br />
 
 
-                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button100}>+100</a>
+                            <a href="#100" className="btn btn-primary" style={addButton} onClick={this.button100}>+100</a>
 
-                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button500}>+500</a>
+                            <a href="#500" className="btn btn-primary" style={addButton} onClick={this.button500}>+500</a>
 
-                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button1000}>+1000</a>
+                            <a href="#1000" className="btn btn-primary" style={addButton} onClick={this.button1000}>+1000</a>
 
-                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button10k}>+10k</a>
+                            <a href="#10k" className="btn btn-primary" style={addButton} onClick={this.button10k}>+10 k</a>
 
-                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button50k}>+50 k</a>
-                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button100k}>+100 k</a>
-                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.button500k}>+500 k</a>
-                            <a href="#q" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
+                            <a href="#50k" className="btn btn-primary" style={addButton} onClick={this.button50k}>+50 k</a>
+                            <a href="#100k" className="btn btn-primary" style={addButton} onClick={this.button100k}>+100 k</a>
+                            <a href="#500k" className="btn btn-primary" style={addButton} onClick={this.button500k}>+500 k</a>
+                            <a href="#reset" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
 
                             <br />
-                            {this.props.deposit_amount === 0 ?
+                            {/* {this.props.deposit_amount === 0 ?
                                 <p style={{ color: "white" }}>Sponsor : {this.props.refid}</p>
                                 : null}
-                            <br />
+                            <br /> */}
 
                             {this.props.refLoading ? null :
                                 <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>}

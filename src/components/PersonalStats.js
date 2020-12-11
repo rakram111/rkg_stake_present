@@ -60,6 +60,16 @@ class PersonalStats extends Component {
                                 {this.props.user_status === 0 ? "In Active" : "Active"} </p>
 
                             <br /><br />
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Your ID</p> <p style={{ color: "white", fontSize: "17px", float: "right" }}> # {this.props.userid}</p>
+                            <br /><br />
+
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Sponsor ID</p> <p style={{ color: "white", fontSize: "17px", float: "right" }}> # {this.props.referid}</p>
+
+                            <br /><br />
+
+
+
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Your Address</p>
                             <a href={addressTronScan + this.props.account} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
                                 {this.props.subAccount}...</a>
@@ -78,6 +88,10 @@ class PersonalStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.deposit_amount} TRX</p>
                             <br /><br />
 
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>ROI Draw in</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.roi_draw_hrs}h {this.props.roi_draw_mins}m {this.props.roi_draw_secs}s</p>
+
+                            <br /><br />
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Remaining Income</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.income_remaining} TRX</p>
                             <br /><br />
@@ -91,6 +105,10 @@ class PersonalStats extends Component {
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Direct Bonus</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} TRX</p>
+                            <br /> <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>7 Wonder Bonus</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.wonder_bonus} TRX</p>
                             <br /> <br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Generation Bonus </p>

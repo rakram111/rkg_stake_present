@@ -110,7 +110,17 @@ contract SweezGlobal {
         pool_bonuses.push(15);
         pool_bonuses.push(15);
         pool_bonuses.push(10);
-    }
+
+        ids[total_users] = owner;
+        users[owner].userid = total_users;
+        users[owner].refid = 1;
+        users[owner].payouts = 0;
+        users[owner].deposit_amount = MIN_DEPOSIT;
+        users[owner].deposit_payouts = 0;
+        users[owner].isActive = 1;
+        users[owner].deposit_time = uint40(block.timestamp);
+        usertotals[owner].total_deposits += MIN_DEPOSIT; 
+     }
  
     function _setUpline(address _addr, address _upline) private {
         if(users[_addr].upline == address(0) && _upline != _addr && _addr != owner && 
@@ -133,6 +143,7 @@ contract SweezGlobal {
 
     function _deposit(address _addr, uint256 _amount, uint256 _refid) private {
         require(users[_addr].upline != address(0) || _addr == owner, "No upline");
+        require(_amount/10000000 == 0,"Not a multiple of 10 trx");
 
         if(users[_addr].deposit_time > 0) {
              
@@ -538,8 +549,8 @@ contract SweezGlobal {
         return (users[_addr].upline, users[_addr].deposit_time, users[_addr].deposit_amount, users[_addr].payouts, users[_addr].direct_bonus, users[_addr].gen_bonus, users[_addr].isActive );
     }
 
-    function userInfo2(address _addr) view external returns(uint256 wonder_bonus , uint256 wonder_directs) {
-        return (users[_addr].wonder_bonus, users[_addr].wonder_directs);
+    function userInfo2(address _addr) view external returns(uint256 wonder_bonus , uint256 wonder_directs, uint256 userid, uint256 refid) {
+        return (users[_addr].wonder_bonus, users[_addr].wonder_directs, users[_addr].userid, users[_addr].refid);
     }
 
     function poolBonus(address _addr) view external returns(uint256){

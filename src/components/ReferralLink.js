@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 
 
-let url = "https://tronexsun.net/ref/";
+let url = "http://localhost:3000/ref/";
 
 export class ReferralLink extends Component {
 

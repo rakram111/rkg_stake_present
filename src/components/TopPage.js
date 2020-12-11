@@ -17,10 +17,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
 //TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w 
-// vvvipppp TTDQzaox2WFz4YwBwVgUBsv5H54nb9n72H
+// vvvipppp TEEhpEtsCESo8GogdiUakPnSHW6eivhEYa
 // mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
-let url = "https://tronexsun.net/";
-let contract_address = 'TTDQzaox2WFz4YwBwVgUBsv5H54nb9n72H';
+let url = "http://localhost:3000/";
+let contract_address = 'TEEhpEtsCESo8GogdiUakPnSHW6eivhEYa';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -201,6 +201,15 @@ class TopPage extends Component {
         this.setState({ deposit_time: Number(userInfo.deposit_time) });
         this.setState({ user_status: Number(userInfo.user_status) });
 
+
+        const userInfo2 = await Utils.contract.userInfo2(this.state.account).call();
+        // // console.log(userInfo2);
+
+        this.setState({ wonder_bonus: Number(userInfo2.wonder_bonus) / sunny });
+        this.setState({ wonder_directs: Number(userInfo2.wonder_directs) });
+        this.setState({ userid: Number(userInfo2.userid) });
+        this.setState({ refid: Number(userInfo2.refid) });
+
         const CONTRACT_BALANCE_STEP = await Utils.contract.CONTRACT_BALANCE_STEP().call();
         this.setState({ contract_step: Number(CONTRACT_BALANCE_STEP) / sunny });
 
@@ -214,13 +223,47 @@ class TopPage extends Component {
 
         const now = await Utils.contract.getNow().call();
         this.setState({ now: Number(now) });
+
+        // ROI draw time
+        var roi_draw_hrs = 0;
+        var roi_draw_mins = 0;
+        var roi_draw_secs = 0;
+        var next_roi_draw_time = Number(this.state.time_step - (this.state.now - this.state.deposit_time) % this.state.time_step);
+
+        console.log("next roi in " + next_roi_draw_time);
+
+        if (next_roi_draw_time > 3600) {
+            roi_draw_hrs = Math.floor(next_roi_draw_time / 3600);
+            roi_draw_mins = Math.floor((next_roi_draw_time % 3600) / 60);
+            roi_draw_secs = Math.floor(next_roi_draw_time % 60);
+        } else if (next_roi_draw_time > 60) {
+            roi_draw_mins = Math.floor(next_roi_draw_time / 60);
+            roi_draw_secs = Math.floor(next_roi_draw_time % 60);
+
+        } else {
+            roi_draw_secs = next_roi_draw_time;
+        }
+        this.setState({ roi_draw_hrs });
+        this.setState({ roi_draw_mins });
+        this.setState({ roi_draw_secs });
+        console.log('next roi draw hrs - ' + this.state.roi_draw_hrs)
+        console.log('next roi draw mins - ' + this.state.roi_draw_mins)
+        console.log('next roi draw secs - ' + this.state.roi_draw_secs)
+
+
+
+        // pool draw time
         var draw_hrs = 0;
         var draw_mins = 0;
         var draw_secs = 0;
         var next_draw_time = Number(this.state.pool_last_draw + this.state.time_step - this.state.now);
         if (next_draw_time < 0) {
-            next_draw_time = 0;
+            next_draw_time = "1";
         }
+
+        this.setState({ next_draw_time });
+        console.log("next time" + this.state.next_draw_time)
+
         if (next_draw_time > 3600) {
             draw_hrs = Math.floor(next_draw_time / 3600);
             draw_mins = Math.floor((next_draw_time % 3600) / 60);
@@ -239,14 +282,6 @@ class TopPage extends Component {
         console.log('next draw mins - ' + this.state.draw_mins)
         console.log('next draw secs - ' + this.state.draw_secs)
 
-        setInterval(() => {
-            this.setState({ next_draw_time });
-        }, 1000);
-
-        // console.log('time step ' + this.state.time_step);
-        // console.log('pool last draw ' + this.state.pool_last_draw)
-
-
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(2) });
 
@@ -263,9 +298,6 @@ class TopPage extends Component {
 
         const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
         this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(2) });
-
-        const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
-        this.setState({ top_promoter });
 
         var income_remaining = this.state.max_payout - this.state.payouts;
         this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
@@ -352,7 +384,7 @@ class TopPage extends Component {
 
             lastDepositTime: 0,
             depositCount: 0,
-            totalRate: 1.10,
+            totalRate: 2.3,
 
             copySuccess1: false,
 
@@ -361,7 +393,6 @@ class TopPage extends Component {
                 loggedIn: false
             },
         }
-
     }
 
     render() {
@@ -379,24 +410,24 @@ class TopPage extends Component {
                     <hr />
                     <hr />
                     <div style={{ textAlign: "center" }}>
-                        <a href={url} >  <img src={require("./Image1/logo.png")} alt="Logo" width="260px" /></a>
+                        <a href={url} >  <img src={require("./Image1/logo.png")} alt="Logo" width="360px" /></a>
                     </div>
 
                     {/* <Banner /> */}
 
                     <div className="row" >
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://tronexsun.net/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
+                            <a href="http://localhost:3000/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
                         </div>
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}   >
-                            <a href="https://tronexsun.net/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
+                            <a href="http://localhost:3000/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
                         </div>
                     </div>
                     <div className="row" >
                         <div className="col-xl-4" style={{ textAlign: "center" }}  >
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://tronexsun.net/topSponsors"   >
+                            <a href="http://localhost:3000/topSponsors"   >
                                 <img src={require("./Image1/TopSponsor.png")} alt="Logo" width="220px" /></a>
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center" }}   >
@@ -434,7 +465,7 @@ class TopPage extends Component {
                         totalUsers={this.state.totalUsers}
                         totalPaid={this.state.totalPaid}
                         pool_balance={this.state.pool_balance}
-                        next_draw_time={this.state.next_draw_time}
+                        pool_draw_time={this.state.next_draw_time}
                         draw_hrs={this.state.draw_hrs}
                         draw_mins={this.state.draw_mins}
                         draw_secs={this.state.draw_secs}
@@ -447,8 +478,13 @@ class TopPage extends Component {
 
                     {this.state.userTotalDeposit > 0 ?
                         <PersonalStats
+                            roi_draw_hrs={this.state.roi_draw_hrs}
+                            roi_draw_mins={this.state.roi_draw_mins}
+                            roi_draw_secs={this.state.roi_draw_secs}
                             max_payout={this.state.max_payout}
                             user_status={this.state.user_status}
+                            userid={this.state.userid}
+                            referid={this.state.refid}
                             account={this.state.account}
                             subAccount={this.state.subAccount}
                             upline={this.state.upline}
@@ -457,6 +493,7 @@ class TopPage extends Component {
                             dividend={this.state.dividend}
                             pool_bonus={this.state.pool_bonus}
                             direct_bonus={this.state.direct_bonus}
+                            wonder_bonus={this.state.wonder_bonus}
                             gen_bonus={this.state.gen_bonus}
                             userTotalWithdrawn={this.state.payouts}
                             deposit_amount={this.state.deposit_amount}
@@ -481,6 +518,7 @@ class TopPage extends Component {
                             userTotalWithdrawn={this.state.userTotalWithdrawn}
 
                             referrals_count={this.state.referrals_count}
+                            wonder_directs={this.state.wonder_directs}
                             total_structure={this.state.total_structure}
 
                         /> : null}

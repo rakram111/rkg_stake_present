@@ -12,9 +12,9 @@ import TeamBiz from "./TeamBiz";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "https://tronexsun.net/";
+let url = "http://localhost:3000/";
 // '
-let contract_address = 'TTDQzaox2WFz4YwBwVgUBsv5H54nb9n72H';
+let contract_address = 'TEEhpEtsCESo8GogdiUakPnSHW6eivhEYa';
 
 toast.configure();
 

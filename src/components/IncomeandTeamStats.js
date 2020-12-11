@@ -37,10 +37,13 @@ export class IncomeandTeamStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> # {this.props.referrals_count}  </p>
                             <br />
 
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Wonder Partners</p>
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> # {this.props.wonder_directs}  </p>
+                            <br />
+
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Team Partners</p>
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> # {this.props.total_structure} </p>
                             <br />
-
 
                         </div>
                     </div>

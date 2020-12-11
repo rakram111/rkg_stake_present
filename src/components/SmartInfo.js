@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import loader from "./img/loadicon1.gif"
 
-const contract_address = 'TTDQzaox2WFz4YwBwVgUBsv5H54nb9n72H';
+
+
+const contract_address = 'TEEhpEtsCESo8GogdiUakPnSHW6eivhEYa';
 
 let contracturl = "https://tronscan.org/#/contract/" + contract_address;
 
@@ -16,13 +18,48 @@ export class SmartInfo extends Component {
         }
 
     }
+
     render() {
 
         const colStyle = {
             backgroundImage: "linear-gradient(to right,  #131050, black)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
             boxShadow: "0 0 20px #eee",
         };
+        // var pdt = 0;
+        // var pdtflag = 0;
+        // if (this.props.pool_draw_time && pdtflag === 0) {
+        //     pdt = Number(this.props.pool_draw_time) + 100000;
+        //     pdtflag = 1;
+        // }
 
+        // console.log("PDPPDPT " + pdt)
+
+
+        // var x = setInterval(function () {
+
+        //     // Get today's date and time
+        //     //var now = new Date().getTime();
+
+        //     // Find the distance between now and the count down date
+        //     //console.log('next draw time' + this.props.pool_draw_time);
+        //     var distance = Date.now() + pdt; //this.props.next_draw_time;
+
+        //     // Time calculations for days, hours, minutes and seconds
+        //     // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        //     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        //     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        //     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        //     // Display the result in the element with id="demo"
+        //     document.getElementById("demo").innerHTML = hours + "h "
+        //         + minutes + "m " + seconds + "s ";
+
+        //     // If the count down is finished, write some text
+        //     if (distance < 0) {
+        //         clearInterval(x);
+        //         document.getElementById("demo").innerHTML = "EXPIRED";
+        //     }
+        // }, 1000);
 
 
 
@@ -61,12 +98,14 @@ export class SmartInfo extends Component {
 
                             <br /><br />
 
+
+
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Pool Balance</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.pool_balance} TRX</p>
 
                             <br /><br />
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>  Total Users</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> # {this.props.totalUsers > 0 ? Number(this.props.totalUsers) + 1 : 0}  </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> # {Number(this.props.totalUsers)}  </p>
                             <br /><br />
 
 
