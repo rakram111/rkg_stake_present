@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-// const contract_address = 'TEEhpEtsCESo8GogdiUakPnSHW6eivhEYa';
+// const contract_address = 'TQyN8i3qxt8eaH3QXzPYTVVeikuzuDZNgn';
 
 // let contracturl = "https://tronscan.org/#/contract/" + contract_address;
 
@@ -35,8 +35,8 @@ class MyStakingInfo extends Component {
                         <br />
 
                         <div className="col-xl-12" >
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Basic Dividend </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> +1.10 %</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Standard Dividend </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> +2.30 %</p>
                             <br /><br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Deposit Bonus </p>

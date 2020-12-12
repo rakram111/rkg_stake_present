@@ -14,8 +14,15 @@ class Withdraw extends Component {
 
         }
         this.withdraw = this.withdraw.bind(this);
+        this.updateBalance = this.updateBalance.bind(this);
 
     }
+
+    async updateBalance(evt) {
+        const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
+        this.setState({ avlBalance: Number(Number(avlBalance) / 1000000).toFixed(5) });
+    }
+
     async withdraw() {
         await Utils.contract
             .withdraw()
@@ -59,7 +66,9 @@ class Withdraw extends Component {
                         <br />
 
 
-                        <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}> {this.props.avlBalance} TRX</div>
+                        <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}> {this.props.avlBalance} TRX <a href="/" >  <img src={require("./Image1/refresh.png")} alt="Logo" width="40px" /></a>
+
+                        </div>
 
 
                         <form
@@ -77,13 +86,16 @@ class Withdraw extends Component {
                                 <button type="submit" className="btn btn-success" style={investButton}>Withdraw</button>}
 
 
+
                         </form>
 
 
                     </div>
+
                     <div className="col-xl-4"></div>
 
                 </div>
+
                 <div style={{ paddingBottom: "20px" }}></div>
             </div >
 

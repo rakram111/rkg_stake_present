@@ -16,7 +16,7 @@ export class Invest extends Component {
 
         }
 
-        this.button100 = this.button100.bind(this);
+        this.button10 = this.button10.bind(this);
         this.button500 = this.button500.bind(this);
         this.button1000 = this.button1000.bind(this);
         this.button10k = this.button10k.bind(this);
@@ -30,27 +30,24 @@ export class Invest extends Component {
 
     async invest(refid, amount) {
 
-        if (amount >= 100) {
-            await Utils.contract
-                .deposit(refid)
-                .send({
-                    from: this.state.account,
-                    callValue: Number(amount) * 1000000,
-                }).then(res => toast.success(amount + ' TRX Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
+        await Utils.contract
+            .deposit(refid)
+            .send({
+                from: this.state.account,
+                callValue: Number(amount) * 1000000,
+            }).then(res => toast.success(amount + ' TRX Deposit processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
 
-                ).then(res => {
-                    setInterval(() => {
-                        window.location = "/";
-                    }, 2000);
-                }).catch(err => toast.error("Insufficient Balance or Transaction Declined"));
-        } else {
-            toast.info('Minimum deposit is 100 TRX');
-        }
+            ).then(res => {
+                setInterval(() => {
+                    window.location = "/";
+                }, 2000);
+            }).catch(err => toast.error("Insufficient Balance or Transaction Declined"));
+
 
     }
 
-    button100(event) {
-        this.setState({ count: this.state.count + 100 });
+    button10(event) {
+        this.setState({ count: this.state.count + 10 });
     }
 
     button500(event) {
@@ -124,21 +121,19 @@ export class Invest extends Component {
                                 const refid = this.props.refid;
                                 const amount = this.state.count;
 
-                                if (amount >= 100) {
+                                if (amount >= 10) {
                                     this.invest(refid, amount);
 
                                 } else {
-                                    toast.error("Min deposit is 100 TRX");
+                                    toast.error("Min deposit is 10 TRX");
                                 }
-
-
                             }}
 
                         >
                             <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br /><br />
 
 
-                            <a href="#100" className="btn btn-primary" style={addButton} onClick={this.button100}>+100</a>
+                            <a href="#10" className="btn btn-primary" style={addButton} onClick={this.button10}>+10</a>
 
                             <a href="#500" className="btn btn-primary" style={addButton} onClick={this.button500}>+500</a>
 

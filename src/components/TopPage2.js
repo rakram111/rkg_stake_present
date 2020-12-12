@@ -14,7 +14,7 @@ import "./css/style.css";
 
 let url = "http://localhost:3000/";
 // '
-let contract_address = 'TEEhpEtsCESo8GogdiUakPnSHW6eivhEYa';
+let contract_address = 'TQyN8i3qxt8eaH3QXzPYTVVeikuzuDZNgn';
 
 toast.configure();
 

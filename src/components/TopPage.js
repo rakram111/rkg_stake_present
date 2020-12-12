@@ -17,10 +17,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
 //TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w 
-// vvvipppp TEEhpEtsCESo8GogdiUakPnSHW6eivhEYa
+// vvvipppp TQyN8i3qxt8eaH3QXzPYTVVeikuzuDZNgn
 // mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
 let url = "http://localhost:3000/";
-let contract_address = 'TEEhpEtsCESo8GogdiUakPnSHW6eivhEYa';
+let contract_address = 'TQyN8i3qxt8eaH3QXzPYTVVeikuzuDZNgn';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -157,7 +157,7 @@ class TopPage extends Component {
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
         this.setState({
-            totalInvested: Math.ceil((this.state.totalInvested * 0.95) / 100) * 100
+            totalInvested: this.state.totalInvested
         });
 
 
@@ -207,8 +207,7 @@ class TopPage extends Component {
 
         this.setState({ wonder_bonus: Number(userInfo2.wonder_bonus) / sunny });
         this.setState({ wonder_directs: Number(userInfo2.wonder_directs) });
-        this.setState({ userid: Number(userInfo2.userid) });
-        this.setState({ refid: Number(userInfo2.refid) });
+
 
         const CONTRACT_BALANCE_STEP = await Utils.contract.CONTRACT_BALANCE_STEP().call();
         this.setState({ contract_step: Number(CONTRACT_BALANCE_STEP) / sunny });
@@ -218,6 +217,9 @@ class TopPage extends Component {
 
         const time_step = await Utils.contract.time_period().call();
         this.setState({ time_step: Number(time_step) });
+
+        const pool_period = await Utils.contract.pool_period().call();
+        this.setState({ pool_period: Number(pool_period) });
 
 
 
@@ -256,7 +258,7 @@ class TopPage extends Component {
         var draw_hrs = 0;
         var draw_mins = 0;
         var draw_secs = 0;
-        var next_draw_time = Number(this.state.pool_last_draw + this.state.time_step - this.state.now);
+        var next_draw_time = Number(this.state.pool_last_draw + this.state.pool_period - this.state.now);
         if (next_draw_time < 0) {
             next_draw_time = "1";
         }
@@ -283,7 +285,7 @@ class TopPage extends Component {
         console.log('next draw secs - ' + this.state.draw_secs)
 
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
-        this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(2) });
+        this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(5) });
 
         // this.state.contractBalance > this.state.avlBalance ?
         //     this.setState({ avlBalance: this.state.avlBalance }) :
@@ -437,6 +439,10 @@ class TopPage extends Component {
                     <MyPresentStaking
                         totalRate={this.state.totalRate}
                     />
+                    {this.state.user_status !== 0 && this.state.deposit_amount > 0 ?
+                        <Withdraw
+                            avlBalance={this.state.avlBalance}
+                        /> : null}
 
                     <MyStakingInfo
                         contract_bonus={this.state.contract_bonus}
@@ -483,8 +489,7 @@ class TopPage extends Component {
                             roi_draw_secs={this.state.roi_draw_secs}
                             max_payout={this.state.max_payout}
                             user_status={this.state.user_status}
-                            userid={this.state.userid}
-                            referid={this.state.refid}
+
                             account={this.state.account}
                             subAccount={this.state.subAccount}
                             upline={this.state.upline}
@@ -506,17 +511,12 @@ class TopPage extends Component {
 
 
 
-                    {this.state.user_status !== 0 && this.state.deposit_amount > 0 ?
-                        <Withdraw
-                            avlBalance={this.state.avlBalance}
-                        /> : null}
 
                     {this.state.userTotalDeposit > 0 ?
                         <IncomeandTeamStats
 
                             userTotalDeposit={this.state.userTotalDeposit}
                             userTotalWithdrawn={this.state.userTotalWithdrawn}
-
                             referrals_count={this.state.referrals_count}
                             wonder_directs={this.state.wonder_directs}
                             total_structure={this.state.total_structure}

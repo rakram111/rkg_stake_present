@@ -194,7 +194,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2484,
+                        "referencedDeclaration": 2648,
                         "src": "158:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -278,7 +278,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2484,
+                        "referencedDeclaration": 2648,
                         "src": "213:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -840,7 +840,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2484,
+                        "referencedDeclaration": 2648,
                         "src": "158:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -924,7 +924,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2484,
+                        "referencedDeclaration": 2648,
                         "src": "213:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1370,9 +1370,9 @@
     "2": {
       "events": {},
       "links": {},
-      "address": "41908e6e13f1cbd09cc2df6d3c38cd6acb621ffbc7"
+      "address": "41ca91b9d6c34638cf97aa24fef84770d2470d431b"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2020-12-11T02:14:30.543Z"
+  "updatedAt": "2020-12-12T03:28:15.533Z"
 }

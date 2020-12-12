@@ -2,9 +2,7 @@ pragma solidity 0.5.4;
 
 contract SweezGlobal {
 
-    struct User {
-        uint256 userid;
-        uint256 refid;
+    struct User { 
         address upline ;
         uint256 referrals ;
         uint256 payouts ;
@@ -12,6 +10,7 @@ contract SweezGlobal {
         uint256 gen_bonus ;
         uint256 pool_bonus ;
         uint256 deposit_amount ;
+        uint256 checkpoint ;
         uint256 deposit_payouts ;
         uint40 deposit_time ; 
         uint256 wonder_directs;
@@ -23,27 +22,38 @@ contract SweezGlobal {
         uint256 total_deposits ;
         uint256 total_payouts ;
         uint256 total_structure ;
-        bool isWonder ;
-    }
- 
+        uint256 wonder_time;
+        bool shareHolder;
+        bool coFounder;
+     } 
     
     // uint256 constant public CONTRACT_BALANCE_STEP = 1000000 trx ; // 1000000 trx
     // uint256 constant public MIN_DEPOSIT = 100 trx ; // 100 trx
     // uint256 constant public time_period = 1 days ; // 1 days 
     // uint256 constant public wonder_period = 7 days ; // 7 days 
     // uint256 constant public aff_bonus = 10 ; // 10 percent
+    //  uint256 public shareHolder_value = 5000 trx ;
+    //  uint256 public coFounder_value = 50000 trx ;
+        // uint256 constant public pool_period = 1 days; // 1 days 
 
-    uint256 constant public CONTRACT_BALANCE_STEP = 100 trx ; // 1000000 trx
+
+    uint256 constant public CONTRACT_BALANCE_STEP = 50 trx ; // 500000 trx
     uint256 constant public MIN_DEPOSIT = 10 trx ; // 100 trx
-    uint256 constant public time_period = 180 ; // 1 days 
-    uint256 constant public wonder_period = time_period*7 ; // 7 days 
+    uint256 constant public time_period = 1 days ; // 1 days 
+    uint256 constant public pool_period = 300 ; // 1 days 
+    uint256 constant public wonder_period = 210 ; // 7 days 
     uint256 constant public aff_bonus = 10 ; // 10 percent
+     uint256 public shareHolder_value = 50 trx ;
+    uint256 public coFounder_value = 500 trx ;
 
-    uint256 constant public promo_fee  = 100 ;   
-    uint256 constant public admin_fee1  = 50 ;   
+     uint256 constant public admin_fee1  = 50 ;   
     uint256 constant public admin_fee2  = 30 ;   
 
-    uint256 constant public BASE_PERCENT = 230 ; // 2.3% daily  
+    uint256 constant public BASE_PERCENT = 230 ; // 2.3% daily
+    // uint256 constant public baseSecRate = 266204 ;  // 2.3% daily
+    // uint256 constant public incSecRate = 11575 ;  // 0.1% daily
+    uint256 constant public million = 1000000 ;  // 6 zeros
+    uint256 constant public mainDivider = million*million ;  //12 zeros
 	uint256 constant public PERCENTS_DIVIDER = 10000 ; 
 
     //pool bonus
@@ -55,12 +65,14 @@ contract SweezGlobal {
     mapping(uint256 => mapping(address => uint256)) public pool_users_refs_deposits_sum ;
     mapping(uint8 => address) public pool_top ;
     mapping(address => User) public users ;
-    mapping(uint256 => address) public ids ;
     mapping(address => UserTotal) public usertotals ;
     mapping(address => bool) public top_promoters;
 
     uint8[] public ref_bonuses ;  
     uint256 public total_users = 1 ;
+    uint256 public coFounder_count = 0 ;
+    uint256 public shareHolder_count = 0 ;
+   
     uint256 public total_deposited ;
     uint256 public total_withdraw ;
     
@@ -93,7 +105,7 @@ contract SweezGlobal {
         admin3 = _admin3;
         admin4 = _admin4;
 		alt_owner = _alt_owner;
-         
+ 
         ref_bonuses.push(30);
         ref_bonuses.push(10);
         ref_bonuses.push(5);
@@ -111,14 +123,12 @@ contract SweezGlobal {
         pool_bonuses.push(15);
         pool_bonuses.push(10);
 
-        ids[total_users] = owner;
-        users[owner].userid = total_users;
-        users[owner].refid = 1;
-        users[owner].payouts = 0;
+         users[owner].payouts = 0;
         users[owner].deposit_amount = MIN_DEPOSIT;
         users[owner].deposit_payouts = 0;
         users[owner].isActive = 1;
         users[owner].deposit_time = uint40(block.timestamp);
+        users[owner].checkpoint = uint40(block.timestamp);
         usertotals[owner].total_deposits += MIN_DEPOSIT; 
      }
  
@@ -141,10 +151,9 @@ contract SweezGlobal {
         }
     }
 
-    function _deposit(address _addr, uint256 _amount, uint256 _refid) private {
+    function _deposit(address _addr, uint256 _amount ) private {
         require(users[_addr].upline != address(0) || _addr == owner, "No upline");
-        require(_amount/10000000 == 0,"Not a multiple of 10 trx");
-
+ 
         if(users[_addr].deposit_time > 0) {
              
             require(users[_addr].payouts >= this.maxPayoutOf(users[_addr].deposit_amount), "Deposit already exists");
@@ -152,27 +161,38 @@ contract SweezGlobal {
         }
         else require(_amount >= MIN_DEPOSIT  , "Bad amount"); 
 
-        ids[total_users] = _addr;
-        users[_addr].userid = total_users;
-        users[_addr].refid = _refid;
+        if(_amount >= coFounder_value && coFounder_count <= 100){
+            usertotals[_addr].coFounder = true;
+            coFounder_count++;
+            if( usertotals[_addr].shareHolder = true){
+                 shareHolder_count--; 
+                 usertotals[_addr].shareHolder = false; 
+            }
+        } else if (_amount >= shareHolder_value && shareHolder_count <= 10000){
+           usertotals[_addr].shareHolder = true; 
+           shareHolder_count++; 
+        }
+
         users[_addr].payouts = 0;
         users[_addr].deposit_amount = _amount;
         users[_addr].deposit_payouts = 0;
         users[_addr].isActive = 1;
         users[_addr].deposit_time = uint40(block.timestamp);
+        users[_addr].checkpoint = uint40(block.timestamp);
         usertotals[_addr].total_deposits += _amount;
+        usertotals[_addr].wonder_time = uint40(block.timestamp);
  
         total_deposited += _amount;
         
         emit NewDeposit(_addr, _amount);
  
          // wonder directs check
-        if(usertotals[users[_addr].upline].isWonder == false && block.timestamp < (users[users[_addr].upline].deposit_time + wonder_period) && users[users[_addr].upline].deposit_amount >= _amount){
+        if(  block.timestamp < (usertotals[users[_addr].upline].wonder_time + wonder_period) && users[users[_addr].upline].deposit_amount >= _amount){
             users[users[_addr].upline].wonder_directs++;
             
-            if(users[users[_addr].upline].wonder_directs == 7){
+            if(users[users[_addr].upline].wonder_directs % 7 == 0 ){
                 users[users[_addr].upline].wonder_bonus = users[users[_addr].upline].deposit_amount;
-                usertotals[users[_addr].upline].isWonder = true;
+                 usertotals[users[_addr].upline].wonder_time = uint40(block.timestamp);
                 emit WonderPayout(users[_addr].upline, users[users[_addr].upline].deposit_amount);
             }
         }
@@ -184,7 +204,7 @@ contract SweezGlobal {
         } 
          _poolDeposits(_addr, _amount);
 
-        if(pool_last_draw + time_period < block.timestamp) {
+        if(pool_last_draw + pool_period < block.timestamp) {
             _drawPool();
         }
 
@@ -272,11 +292,11 @@ contract SweezGlobal {
         }
     }
  
-    function deposit(uint256 _refid) payable external {
+    function deposit(address _upline) payable external {
 
-        address _upline = ids[_refid]; 
-        _setUpline(msg.sender, _upline);
-        _deposit(msg.sender, msg.value, _refid);
+         _setUpline(msg.sender, _upline);
+        _deposit(msg.sender, msg.value);
+
     }
 
  
@@ -366,32 +386,35 @@ contract SweezGlobal {
     
     function payoutOf(address _addr) view external returns(uint256 payout, uint256 max_payout) {
         max_payout = this.maxPayoutOf(users[_addr].deposit_amount);
-		uint256 total_rate = getTotalRate();
-
-        if(users[_addr].deposit_payouts < max_payout) {
-            payout = (users[_addr].deposit_amount * total_rate * ((block.timestamp - users[_addr].deposit_time) / time_period) / PERCENTS_DIVIDER) - users[_addr].deposit_payouts; 
+	  
+      uint256 total_rate1 = getTotalRate();
+      uint256 total_rate = total_rate1*million/864;
+         if(users[_addr].deposit_payouts < max_payout) {
+             payout = (users[_addr].deposit_amount * total_rate  / mainDivider) * (block.timestamp - users[_addr].deposit_time) - users[_addr].deposit_payouts; 
             if(users[_addr].deposit_payouts + payout > max_payout) {
                 payout = max_payout - users[_addr].deposit_payouts;
-            }
-        }
+            } 
+        } 
     }
 
     function getUserDividends(address _addr) view external returns(uint256) {
       uint256  max_payout = this.maxPayoutOf(users[_addr].deposit_amount);
-      uint256 total_rate = getTotalRate();
+ 
+      uint256 total_rate1 = getTotalRate();
+      uint256 total_rate = total_rate1*million/864;
       uint256 payout;
         if(users[_addr].deposit_payouts < max_payout) {
-            payout = (users[_addr].deposit_amount * total_rate * ((block.timestamp - users[_addr].deposit_time) / time_period) / PERCENTS_DIVIDER) - users[_addr].deposit_payouts; 
+             payout = (users[_addr].deposit_amount * total_rate  / mainDivider) * (block.timestamp - users[_addr].deposit_time) - users[_addr].deposit_payouts; 
             if(users[_addr].deposit_payouts + payout > max_payout) {
                 payout = max_payout - users[_addr].deposit_payouts;
             }
         }
         return payout;
-    }   
+    }    
  
 	function getTotalRate() internal view returns(uint256) {
 	 
- 		 uint256 steps =  10*total_deposited/CONTRACT_BALANCE_STEP ;
+ 		 uint256 steps =  1*total_deposited/CONTRACT_BALANCE_STEP ;
 
          if(steps > 370){
              steps = 370; 
@@ -414,7 +437,7 @@ contract SweezGlobal {
 	}  
 
 	function getRate() external view returns(uint256) { 
-        uint256 steps =  10*total_deposited/CONTRACT_BALANCE_STEP ;
+        uint256 steps =  1*total_deposited/CONTRACT_BALANCE_STEP ;
 
          if(steps > 370){
              steps = 370; 
@@ -428,7 +451,7 @@ contract SweezGlobal {
 
     function getContractBonus() external view returns(uint256) {
       
-        uint256 steps = 10*total_deposited/CONTRACT_BALANCE_STEP ;
+        uint256 steps = 1*total_deposited/CONTRACT_BALANCE_STEP ;
 
          if(steps > 370){
              steps = 370;
@@ -437,7 +460,7 @@ contract SweezGlobal {
         return total_step ;
     } 
 
-    function maxPayoutOf(uint256 _amount) external view returns(uint256) { 
+    function maxPayoutOf(uint256 _amount) external pure returns(uint256) { 
 			return  _amount * 250 / 100; 
     } 
 
@@ -503,6 +526,16 @@ contract SweezGlobal {
 		require(msg.sender == owner || msg.sender == alt_owner || msg.sender == admin1 , "Not allowed");
 		admin1 = _newAdmin1;
 	} 
+
+    function changeCoFounderValue(uint256 _newValue) public {
+		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
+		coFounder_value = _newValue;
+	} 
+
+    function changeshareHolderValue(uint256 _newValue) public {
+		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
+		shareHolder_value = _newValue;
+	} 
  
  
 	function changeAdmin2(address payable _newAdmin2) public {
@@ -549,8 +582,8 @@ contract SweezGlobal {
         return (users[_addr].upline, users[_addr].deposit_time, users[_addr].deposit_amount, users[_addr].payouts, users[_addr].direct_bonus, users[_addr].gen_bonus, users[_addr].isActive );
     }
 
-    function userInfo2(address _addr) view external returns(uint256 wonder_bonus , uint256 wonder_directs, uint256 userid, uint256 refid) {
-        return (users[_addr].wonder_bonus, users[_addr].wonder_directs, users[_addr].userid, users[_addr].refid);
+    function userInfo2(address _addr) view external returns(uint256 wonder_bonus , uint256 wonder_directs, bool share_status, bool cofounder_status ) {
+        return (users[_addr].wonder_bonus, users[_addr].wonder_directs, usertotals[_addr].shareHolder, usertotals[_addr].coFounder );
     }
 
     function poolBonus(address _addr) view external returns(uint256){
@@ -563,8 +596,7 @@ contract SweezGlobal {
 
     function contractInfo() view external returns(uint256 _total_users, uint256 _total_deposited, uint256 _total_withdraw, uint40 _pool_last_draw, uint256 _pool_balance, uint256 _pool_lider ) {
         return (total_users, total_deposited, total_withdraw, pool_last_draw, pool_balance, pool_users_refs_deposits_sum[pool_cycle][pool_top[0]] );
-    }
-     
+    } 
      
     function poolTopInfo() view external returns(address[5] memory addrs, uint256[5] memory deps) {
         for(uint8 i = 0; i < pool_bonuses.length; i++) {
@@ -573,5 +605,11 @@ contract SweezGlobal {
             addrs[i] = pool_top[i];
             deps[i] = pool_users_refs_deposits_sum[pool_cycle][pool_top[i]];
         }
-    }
+    } 
+    function TestUserDividends(uint256 deposit_amount, uint256 time_difference) view external returns(uint256 payout, uint256 total_rate, uint256 total_rate1) {
+     
+      total_rate1 = getTotalRate();
+      total_rate =  1+total_rate1*million/864 ; 
+      payout = (deposit_amount * total_rate  / million) * time_difference  ;  
+     }   
 }

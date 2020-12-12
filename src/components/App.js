@@ -19,7 +19,7 @@ class App extends React.Component {
             <Route exact path='/joiningGuide' component={JoiningGuide} />
             <Route exact path='/topSponsors' component={TopSponsor} />
             <Route exact path='/aboutUs' component={AboutUs} />
-            <Route path='/ref/:id' component={Param} />
+            <Route path='/refid/:id' component={Param} />
             <Route path='/view/:id' component={Param2} />
           </BrowserRouter>
         </div>
