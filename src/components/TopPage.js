@@ -19,7 +19,7 @@ import "./css/style.css";
 //TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w 
 // vvvipppp TQyN8i3qxt8eaH3QXzPYTVVeikuzuDZNgn
 // mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
-let url = "http://localhost:3000/";
+let url = "https://sweezglobal.com/";
 let contract_address = 'TQyN8i3qxt8eaH3QXzPYTVVeikuzuDZNgn';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
@@ -419,17 +419,17 @@ class TopPage extends Component {
 
                     <div className="row" >
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="http://localhost:3000/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
+                            <a href="https://sweezglobal.com/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
                         </div>
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}   >
-                            <a href="http://localhost:3000/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
+                            <a href="https://sweezglobal.com/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
                         </div>
                     </div>
                     <div className="row" >
                         <div className="col-xl-4" style={{ textAlign: "center" }}  >
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="http://localhost:3000/topSponsors"   >
+                            <a href="https://sweezglobal.com/topSponsors"   >
                                 <img src={require("./Image1/TopSponsor.png")} alt="Logo" width="220px" /></a>
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center" }}   >

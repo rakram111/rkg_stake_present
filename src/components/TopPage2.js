@@ -12,7 +12,7 @@ import TeamBiz from "./TeamBiz";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "http://localhost:3000/";
+let url = "https://sweezglobal.com/";
 // '
 let contract_address = 'TQyN8i3qxt8eaH3QXzPYTVVeikuzuDZNgn';
 

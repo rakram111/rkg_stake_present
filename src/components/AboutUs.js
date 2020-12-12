@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import back from "./Image1/back.jpg"
 import "./css/style.css";
-let url = "http://localhost:3000/";
+let url = "https://sweezglobal.com/";
 
 class AboutUs extends Component {
 
