@@ -17,10 +17,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
 //TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w 
-// vvvipppp TQyN8i3qxt8eaH3QXzPYTVVeikuzuDZNgn
+// vvvipppp TJQ71SQv1AXqGFdwxiv34cF6diVKFgL4uz
 // mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
 let url = "https://sweezglobal.com/";
-let contract_address = 'TQyN8i3qxt8eaH3QXzPYTVVeikuzuDZNgn';
+let contract_address = 'TJQ71SQv1AXqGFdwxiv34cF6diVKFgL4uz';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";

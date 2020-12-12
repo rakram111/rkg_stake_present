@@ -3,7 +3,7 @@ import loader from "./img/loadicon1.gif"
 
 
 
-const contract_address = 'TQyN8i3qxt8eaH3QXzPYTVVeikuzuDZNgn';
+const contract_address = 'TJQ71SQv1AXqGFdwxiv34cF6diVKFgL4uz';
 
 let contracturl = "https://tronscan.org/#/contract/" + contract_address;
 

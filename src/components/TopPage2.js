@@ -14,7 +14,7 @@ import "./css/style.css";
 
 let url = "https://sweezglobal.com/";
 // '
-let contract_address = 'TQyN8i3qxt8eaH3QXzPYTVVeikuzuDZNgn';
+let contract_address = 'TJQ71SQv1AXqGFdwxiv34cF6diVKFgL4uz';
 
 toast.configure();
 
