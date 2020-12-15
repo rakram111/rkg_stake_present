@@ -54,10 +54,10 @@ class AboutUs extends Component {
 
                             You can participate in Sweez Global by depositing a minimum of 100 TRX to the Fund, you are now eligible to receive 250% back
                             <hr />
-                            The 250% is returned to you in 5 ways (1 passive and 4 via marketing) and when the 250% is accumulated through any of the 5 ways, a new deposit must be made equal or greater to continue receiving from the fund.
+                            The 250% is returned to you in 7 ways (1 passive and 6 via marketing) and when the 250% is accumulated through any of the 7 ways, a new deposit must be made equal or greater to continue receiving from the fund.
                             <hr />
                             a) 2.3% to 6.0% Daily return on your Deposit - 100% Passive.
-                            As the deposits into the contract increases gradually, the Daily bonus increases 0.01% for every 100,000 TRX till it reaches 6.0% daily/
+                            As the deposits into the contract increases gradually, the Daily bonus increases 0.01% for every 500,000 TRX till it reaches 6.0% daily/
                             <hr />
                             b) 10% Direct Referral Commission for Sharing and Growing the Community Fund.
                             <hr />
@@ -78,10 +78,16 @@ class AboutUs extends Component {
                             One new level is activated for each direct partner, maximum 9 levels, see above.
                             <hr />
 
-                            d) Daily Top Referrer Pool 3%, of ALL Deposits set aside in pool, every 24 hour 10% of the pool is shared among top 5 sponsors in volume with a share of 40%, 20%, 15%, 15% and 10%.
+                            d) Daily Top Referrer Pool 7%, of ALL Deposits set aside in pool, every 24 hour 10% of the pool is shared among top 5 sponsors in volume with a share of 40%, 20%, 15%, 15% and 10%.
                             <hr />
 
-                            e) 7 wonder Bonus 100%, If you MAKE 7 DIRECTS greater or equal to your deposit in 7 days, you will receive your 100% deposit back instantly.
+                            e) Whale Investor Balance 3%, of ALL Deposits set aside in pool, every 24 hour 10% of the pool is shared among top 3 investors in volume with a share of 50%, 30% and 20%.
+                            <hr />
+
+                            f) Active Performer Bonus, If you MAKE 7 DIRECTS greater or equal to your deposit in 7 days, you will receive your 100% deposit back instantly.
+                            <hr />
+
+                            g) 7 wonder Bonus 100%, If you MAKE 7 DIRECTS greater or equal to your deposit in 7 days, you will receive your 100% deposit back instantly.
                             <hr />
 
 
@@ -94,7 +100,7 @@ class AboutUs extends Component {
                             <hr />
                             *Each Deposit Cycle is 250%.
                             <hr />
-                            *When 250% is received, a new deposit must be made to continue earning / receiving from any of the 4 ways.
+                            *When 250% is received, a new deposit must be made to continue earning / receiving from any of the 7 ways.
                             <hr />
                             *Minimum entry is 100 TRX, open to all participants, no restrictions.
                             <hr />

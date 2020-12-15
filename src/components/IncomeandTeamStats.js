@@ -61,9 +61,13 @@ export class IncomeandTeamStats extends Component {
                             {this.props.active_draw_hrs}h {this.props.active_draw_mins}m {this.props.active_draw_secs}s  </p>
                             </div>
                             }
-
+                            <br />
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Team Partners</p>
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> # {this.props.total_structure} </p>
+                            <br />
+
+                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Business</p>
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.total_business} TRX</p>
                             <br />
 
                         </div>
