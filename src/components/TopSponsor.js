@@ -11,7 +11,7 @@ import "./css/style.css";
 
 //TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://sweezglobal.com/ p/ ;
 let url = "https://sweezglobal.com/";
-let contract_address = 'TJQ71SQv1AXqGFdwxiv34cF6diVKFgL4uz';
+let contract_address = 'TLxG1Ui4KZgviu4mmAuZkYBxjkoum6H4rq';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -157,6 +157,40 @@ class TopSponsor extends Component {
         // console.log('contract - ' + this.state.upline);
         // console.log('link refid - ' + this.state.refid);
 
+       
+       const whaleTopInfo = await Utils.contract.whaleTopInfo().call();
+       var whale_addrs1, whale_addrs2, whale_addrs3, whale_deps1, whale_deps2, whale_deps3;
+
+        whale_addrs1 = window.tronWeb.address.fromHex(whaleTopInfo.whale_addrs[0]);
+        whale_deps1 = Number(whaleTopInfo.whale_deps[0]) / sunny; 
+        this.setState({ whale_deps1 });
+        this.setState({ whale_addrs1 });
+        let whaleSubAddrs1 = this.state.whale_addrs1.toString();
+        let whaleSubAddres1 = whaleSubAddrs1.substring(0, 8);
+        this.setState({ whaleSubAddres1 });
+       // console.log('deps ' + this.state.deps1)
+
+        whale_addrs2 = window.tronWeb.address.fromHex(whaleTopInfo.whale_addrs[1]);
+        whale_deps2 = Number(whaleTopInfo.whale_deps[1]) / sunny; 
+        this.setState({ whale_deps2 });
+        this.setState({ whale_addrs2 });
+        let whaleSubAddrs2 = this.state.whale_addrs2.toString();
+        let whaleSubAddres2 = whaleSubAddrs2.substring(0, 8);
+        this.setState({ whaleSubAddres2 });
+        // console.log('deps ' + this.state.deps1)
+
+        whale_addrs3 = window.tronWeb.address.fromHex(whaleTopInfo.whale_addrs[2]);
+        whale_deps3 = Number(whaleTopInfo.whale_deps[2]) / sunny; 
+        this.setState({ whale_deps3 });
+        this.setState({ whale_addrs3 });
+        let whaleSubAddrs3 = this.state.whale_addrs3.toString();
+        let whaleSubAddres3 = whaleSubAddrs3.substring(0, 8);
+        this.setState({ whaleSubAddres3 });
+       // console.log('deps ' + this.state.deps1)
+
+
+ 
+
     }
 
     constructor(props) {
@@ -205,6 +239,13 @@ class TopSponsor extends Component {
                         subAddress4={this.state.subAddress4}
                         deps5={this.state.deps5}
                         subAddress5={this.state.subAddress5}
+
+                        whale_deps1={this.state.whale_deps1}
+                        whaleSubAddress1={this.state.whaleSubAddress1}
+                        whale_deps2={this.state.whale_deps2}
+                        whaleSubAddress2={this.state.whaleSubAddress2}
+                        whale_deps3={this.state.whale_deps3}
+                        whaleSubAddress3={this.state.whaleSubAddress3}
                     />
 
                     <div style={{ paddingBottom: "50px" }}></div>
