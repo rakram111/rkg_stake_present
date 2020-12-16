@@ -104,6 +104,13 @@ export class SmartInfo extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.pool_balance} TRX</p>
 
                             <br /><br />
+
+                            
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Whale Pool Balance</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.whale_balance} TRX</p>
+
+                            <br /><br />
+
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>  Total Users</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> # {Number(this.props.totalUsers)}  </p>
                             <br /><br />

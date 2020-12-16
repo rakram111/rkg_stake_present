@@ -163,10 +163,14 @@ class TopPage extends Component {
 
         const totalPaid = await Utils.contract.total_withdraw().call();
         this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
+
         const pool_balance = await Utils.contract.pool_balance().call();
         this.setState({ pool_balance: Number(Number(pool_balance) / sunny) });
 
         this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(2) });
+
+        const whale_balance = await Utils.contract.whale_balance().call();
+        this.setState({ whale_balance: Number(Number(whale_balance) / sunny) });
 
 
         let subAccountstr = this.state.account.toString();
@@ -460,6 +464,7 @@ class TopPage extends Component {
                         totalUsers={this.state.totalUsers}
                         totalPaid={this.state.totalPaid}
                         pool_balance={this.state.pool_balance}
+                        whale_balance={this.state.whale_balance}
                         pool_draw_time={this.state.next_draw_time}
                         draw_hrs={this.state.draw_hrs}
                         draw_mins={this.state.draw_mins}
