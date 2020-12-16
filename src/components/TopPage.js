@@ -207,8 +207,8 @@ class TopPage extends Component {
         this.setState({ wonder_bonus: Number(userInfo2.wonder_bonus) / sunny });
         this.setState({ wonder_directs: Number(userInfo2.wonder_directs) });
         this.setState({ active_directs: Number(userInfo2.active_directs) });
-        this.setState({ active_bonus: Number(userInfo2.active_bonus) });
-        this.setState({ whale_bonus: Number(userInfo2.whale_bonus) }); 
+        this.setState({ active_bonus: Number(userInfo2.active_bonus)/ sunny });
+        this.setState({ whale_bonus: Number(userInfo2.whale_bonus)/ sunny }); 
 
         const CONTRACT_BALANCE_STEP = await Utils.contract.CONTRACT_BALANCE_STEP().call();
         this.setState({ contract_step: Number(CONTRACT_BALANCE_STEP) / sunny });
@@ -232,7 +232,7 @@ class TopPage extends Component {
         var wonder_draw_secs = 0;
         var next_wonder_draw_time = Number(this.state.wonder_period + this.state.deposit_time -  this.state.now );
 
-        console.log("next wonder in " + next_wonder_draw_time);
+   //      console.log("next wonder in " + next_wonder_draw_time);
 
         if (next_wonder_draw_time > 86400) {
             wonder_draw_days = Math.floor(next_wonder_draw_time / 86400);
@@ -257,9 +257,9 @@ class TopPage extends Component {
         this.setState({ wonder_draw_hrs });
         this.setState({ wonder_draw_mins });
         this.setState({ wonder_draw_secs });
-        console.log('next wonder draw hrs - '  + this.state.wonder_draw_hrs)
-        console.log('next wonder draw mins - ' + this.state.wonder_draw_mins)
-        console.log('next wonder draw secs - ' + this.state.wonder_draw_secs)
+   //      console.log('next wonder draw hrs - '  + this.state.wonder_draw_hrs)
+   //      console.log('next wonder draw mins - ' + this.state.wonder_draw_mins)
+   //      console.log('next wonder draw secs - ' + this.state.wonder_draw_secs)
  
         // active draw time
         var active_draw_hrs = 0;
@@ -267,7 +267,7 @@ class TopPage extends Component {
         var active_draw_secs = 0;
         var next_active_draw_time = Number(this.state.active_period + this.state.deposit_time -  this.state.now );
 
-        console.log("next active in " + next_active_draw_time);
+   //      console.log("next active in " + next_active_draw_time);
 
         if (next_active_draw_time > 3600) {
             active_draw_hrs = Math.floor(next_active_draw_time / 3600);
@@ -287,9 +287,9 @@ class TopPage extends Component {
         this.setState({ active_draw_hrs });
         this.setState({ active_draw_mins });
         this.setState({ active_draw_secs });
-        console.log('next active draw hrs - '  + this.state.active_draw_hrs)
-        console.log('next active draw mins - ' + this.state.active_draw_mins)
-        console.log('next active draw secs - ' + this.state.active_draw_secs)
+   //      console.log('next active draw hrs - '  + this.state.active_draw_hrs)
+   //      console.log('next active draw mins - ' + this.state.active_draw_mins)
+   //      console.log('next active draw secs - ' + this.state.active_draw_secs)
  
 
 
@@ -303,7 +303,7 @@ class TopPage extends Component {
         }
 
         this.setState({ next_draw_time });
-        console.log("next time" + this.state.next_draw_time)
+   //      console.log("next time" + this.state.next_draw_time)
 
         if (next_draw_time > 3600) {
             draw_hrs = Math.floor(next_draw_time / 3600);
@@ -319,12 +319,13 @@ class TopPage extends Component {
         this.setState({ draw_hrs });
         this.setState({ draw_mins });
         this.setState({ draw_secs });
-        console.log('next draw hrs - ' + this.state.draw_hrs)
-        console.log('next draw mins - ' + this.state.draw_mins)
-        console.log('next draw secs - ' + this.state.draw_secs)
+   //      console.log('next draw hrs - ' + this.state.draw_hrs)
+   //      console.log('next draw mins - ' + this.state.draw_mins)
+   //      console.log('next draw secs - ' + this.state.draw_secs)
 
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(5) });
+
 
         // this.state.contractBalance > this.state.avlBalance ?
         //     this.setState({ avlBalance: this.state.avlBalance }) :
@@ -332,7 +333,7 @@ class TopPage extends Component {
 
         const max_payout = await Utils.contract.maxPayoutOf(this.state.deposit_amount * sunny).call();
         this.setState({ max_payout: Number(Number(max_payout) / sunny) });
-        console.log(this.state.max_payout)
+   //      console.log(this.state.max_payout)
 
         const dividend = await Utils.contract.getUserDividends(this.state.account).call();
         this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(2) });
@@ -342,6 +343,11 @@ class TopPage extends Component {
 
         var income_remaining = this.state.max_payout - this.state.payouts;
         this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
+
+       if(this.state.avlBalance > this.state.income_remaining){
+           this.setState({ avlBalance: this.state.income_remaining });
+       }
+
      }
 
     constructor(props) {
@@ -469,8 +475,7 @@ class TopPage extends Component {
                         <PersonalStats
                  
                             max_payout={this.state.max_payout}
-                            user_status={this.state.user_status}
-
+                            user_status={this.state.user_status} 
                             account={this.state.account}
                             subAccount={this.state.subAccount}
                             upline={this.state.upline}

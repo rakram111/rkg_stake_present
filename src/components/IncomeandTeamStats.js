@@ -46,21 +46,14 @@ export class IncomeandTeamStats extends Component {
                             </div>
                             }
                             <br />
-
-                            {this.props.deposit_amount >= 1000 ?
-                            <div>
+ 
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>7 Wonder Bonus Time Left</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>  {this.props.wonder_draw_days}d 
-                                  {this.props.wonder_draw_hrs}h
-                                    {this.props.wonder_draw_mins}m
-                                      {this.props.wonder_draw_secs}s  </p>
-                            </div> :
-                            <div>
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>  {this.props.wonder_draw_days}d {this.props.wonder_draw_hrs}h {this.props.wonder_draw_mins}m {this.props.wonder_draw_secs}s  </p>
+                             <br />
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Active Bonus Time Left</p>
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>  
                             {this.props.active_draw_hrs}h {this.props.active_draw_mins}m {this.props.active_draw_secs}s  </p>
-                            </div>
-                            }
+                             
                             <br />
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Team Partners</p>
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> # {this.props.total_structure} </p>

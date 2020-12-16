@@ -96,17 +96,15 @@ class PersonalStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Direct Bonus</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} TRX</p>
                             <br /> <br />
-                            {this.props.deposit_amount >= 1000 ? 
-                            <div>
+                             
+                             
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>7 Wonder Bonus</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.wonder_bonus} TRX</p>
-                            </div>
-                            :
-                            <div>
+                            <br /> <br />    
+  
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Active Performer Bonus</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.active_bonus} TRX</p>
-                             </div>
-                            }
+                              
                             <br /> <br />    
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Generation Bonus </p>

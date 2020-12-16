@@ -3,7 +3,7 @@ import Top from "./TopPage";
 
 class Param2 extends Component {
     render() {
-        console.log('param ' + this.props);
+   //      console.log('param ' + this.props);
         return (
             <div>
                 <Top
