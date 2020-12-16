@@ -11,7 +11,7 @@ import "./css/style.css";
 
 //TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://sweezglobal.com/ p/ ;
 let url = "https://sweezglobal.com/";
-let contract_address = 'TLxG1Ui4KZgviu4mmAuZkYBxjkoum6H4rq';
+let contract_address = 'TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXpQ';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";

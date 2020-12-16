@@ -17,10 +17,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
 //TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w 
-// vvvipppp TLxG1Ui4KZgviu4mmAuZkYBxjkoum6H4rq
+// vvvipppp TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXpQ
 // mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
 let url = "https://sweezglobal.com/";
-let contract_address = 'TLxG1Ui4KZgviu4mmAuZkYBxjkoum6H4rq';
+let contract_address = 'TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXpQ';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -346,12 +346,13 @@ class TopPage extends Component {
         this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(2) });
 
         var income_remaining = this.state.max_payout - this.state.payouts;
-        this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
+        this.setState({ income_remaining: Number(income_remaining).toFixed(2) }); 
+        console.log('Income rem '+this.state.income_remaining);
+        console.log('aVL rem '+this.state.avlBalance);
 
-       if(this.state.avlBalance > this.state.income_remaining){
-           this.setState({ avlBalance: this.state.income_remaining });
-       }
-
+        if(this.state.avlBalance > this.state.income_remaining){
+            this.setState({ avlBalance : this.state.income_remaining });
+        } 
      }
 
     constructor(props) {
@@ -378,7 +379,7 @@ class TopPage extends Component {
 
             lastDepositTime: 0,
             depositCount: 0,
-            totalRate: 2.3,
+            totalRate: "....",
 
             copySuccess1: false,
 

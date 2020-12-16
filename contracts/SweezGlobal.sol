@@ -50,11 +50,11 @@ contract SweezGlobal {
 
     uint256 constant public CONTRACT_BALANCE_STEP = 50 trx ; // 500000 trx
     uint256 constant public MIN_DEPOSIT = 10 trx ; // 100 trx
-    uint256 constant public wonder_period = 210 ; // 7 days 
-    uint256 constant public active_period = 210 ; // 7 days 
-    uint256 constant public active_directs1 = 3 ; // 7 days 
-    uint256 constant public active_directs2 = 5 ; // 7 days 
-    uint256 constant public active_directs3 = 7 ; // 7 days 
+    uint256 constant public wonder_period = 1 days ; // 7 days 
+    uint256 constant public active_period = 1 days ; // 7 days 
+    uint256 constant public active_directs1 = 7 ; // 7 days 
+    uint256 constant public active_directs2 = 15 ; // 7 days 
+    uint256 constant public active_directs3 = 30 ; // 7 days 
     uint256 constant public aff_bonus = 10 ; // 10 percent
     uint256 public shareHolder_value = 50 trx ;
     uint256 public coFounder_value = 500 trx ;
