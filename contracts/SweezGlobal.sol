@@ -37,29 +37,29 @@ contract SweezGlobal {
     
     // uint256 constant public CONTRACT_BALANCE_STEP = 500000 trx ; // 1000000 trx
     // uint256 constant public MIN_DEPOSIT = 100 trx ; // 100 trx
-     // uint256 constant public wonder_period = 7 days ; // 7 days 
+    // uint256 constant public wonder_period = 7 days ; // 7 days 
     // uint256 constant public active_period = 1 days ; // 1 days 
     // uint256 constant public active_directs1 = 7 ; // 7 directs 
     // uint256 constant public active_directs2 = 15 ; // 15 directs 
     // uint256 constant public active_directs3 = 30 ; // 30 directs 
     // uint256 constant public aff_bonus = 10 ; // 10 percent
-    //  uint256 public shareHolder_value = 5000 trx ;
-    //  uint256 public coFounder_value = 50000 trx ;
+    // uint256 public shareHolder_value = 5000 trx ;
+    // uint256 public coFounder_value = 50000 trx ;
     // uint256 constant public pool_period = 1 days; // 1 days  
     // uint256 constant public wonder_min_deposit = 1000 trx; //  
 
     uint256 constant public CONTRACT_BALANCE_STEP = 50 trx ; // 500000 trx
     uint256 constant public MIN_DEPOSIT = 10 trx ; // 100 trx
-    uint256 constant public wonder_period = 1 days ; // 7 days 
-    uint256 constant public active_period = 1 days ; // 7 days 
-    uint256 constant public active_directs1 = 7 ; // 7 days 
-    uint256 constant public active_directs2 = 15 ; // 7 days 
-    uint256 constant public active_directs3 = 30 ; // 7 days 
+    uint256 constant public wonder_period = 3600 ; // 7 days 
+    uint256 constant public active_period = 3600 ; // 7 days 
+    uint256 constant public active_directs1 = 3 ; // 7 days 
+    uint256 constant public active_directs2 = 5 ; // 7 days 
+    uint256 constant public active_directs3 = 7 ; // 7 days 
     uint256 constant public aff_bonus = 10 ; // 10 percent
     uint256 public shareHolder_value = 50 trx ;
     uint256 public coFounder_value = 500 trx ;
     uint256 constant public pool_period = 300 ; // 1 days 
-    uint256 constant public wonder_min_deposit = 100 trx; // 100 trx   
+    uint256 constant public wonder_min_deposit = 50 trx; // 100 trx   
 
     uint256 constant public admin_fee1  = 50 ;   
     uint256 constant public admin_fee2  = 30 ;   
@@ -226,7 +226,7 @@ contract SweezGlobal {
         if( users[up].deposit_amount >= wonder_min_deposit ){
                  // wonder users
 
-            if(block.timestamp < (usertotals[up].wonder_time + wonder_period) && users[up].deposit_amount >= _amount && _amount >= wonder_min_deposit){
+            if(block.timestamp < (usertotals[up].wonder_time + wonder_period) && users[up].deposit_amount <= _amount && _amount >= wonder_min_deposit){
                 users[up].wonder_directs++;
             
             if(users[up].wonder_directs % active_directs1 == 0 ){
@@ -236,7 +236,8 @@ contract SweezGlobal {
               }
             }
         } else {
-            if((block.timestamp <  users[up].deposit_time + active_period) && users[up].deposit_amount >= _amount && _amount < wonder_min_deposit){
+            // active performer users
+            if((block.timestamp <  users[up].deposit_time + active_period) && users[up].deposit_amount <= _amount && _amount < wonder_min_deposit){
                 users2[up].active_directs++;
                 users2[up].active_deposits += _amount;
             

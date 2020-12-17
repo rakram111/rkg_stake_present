@@ -10,17 +10,16 @@ import MyPresentStaking from "./MyPresentStaking";
 import MyStakingInfo from "./MyStakingInfo";
 import TeamBiz from "./TeamBiz";
 import ReferralLink from "./ReferralLink";
-import Withdraw from "./Withdraw";
-import IncomeandTeamStats from "./IncomeandTeamStats.js";
-
+import Withdraw from "./Withdraw2";
+import IncomeandTeamStats from "./IncomeandTeamStats.js"; 
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w 
-// vvvipppp TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXpQ
+// TK4LycnfBcWAfk5QT68AQGffrdWhb8vDx y  
+// vvvipppp TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXp Q
 // mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
 let url = "https://sweezglobal.com/";
-let contract_address = 'TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXpQ';
+let contract_address = 'TVn7aMQBAEfkAk6JRJUpW3DcTpoQmBoS4Y';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -28,11 +27,15 @@ let contract_address = 'TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXpQ';
 toast.configure();
 
 class TopPage extends Component {
-
+    
+     
     async componentDidMount() {
 
         await this.connectTronWeb();
         await this.loadBlockChainData();
+        await setInterval(  () => {
+               this.setTimes(); 
+        }, 3000);
 
     }
 
@@ -170,8 +173,7 @@ class TopPage extends Component {
         this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(2) });
 
         const whale_balance = await Utils.contract.whale_balance().call();
-        this.setState({ whale_balance: Number(Number(whale_balance) / sunny) });
-
+        this.setState({ whale_balance: Number(Number(whale_balance) / sunny) }); 
 
         let subAccountstr = this.state.account.toString();
         let subAccount = subAccountstr.substring(0, 8);
@@ -329,8 +331,7 @@ class TopPage extends Component {
 
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(5) });
-
-
+ 
         // this.state.contractBalance > this.state.avlBalance ?
         //     this.setState({ avlBalance: this.state.avlBalance }) :
         //     this.setState({ avlBalance: this.state.contractBalance })
@@ -355,6 +356,115 @@ class TopPage extends Component {
         } 
      }
 
+     setTimes = async () => {
+        const pool_period = await Utils.contract.pool_period().call();
+        this.setState({ pool_period: Number(pool_period) });
+ 
+        const active_period = await Utils.contract.active_period().call();
+        this.setState({ active_period: Number(active_period) });
+ 
+        const wonder_period = await Utils.contract.wonder_period().call();
+        this.setState({ wonder_period: Number(wonder_period) });
+ 
+        const now = await Utils.contract.getNow().call();
+        this.setState({ now: Number(now) });
+
+        // Wonder draw time
+        var wonder_draw_days = 0;
+        var wonder_draw_hrs = 0;
+        var wonder_draw_mins = 0;
+        var wonder_draw_secs = 0;
+        var next_wonder_draw_time = Number(this.state.wonder_period + this.state.deposit_time -  this.state.now );
+
+   //      console.log("next wonder in " + next_wonder_draw_time);
+
+        if (next_wonder_draw_time > 86400) {
+            wonder_draw_days = Math.floor(next_wonder_draw_time / 86400);
+            wonder_draw_hrs = Math.floor(next_wonder_draw_time / 3600);
+            wonder_draw_mins = Math.floor((next_wonder_draw_time % 3600) / 60);
+            wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
+        } else if (next_wonder_draw_time > 3600) {
+            wonder_draw_hrs = Math.floor(next_wonder_draw_time / 3600);
+            wonder_draw_mins = Math.floor((next_wonder_draw_time % 3600) / 60);
+            wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
+        } else if (next_wonder_draw_time > 60) {
+            wonder_draw_mins = Math.floor(next_wonder_draw_time / 60);
+            wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
+
+        } else {
+            wonder_draw_secs = next_wonder_draw_time;
+        }
+        if(wonder_draw_secs < 0){
+            wonder_draw_secs = 0;
+        }
+        this.setState({ wonder_draw_days });
+        this.setState({ wonder_draw_hrs });
+        this.setState({ wonder_draw_mins });
+        this.setState({ wonder_draw_secs });
+   //      console.log('next wonder draw hrs - '  + this.state.wonder_draw_hrs)
+   //      console.log('next wonder draw mins - ' + this.state.wonder_draw_mins)
+   //      console.log('next wonder draw secs - ' + this.state.wonder_draw_secs)
+ 
+        // active draw time
+        var active_draw_hrs = 0;
+        var active_draw_mins = 0;
+        var active_draw_secs = 0;
+        var next_active_draw_time = Number(this.state.active_period + this.state.deposit_time -  this.state.now );
+
+   //      console.log("next active in " + next_active_draw_time);
+
+        if (next_active_draw_time > 3600) {
+            active_draw_hrs = Math.floor(next_active_draw_time / 3600);
+            active_draw_mins = Math.floor((next_active_draw_time % 3600) / 60);
+            active_draw_secs = Math.floor(next_active_draw_time % 60);
+        } else if (next_active_draw_time > 60) {
+            active_draw_mins = Math.floor(next_active_draw_time / 60);
+            active_draw_secs = Math.floor(next_active_draw_time % 60);
+
+        } else {
+            active_draw_secs = next_active_draw_time;
+        }
+        
+        if(active_draw_secs < 0){
+            active_draw_secs = 0;
+        }
+        this.setState({ active_draw_hrs });
+        this.setState({ active_draw_mins });
+        this.setState({ active_draw_secs });
+   //      console.log('next active draw hrs - '  + this.state.active_draw_hrs)
+   //      console.log('next active draw mins - ' + this.state.active_draw_mins)
+   //      console.log('next active draw secs - ' + this.state.active_draw_secs)
+ 
+
+
+        // pool draw time
+        var draw_hrs = 0;
+        var draw_mins = 0;
+        var draw_secs = 0;
+        var next_draw_time = Number(this.state.pool_last_draw + this.state.pool_period - this.state.now);
+        if (next_draw_time < 0) {
+            next_draw_time = "1";
+        }
+
+        this.setState({ next_draw_time });
+   //      console.log("next time" + this.state.next_draw_time)
+
+        if (next_draw_time > 3600) {
+            draw_hrs = Math.floor(next_draw_time / 3600);
+            draw_mins = Math.floor((next_draw_time % 3600) / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
+        } else if (next_draw_time > 60) {
+            draw_mins = Math.floor(next_draw_time / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
+
+        } else {
+            draw_secs = next_draw_time;
+        }
+        this.setState({ draw_hrs });
+        this.setState({ draw_mins });
+        this.setState({ draw_secs });
+     }
+
     constructor(props) {
         super(props)
 
@@ -377,6 +487,7 @@ class TopPage extends Component {
             refFlag: 0,
             totalInvested: 0,
 
+            count: 0,
             lastDepositTime: 0,
             depositCount: 0,
             totalRate: "....",
@@ -387,10 +498,15 @@ class TopPage extends Component {
                 installed: false,
                 loggedIn: false
             },
+            
         }
+      this.setTimes = this.setTimes.bind(this);
+
     }
 
     render() {
+
+        const {count} = this.state
 
         const backStyle = {
             backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"
@@ -435,13 +551,13 @@ class TopPage extends Component {
                     {this.state.user_status !== 0 && this.state.deposit_amount > 0 ?
                         <Withdraw
                             avlBalance={this.state.avlBalance}
-                        /> : null}
+                        /> 
+                       : null}  
 
                     <MyStakingInfo
                         contract_bonus={this.state.contract_bonus}
                         hold_bonus={this.state.hold_bonus}
-                        totalRate={this.state.totalRate}
-
+                        totalRate={this.state.totalRate} 
                     />
 
                     {this.state.user_status === 0 ?
@@ -496,7 +612,6 @@ class TopPage extends Component {
                             whale_bonus={this.state.whale_bonus}
                             gen_bonus={this.state.gen_bonus}
                             userTotalWithdrawn={this.state.payouts}
-                            deposit_amount={this.state.deposit_amount}
                             income_remaining={this.state.income_remaining}
                             referrals_count={this.state.referrals_count}
                             total_structure={this.state.total_structure}
@@ -524,22 +639,17 @@ class TopPage extends Component {
                             deposit_amount={this.state.deposit_amount}
                             active_directs={this.state.active_directs}
                             total_structure={this.state.total_structure}
-                            total_business={this.state.total_business}
+                            total_business={this.state.total_business} 
 
-                        /> : null}
-
+                        /> : null} 
 
                     {this.state.userTotalDeposit > 0 ?
                         <ReferralLink
                             account={this.state.account}
-                        /> : null}
-
-
+                        /> : null} 
 
                     <div style={{ paddingBottom: "20px" }}></div>
-
-
-
+ 
                     <div style={{ paddingBottom: "50px" }}></div>
                 </div>
 

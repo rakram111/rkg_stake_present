@@ -112,8 +112,8 @@ export class Invest extends Component {
                             INFINITY Deposit Section</div>
                         <br />
                         <div style={{ textAlign: "center" }}>
-                            <img src={require("./Image1/plan.png")} alt="Logo" width="260px" />
-                        </div>
+                            <img src={require("./Image1/plan.png")} alt="Logo" width="160px" />
+                        </div><br />
                         <form
                             onSubmit={(event) => {
 
