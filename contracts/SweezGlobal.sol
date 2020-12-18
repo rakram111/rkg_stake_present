@@ -58,7 +58,7 @@ contract SweezGlobal {
     uint256 constant public aff_bonus = 10 ; // 10 percent
     uint256 public shareHolder_value = 50 trx ;
     uint256 public coFounder_value = 500 trx ;
-    uint256 constant public pool_period = 300 ; // 1 days 
+    uint256 constant public pool_period = 3600 ; // 1 days 
     uint256 constant public wonder_min_deposit = 50 trx; // 100 trx   
 
     uint256 constant public admin_fee1  = 50 ;   

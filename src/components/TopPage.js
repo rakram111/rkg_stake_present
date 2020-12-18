@@ -143,7 +143,7 @@ class TopPage extends Component {
         this.setState({ balanceload: false });
 
         const contractBalance = await Utils.contract.getContractBalance().call();
-        this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(2) });
+        this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(5) });
 
         const totalRate = await Utils.contract.getRate().call();
         this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
@@ -155,7 +155,7 @@ class TopPage extends Component {
         this.setState({ pool_last_draw: Number(pool_last_draw) });
 
         const contract_bonus = await Utils.contract.getContractBonus().call();
-        this.setState({ contract_bonus: Number(contract_bonus / 100).toFixed(2) });
+        this.setState({ contract_bonus: Number(contract_bonus / 100).toFixed(5) });
 
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
@@ -170,7 +170,7 @@ class TopPage extends Component {
         const pool_balance = await Utils.contract.pool_balance().call();
         this.setState({ pool_balance: Number(Number(pool_balance) / sunny) });
 
-        this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(2) });
+        this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(5) });
 
         const whale_balance = await Utils.contract.whale_balance().call();
         this.setState({ whale_balance: Number(Number(whale_balance) / sunny) }); 
@@ -341,13 +341,13 @@ class TopPage extends Component {
    //      console.log(this.state.max_payout)
 
         const dividend = await Utils.contract.getUserDividends(this.state.account).call();
-        this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(2) });
+        this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(5) });
 
         const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
-        this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(2) });
+        this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(5) });
 
         var income_remaining = this.state.max_payout - this.state.payouts;
-        this.setState({ income_remaining: Number(income_remaining).toFixed(2) }); 
+        this.setState({ income_remaining: Number(income_remaining).toFixed(5) }); 
         console.log('Income rem '+this.state.income_remaining);
         console.log('aVL rem '+this.state.avlBalance);
 
