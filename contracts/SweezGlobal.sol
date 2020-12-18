@@ -625,74 +625,74 @@ contract SweezGlobal {
         // Direct payout
         if(users[_addr].payouts < max_payout && users[_addr].direct_bonus > 0) {
             uint256 direct_bonus = users[_addr].direct_bonus;
+            to_payout += direct_bonus;
 
-            if(users[_addr].payouts + direct_bonus > max_payout) {
-                direct_bonus = max_payout - users[_addr].payouts;
+            if(users[_addr].payouts + to_payout > max_payout) {
+                to_payout = max_payout - users[_addr].payouts;
             } 
            
-            to_payout += direct_bonus;
-        } 
+         } 
        
         // Match payout
         if(users[_addr].payouts < max_payout && users[_addr].gen_bonus > 0) {
             uint256 gen_bonus = users[_addr].gen_bonus;
+           to_payout += gen_bonus;
 
-            if(users[_addr].payouts + gen_bonus > max_payout) {
-                gen_bonus = max_payout - users[_addr].payouts;
+            if(users[_addr].payouts + to_payout > max_payout) {
+                to_payout = max_payout - users[_addr].payouts;
             } 
-            to_payout += gen_bonus;
         } 
 
           // Pool payout
         if(users[msg.sender].payouts < max_payout && users[msg.sender].pool_bonus > 0) {
             uint256 pool_bonus = users[msg.sender].pool_bonus;
-
-            if(users[msg.sender].payouts + pool_bonus > max_payout) {
-                pool_bonus = max_payout - users[msg.sender].payouts;
-            }  
             to_payout += pool_bonus;
+
+            if(users[_addr].payouts + to_payout > max_payout) {
+                to_payout = max_payout - users[_addr].payouts;
+            } 
         }
 
           // Wonder payout 
         if(users[msg.sender].payouts < max_payout && users[msg.sender].wonder_bonus > 0) {
             uint256 wonder_bonus = users[msg.sender].wonder_bonus;
-
-            if(users[msg.sender].payouts + wonder_bonus > max_payout) {
-                wonder_bonus = max_payout - users[msg.sender].payouts;
-            }  
             to_payout += wonder_bonus;
+
+            if(users[_addr].payouts + to_payout > max_payout) {
+                to_payout = max_payout - users[_addr].payouts;
+            } 
         }
 
         // Whale payout
         if(users[msg.sender].payouts < max_payout && users2[msg.sender].whale_bonus > 0) {
             uint256 whale_bonus = users2[msg.sender].whale_bonus;
-
-            if(users[msg.sender].payouts + whale_bonus > max_payout) {
-                whale_bonus = max_payout - users[msg.sender].payouts;
-            }
             to_payout += whale_bonus;
+
+            if(users[_addr].payouts + to_payout > max_payout) {
+                to_payout = max_payout - users[_addr].payouts;
+            } 
         }
 
         if(users[msg.sender].deposit_amount >= wonder_min_deposit){
             // Wonder payout
             if(users[msg.sender].payouts < max_payout && users[msg.sender].wonder_bonus > 0) {
             uint256 wonder_bonus = users[msg.sender].wonder_bonus;
+            to_payout += wonder_bonus;
 
-            if(users[msg.sender].payouts + wonder_bonus > max_payout) {
-                wonder_bonus = max_payout - users[msg.sender].payouts;
-            }
-                to_payout += wonder_bonus;
+            if(users[_addr].payouts + to_payout > max_payout) {
+                to_payout = max_payout - users[_addr].payouts;
+                } 
             }
 
         } else {
             // Active Promoter payout
             if(users[msg.sender].payouts < max_payout && users2[msg.sender].active_bonus > 0) {
             uint256 active_bonus = users2[msg.sender].active_bonus;
+            to_payout += active_bonus;
 
-            if(users[msg.sender].payouts + active_bonus > max_payout) {
-                active_bonus = max_payout - users[msg.sender].payouts;
-            }
-                to_payout += active_bonus;
+            if(users[_addr].payouts + to_payout > max_payout) {
+                to_payout = max_payout - users[_addr].payouts;
+                } 
             }
 
         }
@@ -793,10 +793,10 @@ contract SweezGlobal {
         }
     } 
 
-    function TestMyDividends(uint256 deposit_amount, uint256 time_difference) view external returns(uint256 payout, uint256 total_rate, uint256 total_rate1) {
+    // function TestMyDividends(uint256 deposit_amount, uint256 time_difference) view external returns(uint256 payout, uint256 total_rate, uint256 total_rate1) {
      
-      total_rate1 = getTotalRate();
-      total_rate =  1+total_rate1*million/864 ; 
-      payout = (deposit_amount * total_rate  / million) * time_difference  ;  
-     }   
+    //   total_rate1 = getTotalRate();
+    //   total_rate =  1+total_rate1*million/864 ; 
+    //   payout = (deposit_amount * total_rate  / million) * time_difference  ;  
+    //  }   
 }
