@@ -3,7 +3,7 @@ import loader from "./img/loadicon1.gif"
 
 
 
-const contract_address = 'TVn7aMQBAEfkAk6JRJUpW3DcTpoQmBoS4Y';
+const contract_address = 'TQqE9TVcbsKqh7rXxqNP385ZsuVsQ568uN';
 
 let contracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
 //https://tronscan.org/#/contract/
@@ -76,47 +76,52 @@ export class SmartInfo extends Component {
                         <br />
 
                         <div className="col-xl-12" style={{ textAlign: "center" }}>
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Contract Address </p><p style={{ color: "white", fontSize: "17px", float: "right" }}>
-                                {this.props.smartLoading ? <img src={loader} alt="loading..." width="30px" style={{ paddingLeft: "10px" }} /> :
-                                    <a href={contracturl} style={{ textDecoration: "underline", color: "white" }} target="_blank" rel="noopener noreferrer">{this.props.subContract}...</a>}
-                            </p><br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Deposits </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.totalInvested} TRX</p>
+                        <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Contract Address</p>
+                         
+                            <a href={contracturl} style={{ textDecoration: "underline", color: "#18E55F" , fontSize: "23px", textAlign: "center", paddingTop:"110px" }} target="_blank" rel="noopener noreferrer">{this.props.subContract}...</a>
                             <br /><br />
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>  Total Paid</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.totalPaid}  TRX</p>
-                            <br /><br />
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Contract Balance</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.contractBalance} TRX</p>
-                            <br /><br />
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Pool Draw in</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.draw_hrs}h {this.props.draw_mins}m {this.props.draw_secs}s</p>
-
-                            <br /><br />
-
-
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Pool Balance</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.pool_balance} TRX</p>
-
-                            <br /><br />
-
                             
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Whale Pool Balance</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.whale_balance} TRX</p>
 
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Deposits</p> 
+                            <a style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.totalInvested} TRX</a>
+                            <br /><br />
+                             
+
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Paid</p> 
+                            <a style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.totalPaid} TRX</a>
+                            <br /><br />
+                             
+
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Contract Balance</p> 
+                            <a style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.contractBalance} TRX</a>
+                            <br /><br />
+                             
+
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Users</p> 
+                            <a style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}># {this.props.totalUsers}</a>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>  Total Users</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> # {Number(this.props.totalUsers)}  </p>
+                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Top Sponsor Pool Balance</p> 
+                            <a style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.pool_balance} TRX</a>
                             <br /><br />
 
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Present Top Sponsor Share</p> 
+                            <a style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {Number(this.props.pool_balance*0.1*0.4).toFixed(3)} TRX</a>
+                            <br /><br />
 
-                        </div>
+                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Whale Investor Pool Balance</p> 
+                            <a style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.whale_balance} TRX</a>
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Present Top Investor Share</p> 
+                            <a style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {Number(this.props.whale_balance*0.1*0.5).toFixed(3)} TRX</a>
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Top Spansor/ Whale Pool Draw In</p> 
+                            <a style={{ color: "#18E55F", fontSize: "23px", textAlign: "center" }}> {this.props.draw_hrs}h : {this.props.draw_mins}m : {this.props.draw_secs}s</a>
+                            <br /> <br /> 
+                         </div>
                     </div>
                     <div className="col-xl-3"></div>
                 </div>

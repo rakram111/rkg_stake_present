@@ -19,7 +19,7 @@ import "./css/style.css";
 // vvvipppp TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXp Q
 // mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
 let url = "https://sweezglobal.com/";
-let contract_address = 'TVn7aMQBAEfkAk6JRJUpW3DcTpoQmBoS4Y';
+let contract_address = 'TQqE9TVcbsKqh7rXxqNP385ZsuVsQ568uN';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -164,13 +164,13 @@ class TopPage extends Component {
         });
 
 
-        const totalPaid = await Utils.contract.total_withdraw().call();
-        this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
+        // const totalPaid = await Utils.contract.total_withdraw().call();
+        // this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
 
         const pool_balance = await Utils.contract.pool_balance().call();
         this.setState({ pool_balance: Number(Number(pool_balance) / sunny) });
 
-        this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(5) });
+        this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
 
         const whale_balance = await Utils.contract.whale_balance().call();
         this.setState({ whale_balance: Number(Number(whale_balance) / sunny) }); 
@@ -305,7 +305,7 @@ class TopPage extends Component {
         var draw_secs = 0;
         var next_draw_time = Number(this.state.pool_last_draw + this.state.pool_period - this.state.now);
         if (next_draw_time < 0) {
-            next_draw_time = "1";
+            next_draw_time = 0;
         }
 
         this.setState({ next_draw_time });
@@ -340,8 +340,8 @@ class TopPage extends Component {
         this.setState({ max_payout: Number(Number(max_payout) / sunny) });
    //      console.log(this.state.max_payout)
 
-        const dividend = await Utils.contract.getUserDividends(this.state.account).call();
-        this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(5) });
+        // const dividend = await Utils.contract.getUserDividends(this.state.account).call();
+        // this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(5) });
 
         const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
         this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(5) });
@@ -357,6 +357,9 @@ class TopPage extends Component {
      }
 
      setTimes = async () => {
+        const dividend = await Utils.contract.getUserDividends(this.state.account).call();
+        this.setState({ dividend: Number(Number(dividend) / 1000000).toFixed(5) });
+
         const pool_period = await Utils.contract.pool_period().call();
         this.setState({ pool_period: Number(pool_period) });
  
