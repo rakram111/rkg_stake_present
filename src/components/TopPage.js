@@ -143,7 +143,7 @@ class TopPage extends Component {
         this.setState({ balanceload: false });
 
         const contractBalance = await Utils.contract.getContractBalance().call();
-        this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(5) });
+        this.setState({ contractBalance: Number(contractBalance / sunny)  });
 
         const totalRate = await Utils.contract.getRate().call();
         this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
@@ -155,7 +155,7 @@ class TopPage extends Component {
         this.setState({ pool_last_draw: Number(pool_last_draw) });
 
         const contract_bonus = await Utils.contract.getContractBonus().call();
-        this.setState({ contract_bonus: Number(contract_bonus / 100).toFixed(5) });
+        this.setState({ contract_bonus: Number(contract_bonus / 100).toFixed(2) });
 
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
@@ -347,7 +347,7 @@ class TopPage extends Component {
         this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(5) });
 
         var income_remaining = this.state.max_payout - this.state.payouts;
-        this.setState({ income_remaining: Number(income_remaining).toFixed(5) }); 
+        this.setState({ income_remaining: Number(income_remaining).toFixed(2) }); 
         console.log('Income rem '+this.state.income_remaining);
         console.log('aVL rem '+this.state.avlBalance);
 
