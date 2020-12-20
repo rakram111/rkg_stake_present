@@ -3,29 +3,39 @@ import { toast } from 'react-toastify';
 import back from "./Image1/back.jpg"
 import TronWeb from 'tronweb';
 import Utils from '../utils';
-import PersonalStats2 from "./PersonalStats2";
-import IncomeandTeamStats from "./IncomeandTeamStats";
-import SetTopPromoter from "./SetTopPromoter";
-
+import Invest from "./Invest";
+import SmartInfo from "./SmartInfo";
+import PersonalStats from "./PersonalStats";
+import MyPresentStaking from "./MyPresentStaking";
+import MyStakingInfo from "./MyStakingInfo";
 import TeamBiz from "./TeamBiz";
-
+import ReferralLink from "./ReferralLink";
+import Withdraw from "./Withdraw2";
+import IncomeandTeamStats from "./IncomeandTeamStats.js"; 
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
+// TK4LycnfBcWAfk5QT68AQGffrdWhb8vDx y  
+// vvvipppp TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXp Q
+// mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
 let url = "https://sweezglobal.com/";
-// '
-let contract_address = 'TQqE9TVcbsKqh7rXxqNP385ZsuVsQ568uN';
+let contract_address = 'TSZ1YYotLgEwDXFnnEp82fqFa5FQ5KmY12';
+
+// let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
+// let tronAddressurl = "https://tronscan.org/#/address/";
 
 toast.configure();
 
-
-class TopPage2 extends Component {
-
+class TopPage extends Component {
+    
+     
     async componentDidMount() {
 
         await this.connectTronWeb();
         await this.loadBlockChainData();
-
+        await setInterval(() => {
+               this.setTimes(); 
+        }, 3000); 
     }
 
     connectTronWeb = async () => {
@@ -46,9 +56,9 @@ class TopPage2 extends Component {
             let tries = 0;
 
             const timer = setInterval(() => {
-                if (tries >= 10) {
-                    const TRONGRID_API = 'https://api.trongrid.io';
-
+                if (tries >= 310) { //310
+                    // const TRONGRID_API = 'https://api.trongrid.io';
+                    const TRONGRID_API = 'https://3.225.171.164';
                     window.tronWeb = new TronWeb(
                         TRONGRID_API,
                         TRONGRID_API,
@@ -81,7 +91,7 @@ class TopPage2 extends Component {
         });
 
         if (!this.state.tronWeb.installed) {
-            toast.error("Tron blockchain support not enabled, Try using Token Pocket/ Tron Wallet for Mobile OR Tron Link chrome extension for PC");
+            toast.error("Tron blockchain support not enabled, Try using Token Pocket/ Tron Wallet/ Tron Link Pro for Mobile OR Tron Link chrome extension for PC");
         }
 
         if (!this.state.tronWeb.loggedIn) {
@@ -110,13 +120,6 @@ class TopPage2 extends Component {
 
         })
 
-        await Utils.contract.getUser().call().then(res => {
-
-            this.setState({ alt_owner: window.tronWeb.address.fromHex(res) });
-            this.setState({ alt_owner1: res });
-
-        })
-
         if (this.props.refLinkid) {
             this.setState({ refid: this.props.refLinkid });
 
@@ -128,9 +131,23 @@ class TopPage2 extends Component {
         this.setState({ refLoading: false });
 
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
-        this.setState({ main_account: accTemp });
         this.setState({ account: this.state.refid });
+        // this.setState({ account: this.state.refid });
         this.setState({ walletload: false });
+
+
+        const balTemp = await Utils.tronWeb.trx.getBalance(accTemp);
+        const ballTemp = balTemp / sunny;
+        this.setState({ balance: ballTemp });
+        this.setState({ balanceload: false });
+
+        let subAccountstr = this.state.account.toString();
+        let subAccount = subAccountstr.substring(0, 8);
+        this.setState({ subAccount });
+
+        let contractStr = contract_address.toString();
+        let subContract = contractStr.substring(0, 8);
+        this.setState({ subContract });
 
         const userInfoTotals = await Utils.contract.userInfoTotals(this.state.account).call();
 
@@ -140,14 +157,79 @@ class TopPage2 extends Component {
         this.setState({ total_structure: Number(userInfoTotals.total_structure) });
         this.setState({ teambiz: Number(userInfoTotals.team_biz) / sunny });
         this.setState({ deposit_payouts: Number(userInfoTotals.deposit_payouts) / sunny });
+        this.setState({ total_business: Number(userInfoTotals.total_business) / sunny });
+ 
+        /////////////////////////////////////////////////////////////////////////////
+        const userInfo = await Utils.contract.userInfo(this.state.account).call();
+        // // console.log(userInfo);
 
-        const balTemp = await Utils.tronWeb.trx.getBalance(accTemp);
-        const ballTemp = balTemp / sunny;
-        this.setState({ balance: ballTemp });
-        this.setState({ balanceload: false });
+        this.setState({ upline: window.tronWeb.address.fromHex(userInfo.upline) });
+        this.setState({ subUpline: this.state.upline.toString().substring(0, 8) }); 
+        this.setState({ direct_bonus: Number(userInfo.direct_bonus) / sunny });
+        this.setState({ gen_bonus: Number(userInfo.gen_bonus) / sunny });
+        this.setState({ deposit_amount: Number(userInfo.deposit_amount) / sunny });
+        this.setState({ payouts: Number(userInfo.payouts) / sunny });
+        this.setState({ deposit_time: Number(userInfo.deposit_time) });
+        this.setState({ user_status: Number(userInfo.user_status) });
+
+
+        const userInfo2 = await Utils.contract.userInfo2(this.state.account).call();
+        // // console.log(userInfo2);
+
+        this.setState({ wonder_bonus: Number(userInfo2.wonder_bonus) / sunny });
+        this.setState({ wonder_directs: Number(userInfo2.wonder_directs) });
+        this.setState({ active_directs: Number(userInfo2.active_directs) });
+        this.setState({ active_bonus: Number(userInfo2.active_bonus)/ sunny });
+        this.setState({ whale_bonus: Number(userInfo2.whale_bonus)/ sunny }); 
+
+        const CONTRACT_BALANCE_STEP = await Utils.contract.CONTRACT_BALANCE_STEP().call();
+        this.setState({ contract_step: Number(CONTRACT_BALANCE_STEP) / sunny });
+  
+        const pool_period = await Utils.contract.pool_period().call();
+        this.setState({ pool_period: Number(pool_period) });
+ 
+        const active_period = await Utils.contract.active_period().call();
+        this.setState({ active_period: Number(active_period) });
+ 
+        const wonder_period = await Utils.contract.wonder_period().call();
+        this.setState({ wonder_period: Number(wonder_period) });
+ 
+        const now = await Utils.contract.getNow().call();
+        this.setState({ now: Number(now) });
+
+      
+        const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
+        this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(5) });
+ 
+        // this.state.contractBalance > this.state.avlBalance ?
+        //     this.setState({ avlBalance: this.state.avlBalance }) :
+        //     this.setState({ avlBalance: this.state.contractBalance })
+
+        const max_payout = await Utils.contract.maxPayoutOf(this.state.deposit_amount * sunny).call();
+        this.setState({ max_payout: Number(Number(max_payout) / sunny) });
+   //      console.log(this.state.max_payout)
+
+        // const dividend = await Utils.contract.getUserDividends(this.state.account).call();
+        // this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(5) });
+
+        const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
+        this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(5) });
+
+        var income_remaining = this.state.max_payout - this.state.payouts;
+        this.setState({ income_remaining: Number(income_remaining).toFixed(2) }); 
+        console.log('Income rem '+this.state.income_remaining);
+        console.log('aVL rem '+this.state.avlBalance);
+
+        if(this.state.avlBalance > this.state.income_remaining){
+            this.setState({ avlBalance : this.state.income_remaining });
+        } 
+     }
+
+     setTimes = async () => {
+         const sunny = 1000000;
 
         const contractBalance = await Utils.contract.getContractBalance().call();
-        this.setState({ contractBalance: contractBalance / sunny });
+        this.setState({ contractBalance: Number(contractBalance / sunny)  });
 
         const totalRate = await Utils.contract.getRate().call();
         this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
@@ -163,148 +245,135 @@ class TopPage2 extends Component {
 
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
-        this.setState({ totalInvested: this.state.totalInvested + extra_biz });
+         
+        // const totalPaid = await Utils.contract.total_withdraw().call();
+        // this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
 
-        const totalPaid = await Utils.contract.total_withdraw().call();
-        this.setState({ totalPaid: Number(totalPaid) / sunny });
         const pool_balance = await Utils.contract.pool_balance().call();
-        this.setState({ pool_balance: Number(Number(pool_balance) / sunny).toFixed(4) });
+        this.setState({ pool_balance: Number(Number(pool_balance) / sunny) });
 
-        let subAccountstr = this.state.account.toString();
-        let subAccount = subAccountstr.substring(0, 8);
-        this.setState({ subAccount });
+        this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
 
-        let contractStr = contract_address.toString();
-        let subContract = contractStr.substring(0, 8);
-        this.setState({ subContract });
+        const whale_balance = await Utils.contract.whale_balance().call();
+        this.setState({ whale_balance: Number(Number(whale_balance) / sunny) }); 
 
-        /////////////////////////////////////////////////////////////////////////////
-        const userInfo = await Utils.contract.userInfo(this.state.account).call();
-        // // console.log(userInfo);
 
-        this.setState({ upline: window.tronWeb.address.fromHex(userInfo.upline) });
-        this.setState({ subUpline: this.state.upline.toString().substring(0, 8) });
+        const dividend = await Utils.contract.getUserDividends(this.state.account).call();
+        this.setState({ dividend: Number(Number(dividend) / 1000000).toFixed(5) });
 
-        this.setState({ direct_bonus: Number(userInfo.direct_bonus) / sunny });
-        this.setState({ gen_bonus: Number(userInfo.gen_bonus) / sunny });
-        this.setState({ deposit_amount: Number(userInfo.deposit_amount) / sunny });
-        this.setState({ payouts: Number(userInfo.payouts) / sunny });
-        this.setState({ deposit_time: Number(userInfo.deposit_time) });
-        this.setState({ user_status: Number(userInfo.user_status) });
-
-        const CONTRACT_BALANCE_STEP = await Utils.contract.CONTRACT_BALANCE_STEP().call();
-        this.setState({ contract_step: Number(CONTRACT_BALANCE_STEP) / sunny });
-
-        const PERCENTS_DIVIDER = await Utils.contract.PERCENTS_DIVIDER().call();
-        this.setState({ percent_divider: Number(PERCENTS_DIVIDER) });
-
-        const time_step = await Utils.contract.time_period().call();
-        this.setState({ time_step: Number(time_step) });
-
+        const pool_period = await Utils.contract.pool_period().call();
+        this.setState({ pool_period: Number(pool_period) });
+ 
+        const active_period = await Utils.contract.active_period().call();
+        this.setState({ active_period: Number(active_period) });
+ 
+        const wonder_period = await Utils.contract.wonder_period().call();
+        this.setState({ wonder_period: Number(wonder_period) });
+ 
         const now = await Utils.contract.getNow().call();
         this.setState({ now: Number(now) });
 
-        var next_draw_time = Number(this.state.pool_last_draw + this.state.time_step - this.state.now);
-        if (next_draw_time < 0) {
-            next_draw_time = 0;
+        // Wonder draw time
+        var wonder_draw_days = 0;
+        var wonder_draw_hrs = 0;
+        var wonder_draw_mins = 0;
+        var wonder_draw_secs = 0;
+        var next_wonder_draw_time = Number(this.state.wonder_period + this.state.deposit_time -  this.state.now );
+
+   //      console.log("next wonder in " + next_wonder_draw_time);
+
+        if (next_wonder_draw_time > 86400) {
+            wonder_draw_days = Math.floor(next_wonder_draw_time / 86400);
+            wonder_draw_hrs = Math.floor(next_wonder_draw_time / 3600);
+            wonder_draw_mins = Math.floor((next_wonder_draw_time % 3600) / 60);
+            wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
+        } else if (next_wonder_draw_time > 3600) {
+            wonder_draw_hrs = Math.floor(next_wonder_draw_time / 3600);
+            wonder_draw_mins = Math.floor((next_wonder_draw_time % 3600) / 60);
+            wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
+        } else if (next_wonder_draw_time > 60) {
+            wonder_draw_mins = Math.floor(next_wonder_draw_time / 60);
+            wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
+
+        } else {
+            wonder_draw_secs = next_wonder_draw_time;
         }
-        // console.log('next draw time - ' + next_draw_time)
+        if(wonder_draw_secs < 0){
+            wonder_draw_secs = 0;
+        }
+        this.setState({ wonder_draw_days });
+        this.setState({ wonder_draw_hrs });
+        this.setState({ wonder_draw_mins });
+        this.setState({ wonder_draw_secs });
+   //      console.log('next wonder draw hrs - '  + this.state.wonder_draw_hrs)
+   //      console.log('next wonder draw mins - ' + this.state.wonder_draw_mins)
+   //      console.log('next wonder draw secs - ' + this.state.wonder_draw_secs)
+ 
+        // active draw time
+        var active_draw_hrs = 0;
+        var active_draw_mins = 0;
+        var active_draw_secs = 0;
+        var next_active_draw_time = Number(this.state.active_period + this.state.deposit_time -  this.state.now );
 
-        setInterval(() => {
-            this.setState({ next_draw_time });
-        }, 1000);
+   //      console.log("next active in " + next_active_draw_time);
 
-        // console.log('time step ' + this.state.time_step);
-        // console.log('pool last draw ' + this.state.pool_last_draw)
+        if (next_active_draw_time > 3600) {
+            active_draw_hrs = Math.floor(next_active_draw_time / 3600);
+            active_draw_mins = Math.floor((next_active_draw_time % 3600) / 60);
+            active_draw_secs = Math.floor(next_active_draw_time % 60);
+        } else if (next_active_draw_time > 60) {
+            active_draw_mins = Math.floor(next_active_draw_time / 60);
+            active_draw_secs = Math.floor(next_active_draw_time % 60);
 
-
-        const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
-        this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(4) });
-
-        // this.state.contractBalance > this.state.avlBalance ?
-        //     this.setState({ avlBalance: this.state.avlBalance }) :
-        //     this.setState({ avlBalance: this.state.contractBalance })
-
-        const max_payout = await Utils.contract.maxPayoutOf(this.state.deposit_amount * sunny).call();
-        this.setState({ max_payout: Number(Number(max_payout) / sunny) });
-   //      console.log(this.state.max_payout)
-
-        const dividend = await Utils.contract.getUserDividends(this.state.account).call();
-        this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(4) });
-
-        const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
-        this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(4) });
-
-        const top_promoter = await Utils.contract.getTopPromoterStatus(this.state.account).call();
-        this.setState({ top_promoter });
+        } else {
+            active_draw_secs = next_active_draw_time;
+        }
+        
+        if(active_draw_secs < 0){
+            active_draw_secs = 0;
+        }
+        this.setState({ active_draw_hrs });
+        this.setState({ active_draw_mins });
+        this.setState({ active_draw_secs });
+   //      console.log('next active draw hrs - '  + this.state.active_draw_hrs)
+   //      console.log('next active draw mins - ' + this.state.active_draw_mins)
+   //      console.log('next active draw secs - ' + this.state.active_draw_secs)
+ 
 
 
-        var income_remaining = this.state.max_payout - this.state.payouts;
-        this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
+        // pool draw time
+        var draw_hrs = 0;
+        var draw_mins = 0;
+        var draw_secs = 0;
+        var next_draw_time = Number(this.state.pool_last_draw + this.state.pool_period - this.state.now);
+        if (next_draw_time < 0) {
+            next_draw_time = "1";
+        }
 
-        const poolTopInfo = await Utils.contract.poolTopInfo().call();
-        var addrs1, addrs2, addrs3, addrs4, addrs5, deps1, deps2, deps3, deps4, deps5;
+        this.setState({ next_draw_time });
+   //      console.log("next time" + this.state.next_draw_time)
 
-        addrs1 = window.tronWeb.address.fromHex(poolTopInfo.addrs[0]);
-        deps1 = Number(poolTopInfo.deps[0]) / sunny;
+        if (next_draw_time > 3600) {
+            draw_hrs = Math.floor(next_draw_time / 3600);
+            draw_mins = Math.floor((next_draw_time % 3600) / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
+        } else if (next_draw_time > 60) {
+            draw_mins = Math.floor(next_draw_time / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
 
-        // console.log('pool top info' + addrs1);
-
-        this.setState({ deps1 });
-        this.setState({ addrs1 });
-        let subAddrs1 = this.state.addrs1.toString();
-        let subAddres1 = subAddrs1.substring(0, 8);
-        this.setState({ subAddres1 });
-   //      console.log('deps ' + this.state.deps1)
-        // console.log(this.state.addrs1 + "----" + this.state.subAddres1)
-
-        addrs2 = window.tronWeb.address.fromHex(poolTopInfo.addrs[1]);
-        deps2 = Number(poolTopInfo.deps[1]) / sunny;
-        this.setState({ deps2 });
-        this.setState({ addrs2 });
-        let subAddrs2 = this.state.addrs2.toString();
-        let subAddres2 = subAddrs2.substring(0, 8);
-        this.setState({ subAddres2 });
-   //      console.log('deps ' + this.state.deps2)
-
-        addrs3 = window.tronWeb.address.fromHex(poolTopInfo.addrs[2]);
-        deps3 = Number(poolTopInfo.deps[2]) / sunny;
-        this.setState({ deps3 });
-        this.setState({ addrs3 });
-        let subAddrs3 = this.state.addrs3.toString();
-        let subAddres3 = subAddrs3.substring(0, 8);
-        this.setState({ subAddres3 });
-   //      console.log('deps ' + this.state.deps3)
-
-        addrs4 = window.tronWeb.address.fromHex(poolTopInfo.addrs[3]);
-        deps4 = Number(poolTopInfo.deps[3]) / sunny;
-        this.setState({ deps4 });
-        this.setState({ addrs4 });
-        let subAddrs4 = this.state.addrs4.toString();
-        let subAddres4 = subAddrs4.substring(0, 8);
-        this.setState({ subAddres4 });
-   //      console.log('deps ' + this.state.deps4)
-
-        addrs5 = window.tronWeb.address.fromHex(poolTopInfo.addrs[4]);
-        deps5 = Number(poolTopInfo.deps[4]) / sunny;
-        // console.log(addrs5 + '- dep ' + deps5);
-        this.setState({ deps5 });
-        this.setState({ addrs5 });
-        let subAddrs5 = this.state.addrs5.toString();
-        let subAddres5 = subAddrs5.substring(0, 8);
-        this.setState({ subAddres5 });
-   //      console.log('deps ' + this.state.deps5)
-
-        // console.log('contract - ' + this.state.upline);
-        // console.log('link refid - ' + this.state.refid);
-
-    }
+        } else {
+            draw_secs = next_draw_time;
+        }
+        this.setState({ draw_hrs });
+        this.setState({ draw_mins });
+        this.setState({ draw_secs });
+     }
 
     constructor(props) {
         super(props)
 
         this.state = {
-
+            guideModalShow: false,
             refLoading: true,
             walletload: true,
             balanceload: true,
@@ -314,91 +383,135 @@ class TopPage2 extends Component {
 
             account: '',
             totalMembers: 0,
+            contract_bonus: 0,
+            hold_bonus: 0,
             totalBiz: 0,
             directBiz: 0,
             balance: 0,
             refFlag: 0,
             totalInvested: 0,
 
+            count: 0,
             lastDepositTime: 0,
             depositCount: 0,
+            totalRate: "....",
 
             copySuccess1: false,
+            totalUsers:"....",
+            totalInvested:"....",
+            contractBalance:"....",
+            totalPaid:"....",
+            pool_balance:"....",
+            whale_balance:"....",
 
             tronWeb: {
                 installed: false,
                 loggedIn: false
             },
+            
         }
+      this.setTimes = this.setTimes.bind(this);
 
     }
 
     render() {
+
+        const {count} = this.state
+
         const backStyle = {
             backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"
-            , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", marginTop: "-30px"
+            , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
         };
-        // backgroundImage: `url(${back})`, backgroundColor: "blue",
 
+        // backgroundImage: `url(${back})`, backgroundColor: "blue",
         return (
             <div>
-                <div>
-                    <p></p>
-                </div>
-                <div style={backStyle}>
-                    <div style={{ textAlign: "center", paddingTop: "40px" }}>
-                        <a href={url} >
-                            <img src={require("./Image1/logo.png")} alt="Logo" width="260px" />
-                        </a>
-                    </div>
-                    <TeamBiz
-                        teambiz={this.state.teambiz}
-                    />
-                    <PersonalStats2
-                        max_payout={this.state.max_payout}
-                        user_status={this.state.user_status}
-                        account={this.state.account}
-                        subAccount={this.state.subAccount}
-                        upline={this.state.upline}
-                        subUpline={this.state.subUpline}
-                        userTotalDeposit={this.state.userTotalDeposit}
-                        dividend={this.state.dividend}
-                        pool_bonus={this.state.pool_bonus}
-                        direct_bonus={this.state.direct_bonus}
-                        gen_bonus={this.state.gen_bonus}
-                        userTotalWithdrawn={this.state.payouts}
-                        deposit_amount={this.state.deposit_amount}
-                        income_remaining={this.state.income_remaining}
-                        referrals_count={this.state.referrals_count}
-                        total_structure={this.state.total_structure}
-                        avlBalance={this.state.avlBalance}
 
-                    />
-                    {this.state.userTotalDeposit > 0 ?
+                <div style={backStyle}>
+                    <hr />
+                    <hr />
+                    <div style={{ textAlign: "center" }}>
+                        <a href={url} >  <img src={require("./Image1/logo.png")} alt="Logo" width="360px" /></a>
+                    </div>
+
+                    {/* <Banner /> */}
+
+                    <div className="row" >
+                        <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}  >
+                            <a href="https://sweezglobal.com/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
+                        </div>
+                        <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}   >
+                            <a href="https://sweezglobal.com/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
+                        </div>
+                    </div>
+                    <div className="row" >
+                        <div className="col-xl-4" style={{ textAlign: "center" }}  >
+                        </div>
+                        <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
+                            <a href="https://sweezglobal.com/topSponsors"   >
+                                <img src={require("./Image1/TopSponsor.png")} alt="Logo" width="220px" /></a>
+                        </div>
+                        <div className="col-xl-4" style={{ textAlign: "center" }}   >
+                        </div>
+
+                    </div>
+                        <Withdraw
+                            avlBalance={this.state.avlBalance}
+                        /> 
+ 
+                         <PersonalStats
+                 
+                            max_payout={this.state.max_payout}
+                            user_status={this.state.user_status} 
+                            account={this.state.account}
+                            subAccount={this.state.subAccount}
+                            upline={this.state.upline}
+                            subUpline={this.state.subUpline}
+                            userTotalDeposit={this.state.userTotalDeposit}
+                            dividend={this.state.dividend}
+                            pool_bonus={this.state.pool_bonus}
+                            direct_bonus={this.state.direct_bonus}
+                            deposit_amount={this.state.deposit_amount}
+                            wonder_bonus={this.state.wonder_bonus}
+                            active_bonus={this.state.active_bonus}
+                            whale_bonus={this.state.whale_bonus}
+                            gen_bonus={this.state.gen_bonus}
+                            userTotalWithdrawn={this.state.payouts}
+                            income_remaining={this.state.income_remaining}
+                            referrals_count={this.state.referrals_count}
+                            total_structure={this.state.total_structure}
+                            avlBalance={this.state.avlBalance}
+
+                        /> 
                         <IncomeandTeamStats
+
+                            wonder_draw_days={this.state.wonder_draw_days}
+                            wonder_draw_hrs={this.state.wonder_draw_hrs}
+                            wonder_draw_mins={this.state.wonder_draw_mins}
+                            wonder_draw_secs={this.state.wonder_draw_secs}
+
+                            active_draw_hrs={this.state.active_draw_hrs}
+                            active_draw_mins={this.state.active_draw_mins}
+                            active_draw_secs={this.state.active_draw_secs}
 
                             userTotalDeposit={this.state.userTotalDeposit}
                             userTotalWithdrawn={this.state.userTotalWithdrawn}
-
                             referrals_count={this.state.referrals_count}
+                            wonder_directs={this.state.wonder_directs}
+                            deposit_amount={this.state.deposit_amount}
+                            active_directs={this.state.active_directs}
                             total_structure={this.state.total_structure}
+                            total_business={this.state.total_business} 
 
-                        /> : null}
+                        /> 
 
-                    {
-                        this.state.main_account === this.state.owner ||
-                            this.state.main_account === this.state.alt_owner ?
-                            <SetTopPromoter
-                                account={this.state.main_account}
-                                userid={this.state.account}
-                                top_promoter={this.state.top_promoter}
-                            /> : null
-                    }
-
-                    <div style={{ paddingBottom: "30px" }}></div>
+                    <div style={{ paddingBottom: "20px" }}></div>
+ 
+                    <div style={{ paddingBottom: "50px" }}></div>
                 </div>
+
             </div >
         );
     }
 }
-export default TopPage2;
+export default TopPage;

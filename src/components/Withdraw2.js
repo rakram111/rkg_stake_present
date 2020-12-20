@@ -141,9 +141,9 @@ constructor(props) {
             display: "inline-block",
             padding: "0.5em 1em",
             textDecoration: "none",
-            color: "black",
-            transition: ".4s", marginTop: "30px", marginLeft: "180px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to right, #FFDD00, #FBB034)", fontSize: "18px", borderRadius: "30px"
-        };
+            color: "white",
+            transition: ".4s", marginTop: "30px", marginLeft: "180px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to bottom, #FE5858, #EE9617)", fontSize: "18px", borderRadius: "10px"
+        }; // #F67062, #FC5296
 
         return (
 

@@ -81,13 +81,13 @@ class AboutUs extends Component {
                             d) Daily Top Referrer Pool 7%, of ALL Deposits set aside in pool, every 24 hour 10% of the pool is shared among top 5 sponsors in volume with a share of 40%, 20%, 15%, 15% and 10%.
                             <hr />
 
-                            e) Whale Investor Balance 3%, of ALL Deposits set aside in pool, every 24 hour 10% of the pool is shared among top 3 investors in volume with a share of 50%, 30% and 20%.
+                            e) Whale Investor Pool Balance 3%,<br /> of ALL Deposits set aside in pool, every 24 hour 10% of the pool is shared among top 3 investors in volume with a share of 50%, 30% and 20%.
                             <hr />
 
-                            f) Active Performer Bonus, If you MAKE 7 DIRECTS greater or equal to your deposit in 7 days, you will receive your 100% deposit back instantly.
+                            f) Active Performer Bonus,<br /> If you MAKE 7 DIRECTS greater or equal to your deposit in 24 hours of deposit, you will receive your 15% on total deposits instantly,<br /> if you add 8 more directs (totaly 15) greater or equal to your deposit in same 24 hours of deposit, you will receive your 10% on deposits instantly,<br /> if you add 15 more directs (totaly 30)  greater or equal to your deposit in 24 hours of deposit, you will receive your 8% on deposits instantly.
                             <hr />
 
-                            g) 7 wonder Bonus 100%, If you MAKE 7 DIRECTS greater or equal to your deposit in 7 days, you will receive your 100% deposit back instantly.
+                            g) 7 wonder Bonus 100%,<br /> If you MAKE 7 DIRECTS greater or equal to your deposit in 7 days, you will receive your 100% deposit back instantly.
                             <hr />
 
 
@@ -109,7 +109,7 @@ class AboutUs extends Component {
                             *Increase the speed of your returns by growing the community fund through marketing / sharing of Sweez Global.
                             <hr />
                             *Admin and Dev team is developing and deploying multiple services wihin DEFI, marketing, Online gaming, Crypto Debit card, Unified Tech Service and much more to complete the vision of a complete decentralized financial support system<hr />
-                            <a href="#1">Check Out</a> our presentation here<hr />
+                            {/* <a href="#1">Check Out</a> our presentation here<hr /> */}
                             <a href={url} style={{ color: "red", textDecoration: "underline" }} >Back</a>
                         </p>
 

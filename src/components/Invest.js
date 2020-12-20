@@ -16,13 +16,13 @@ export class Invest extends Component {
 
         }
 
-        this.button10 = this.button10.bind(this);
-        this.button500 = this.button500.bind(this);
-        this.button1000 = this.button1000.bind(this);
-        this.button10k = this.button10k.bind(this);
-        this.button50k = this.button50k.bind(this);
-        this.button100k = this.button100k.bind(this);
-        this.button500k = this.button500k.bind(this);
+        this.buttonTen = this.buttonTen.bind(this);
+        this.button5Hundred = this.button5Hundred.bind(this);
+        this.button1Thousand = this.button1Thousand.bind(this);
+        this.button10Thousand = this.button10Thousand.bind(this);
+        this.button50Thousand = this.button50Thousand.bind(this);
+        this.button100Thousand = this.button100Thousand.bind(this);
+        this.button500Thousand = this.button500Thousand.bind(this);
         this.invest = this.invest.bind(this);
         this.reset = this.reset.bind(this);
 
@@ -46,31 +46,31 @@ export class Invest extends Component {
 
     }
 
-    button10(event) {
+    buttonTen(event) {
         this.setState({ count: this.state.count + 10 });
     }
 
-    button500(event) {
+    button5Hundred(event) {
         this.setState({ count: this.state.count + 500 });
     }
 
-    button1000(event) {
+    button1Thousand(event) {
         this.setState({ count: this.state.count + 1000 });
     }
 
-    button10k(event) {
+    button10Thousand(event) {
         this.setState({ count: this.state.count + 10000 });
     }
 
-    button50k(event) {
+    button50Thousand(event) {
         this.setState({ count: this.state.count + 50000 });
     }
 
-    button100k(event) {
+    button100Thousand(event) {
         this.setState({ count: this.state.count + 100000 });
     }
 
-    button500k(event) {
+    button500Thousand(event) {
         this.setState({ count: this.state.count + 500000 });
     }
 
@@ -98,16 +98,14 @@ export class Invest extends Component {
             padding: "0.5em 1em",
             textDecoration: "none",
             color: "black",
-            transition: ".4s", marginTop: "30px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to right, #FFDD00, #FBB034)", fontSize: "18px", borderRadius: "30px", marginLeft: "150px"
+            transition: ".4s", marginTop: "30px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to bottom, #5AFF15, #FBB034)", fontSize: "18px", borderRadius: "30px", marginLeft: "150px"
         };
 
         return (
             <div style={{ paddingTop: "60px" }} >
                 <div className="row">
                     <div className="col-xl-4"></div>
-                    <div className="col-xl-4" style={colStyle}>
-
-
+                    <div className="col-xl-4" style={colStyle}> 
                         <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
                             INFINITY Deposit Section</div>
                         <br />
@@ -130,28 +128,23 @@ export class Invest extends Component {
                             }}
 
                         >
-                            <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br /><br />
+                            <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br />
+                            <p style={{color:"white", textAlign:"center", fontSize:"20px"}}>Available Balance : {Number(this.props.balance).toFixed(2)} TRX </p><br /> 
 
+                            <a href="#10" className="btn btn-primary" style={addButton} onClick={this.buttonTen}>+10</a>
 
-                            <a href="#10" className="btn btn-primary" style={addButton} onClick={this.button10}>+10</a>
+                            <a href="#500" className="btn btn-primary" style={addButton} onClick={this.button5Hundred}>+500</a>
 
-                            <a href="#500" className="btn btn-primary" style={addButton} onClick={this.button500}>+500</a>
+                            <a href="#1000" className="btn btn-primary" style={addButton} onClick={this.button1Thousand}>+1000</a>
 
-                            <a href="#1000" className="btn btn-primary" style={addButton} onClick={this.button1000}>+1000</a>
+                            <a href="#10k" className="btn btn-primary" style={addButton} onClick={this.button10Thousand}>+10 k</a>
 
-                            <a href="#10k" className="btn btn-primary" style={addButton} onClick={this.button10k}>+10 k</a>
-
-                            <a href="#50k" className="btn btn-primary" style={addButton} onClick={this.button50k}>+50 k</a>
-                            <a href="#100k" className="btn btn-primary" style={addButton} onClick={this.button100k}>+100 k</a>
-                            <a href="#500k" className="btn btn-primary" style={addButton} onClick={this.button500k}>+500 k</a>
-                            <a href="#reset" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
-
+                            <a href="#50k" className="btn btn-primary" style={addButton} onClick={this.button50Thousand}>+50 k</a>
+                            <a href="#100k" className="btn btn-primary" style={addButton} onClick={this.button100Thousand}>+100 k</a>
+                            <a href="#500k" className="btn btn-primary" style={addButton} onClick={this.button5HundredThousand}>+500 k</a>
+                            <a href="#reset" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br /> 
                             <br />
-                            {/* {this.props.deposit_amount === 0 ?
-                                <p style={{ color: "white" }}>Sponsor : {this.props.refid}</p>
-                                : null}
-                            <br /> */}
-
+                            <p style={{color:"pink", textAlign:"center", fontSize:"16px"}}>Keep 20 TRX extra for Gas Fee</p>
                             {this.props.refLoading ? null :
                                 <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>}
 

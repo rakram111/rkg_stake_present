@@ -3,6 +3,7 @@ pragma solidity 0.5.4;
 contract SweezGlobal {
 
     struct User { 
+        uint256 userid;
         address upline ;
         uint256 referrals ;
         uint256 payouts ;
@@ -89,6 +90,7 @@ contract SweezGlobal {
     mapping(address => User) public users ;
     mapping(address => User2) public users2 ;
     mapping(address => UserTotal) public usertotals ;
+    mapping(uint256 => address) public ids ;
 
     uint8[] public ref_bonuses ;  
     uint256 public total_users = 1 ;
@@ -155,9 +157,11 @@ contract SweezGlobal {
         users[owner].deposit_amount = MIN_DEPOSIT;
         users[owner].deposit_payouts = 0;
         users[owner].isActive = 1;
-        users[owner].deposit_time = uint40(block.timestamp);
-        usertotals[owner].total_deposits += MIN_DEPOSIT; 
-        users[owner].total_business = 0;
+        users[owner].userid = 1;
+        users[owner].deposit_time = uint40(block.timestamp) ;
+        usertotals[owner].total_deposits += MIN_DEPOSIT ; 
+        users[owner].total_business = 0 ;
+        ids[1] = owner ;
      }
  
     function _setUpline(address _addr, address _upline) private {
@@ -207,6 +211,10 @@ contract SweezGlobal {
         users[_addr].isActive = 1;
         users[_addr].total_business = 0;
         users[_addr].deposit_time = uint40(block.timestamp);
+        if(usertotals[_addr].total_deposits == 0){
+            users[_addr].userid = total_users ; 
+            ids[total_users] =  _addr;
+        }
         usertotals[_addr].total_deposits += _amount;
         usertotals[_addr].wonder_time = uint40(block.timestamp);
 
@@ -257,8 +265,7 @@ contract SweezGlobal {
                 uint256 _bonus = 8*users2[up].active_deposits/100; // 8 percent
                 users2[up].active_bonus += _bonus;
                 users2[up].active_deposits = 0; // Reset
-                emit ActivePayout(up, _bonus);
-
+                emit ActivePayout(up, _bonus); 
              }
            }
         }
@@ -285,6 +292,9 @@ contract SweezGlobal {
 
      function _poolDeposits(address _addr, uint256 _amount) private {
         pool_balance += _amount * 7 / 100;
+        if(pool_balance > 10*mainDivider){
+            pool_balance = 10*mainDivider;
+        }
 
         address upline = users[_addr].upline;
 
@@ -314,8 +324,7 @@ contract SweezGlobal {
                     pool_top[j] = pool_top[j - 1];
                 }
 
-                pool_top[i] = upline;
-
+                pool_top[i] = upline; 
                 break;
             }
         }
@@ -324,6 +333,9 @@ contract SweezGlobal {
      function _whaleDeposits(address _addr, uint256 _amount) private {
        
         whale_balance += _amount * 3 / 100; 
+        if(whale_balance > 6*mainDivider){
+            whale_balance = 6*mainDivider;
+        }
 
         whale_users_deposits[pool_cycle][_addr] = _amount;
 
@@ -697,8 +709,7 @@ contract SweezGlobal {
 
         }
         return to_payout;
- }  
- 
+    }   
 	
     function changeCoFounderValue(uint256 _newValue) public {
 		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
@@ -733,6 +744,12 @@ contract SweezGlobal {
     function getAdmin() external view returns (address){ 
         return owner;
     } 
+    function getID(address _addr) external view returns (uint256){ 
+        return users[_addr].userid;
+    }
+    function getAddressFromID(uint256 _id) external view returns (address){ 
+        return ids[_id];
+    } 
 
     function getUser() external view returns (address){ 
         return alt_owner;
@@ -750,8 +767,7 @@ contract SweezGlobal {
     function admin4Address() external view returns (address){ 
         return admin4;
     } 
-
-     function getNow() external view returns (uint256){ 
+    function getNow() external view returns (uint256){ 
         return block.timestamp;
     }
 

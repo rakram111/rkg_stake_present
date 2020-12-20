@@ -10,10 +10,8 @@ export class ReferralLink extends Component {
         super(props)
 
         this.state = {
-            copySuccess: ''
-
-        }
-
+            copySuccess: '' 
+        } 
     }
 
     copyToClipboard = (e) => {
@@ -37,9 +35,7 @@ export class ReferralLink extends Component {
             padding: "0.5em 1em",
             textDecoration: "none",
             color: "white",
-            transition: "1.4s", marginTop: "30px", marginLeft: "180px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to right, black, #FBB034)", fontSize: "18px", borderRadius: "30px"
-
-
+            transition: "1.4s", marginTop: "30px", marginLeft: "180px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to bottom, #A7ACD9, #9E8FB2)", fontSize: "18px", borderRadius: "30px" 
         };
 
         return (
@@ -49,7 +45,7 @@ export class ReferralLink extends Component {
                     <div className="col-xl-6" style={colStyle}>
 
                         <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
-                            Referral Section</div>
+                            Invitation Section</div>
 
                         <br />
                         <div className="col-xl-12" style={{ textAlign: "center" }}>

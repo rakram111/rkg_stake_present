@@ -9,6 +9,7 @@ import PersonalStats from "./PersonalStats";
 import MyPresentStaking from "./MyPresentStaking";
 import MyStakingInfo from "./MyStakingInfo";
 import TeamBiz from "./TeamBiz";
+import Banner from "./Banner";
 import ReferralLink from "./ReferralLink";
 import Withdraw from "./Withdraw2";
 import IncomeandTeamStats from "./IncomeandTeamStats.js"; 
@@ -19,7 +20,7 @@ import "./css/style.css";
 // vvvipppp TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXp Q
 // mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
 let url = "https://sweezglobal.com/";
-let contract_address = 'TQqE9TVcbsKqh7rXxqNP385ZsuVsQ568uN';
+let contract_address = 'TSZ1YYotLgEwDXFnnEp82fqFa5FQ5KmY12';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -33,10 +34,9 @@ class TopPage extends Component {
 
         await this.connectTronWeb();
         await this.loadBlockChainData();
-        await setInterval(  () => {
+        await setInterval(() => {
                this.setTimes(); 
-        }, 3000);
-
+        }, 3000); 
     }
 
     connectTronWeb = async () => {
@@ -137,13 +137,8 @@ class TopPage extends Component {
         this.setState({ walletload: false });
 
 
-        const balTemp = await Utils.tronWeb.trx.getBalance(accTemp);
-        const ballTemp = balTemp / sunny;
-        this.setState({ balance: ballTemp });
-        this.setState({ balanceload: false });
-
         const contractBalance = await Utils.contract.getContractBalance().call();
-        this.setState({ contractBalance: Number(contractBalance / sunny)  });
+        this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(2)  });
 
         const totalRate = await Utils.contract.getRate().call();
         this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
@@ -159,21 +154,27 @@ class TopPage extends Component {
 
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
-        this.setState({
-            totalInvested: this.state.totalInvested
-        });
-
-
+         
         // const totalPaid = await Utils.contract.total_withdraw().call();
         // this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
 
         const pool_balance = await Utils.contract.pool_balance().call();
-        this.setState({ pool_balance: Number(Number(pool_balance) / sunny) });
+        this.setState({ pool_balance: Number(Number(pool_balance) / sunny).toFixed(2) });
 
         this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
 
         const whale_balance = await Utils.contract.whale_balance().call();
-        this.setState({ whale_balance: Number(Number(whale_balance) / sunny) }); 
+        this.setState({ whale_balance: Number(Number(whale_balance) / sunny).toFixed(2) }); 
+
+
+        const dividend = await Utils.contract.getUserDividends(this.state.account).call();
+        this.setState({ dividend: Number(Number(dividend) / 1000000).toFixed(5) });
+
+
+        const balTemp = await Utils.tronWeb.trx.getBalance(accTemp);
+        const ballTemp = balTemp / sunny;
+        this.setState({ balance: ballTemp });
+        this.setState({ balanceload: false });
 
         let subAccountstr = this.state.account.toString();
         let subAccount = subAccountstr.substring(0, 8);
@@ -231,104 +232,7 @@ class TopPage extends Component {
         const now = await Utils.contract.getNow().call();
         this.setState({ now: Number(now) });
 
-        // Wonder draw time
-        var wonder_draw_days = 0;
-        var wonder_draw_hrs = 0;
-        var wonder_draw_mins = 0;
-        var wonder_draw_secs = 0;
-        var next_wonder_draw_time = Number(this.state.wonder_period + this.state.deposit_time -  this.state.now );
-
-   //      console.log("next wonder in " + next_wonder_draw_time);
-
-        if (next_wonder_draw_time > 86400) {
-            wonder_draw_days = Math.floor(next_wonder_draw_time / 86400);
-            wonder_draw_hrs = Math.floor(next_wonder_draw_time / 3600);
-            wonder_draw_mins = Math.floor((next_wonder_draw_time % 3600) / 60);
-            wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
-        } else if (next_wonder_draw_time > 3600) {
-            wonder_draw_hrs = Math.floor(next_wonder_draw_time / 3600);
-            wonder_draw_mins = Math.floor((next_wonder_draw_time % 3600) / 60);
-            wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
-        } else if (next_wonder_draw_time > 60) {
-            wonder_draw_mins = Math.floor(next_wonder_draw_time / 60);
-            wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
-
-        } else {
-            wonder_draw_secs = next_wonder_draw_time;
-        }
-        if(wonder_draw_secs < 0){
-            wonder_draw_secs = 0;
-        }
-        this.setState({ wonder_draw_days });
-        this.setState({ wonder_draw_hrs });
-        this.setState({ wonder_draw_mins });
-        this.setState({ wonder_draw_secs });
-   //      console.log('next wonder draw hrs - '  + this.state.wonder_draw_hrs)
-   //      console.log('next wonder draw mins - ' + this.state.wonder_draw_mins)
-   //      console.log('next wonder draw secs - ' + this.state.wonder_draw_secs)
- 
-        // active draw time
-        var active_draw_hrs = 0;
-        var active_draw_mins = 0;
-        var active_draw_secs = 0;
-        var next_active_draw_time = Number(this.state.active_period + this.state.deposit_time -  this.state.now );
-
-   //      console.log("next active in " + next_active_draw_time);
-
-        if (next_active_draw_time > 3600) {
-            active_draw_hrs = Math.floor(next_active_draw_time / 3600);
-            active_draw_mins = Math.floor((next_active_draw_time % 3600) / 60);
-            active_draw_secs = Math.floor(next_active_draw_time % 60);
-        } else if (next_active_draw_time > 60) {
-            active_draw_mins = Math.floor(next_active_draw_time / 60);
-            active_draw_secs = Math.floor(next_active_draw_time % 60);
-
-        } else {
-            active_draw_secs = next_active_draw_time;
-        }
-        
-        if(active_draw_secs < 0){
-            active_draw_secs = 0;
-        }
-        this.setState({ active_draw_hrs });
-        this.setState({ active_draw_mins });
-        this.setState({ active_draw_secs });
-   //      console.log('next active draw hrs - '  + this.state.active_draw_hrs)
-   //      console.log('next active draw mins - ' + this.state.active_draw_mins)
-   //      console.log('next active draw secs - ' + this.state.active_draw_secs)
- 
-
-
-        // pool draw time
-        var draw_hrs = 0;
-        var draw_mins = 0;
-        var draw_secs = 0;
-        var next_draw_time = Number(this.state.pool_last_draw + this.state.pool_period - this.state.now);
-        if (next_draw_time < 0) {
-            next_draw_time = 0;
-        }
-
-        this.setState({ next_draw_time });
-   //      console.log("next time" + this.state.next_draw_time)
-
-        if (next_draw_time > 3600) {
-            draw_hrs = Math.floor(next_draw_time / 3600);
-            draw_mins = Math.floor((next_draw_time % 3600) / 60);
-            draw_secs = Math.floor(next_draw_time % 60);
-        } else if (next_draw_time > 60) {
-            draw_mins = Math.floor(next_draw_time / 60);
-            draw_secs = Math.floor(next_draw_time % 60);
-
-        } else {
-            draw_secs = next_draw_time;
-        }
-        this.setState({ draw_hrs });
-        this.setState({ draw_mins });
-        this.setState({ draw_secs });
-   //      console.log('next draw hrs - ' + this.state.draw_hrs)
-   //      console.log('next draw mins - ' + this.state.draw_mins)
-   //      console.log('next draw secs - ' + this.state.draw_secs)
-
+      
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(5) });
  
@@ -344,7 +248,7 @@ class TopPage extends Component {
         // this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(5) });
 
         const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
-        this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(5) });
+        this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(2) });
 
         var income_remaining = this.state.max_payout - this.state.payouts;
         this.setState({ income_remaining: Number(income_remaining).toFixed(2) }); 
@@ -357,6 +261,38 @@ class TopPage extends Component {
      }
 
      setTimes = async () => {
+         const sunny = 1000000;
+
+        const contractBalance = await Utils.contract.getContractBalance().call();
+        this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(2)  });
+
+        const totalRate = await Utils.contract.getRate().call();
+        this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
+
+        const totalUsers = await Utils.contract.total_users().call();
+        this.setState({ totalUsers: Number(totalUsers) });
+
+        const pool_last_draw = await Utils.contract.pool_last_draw().call();
+        this.setState({ pool_last_draw: Number(pool_last_draw) });
+
+        const contract_bonus = await Utils.contract.getContractBonus().call();
+        this.setState({ contract_bonus: Number(contract_bonus / 100).toFixed(2) });
+
+        var totalInvested = await Utils.contract.total_deposited().call();
+        this.setState({ totalInvested: Number(totalInvested) / sunny });
+         
+        // const totalPaid = await Utils.contract.total_withdraw().call();
+        // this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
+
+        const pool_balance = await Utils.contract.pool_balance().call();
+        this.setState({ pool_balance: Number(Number(pool_balance) / sunny).toFixed(2) });
+
+        this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
+
+        const whale_balance = await Utils.contract.whale_balance().call();
+        this.setState({ whale_balance: Number(Number(whale_balance) / sunny).toFixed(2) }); 
+
+
         const dividend = await Utils.contract.getUserDividends(this.state.account).call();
         this.setState({ dividend: Number(Number(dividend) / 1000000).toFixed(5) });
 
@@ -496,6 +432,12 @@ class TopPage extends Component {
             totalRate: "....",
 
             copySuccess1: false,
+            totalUsers:"....",
+            totalInvested:"....",
+            contractBalance:"....",
+            totalPaid:"....",
+            pool_balance:"....",
+            whale_balance:"....",
 
             tronWeb: {
                 installed: false,
@@ -526,15 +468,17 @@ class TopPage extends Component {
                     <div style={{ textAlign: "center" }}>
                         <a href={url} >  <img src={require("./Image1/logo.png")} alt="Logo" width="360px" /></a>
                     </div>
-
-                    {/* <Banner /> */}
+{/* 
+                    <Banner 
+                        totalInvested={this.state.totalInvested} 
+                    />  */}
 
                     <div className="row" >
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://sweezglobal.com/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
+                            <a href="https://sweezglobal.com/joiningGuide">  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
                         </div>
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}   >
-                            <a href="https://sweezglobal.com/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
+                            <a href="https://sweezglobal.com/aboutUs"> <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
                         </div>
                     </div>
                     <div className="row" >
@@ -542,7 +486,7 @@ class TopPage extends Component {
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
                             <a href="https://sweezglobal.com/topSponsors"   >
-                                <img src={require("./Image1/TopSponsor.png")} alt="Logo" width="220px" /></a>
+                                <img src={require("./Image1/TopSponsor.png")} alt="Logo" width="260px" /></a>
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center" }}   >
                         </div>
@@ -555,16 +499,11 @@ class TopPage extends Component {
                         <Withdraw
                             avlBalance={this.state.avlBalance}
                         /> 
-                       : null}  
-
-                    <MyStakingInfo
-                        contract_bonus={this.state.contract_bonus}
-                        hold_bonus={this.state.hold_bonus}
-                        totalRate={this.state.totalRate} 
-                    />
+                       : null}   
 
                     {this.state.user_status === 0 ?
                         <Invest
+                            balance={this.state.balance}
                             refLoading={this.state.refLoading}
                             refid={this.state.refid}
                             deposit_amount={this.state.deposit_amount}
@@ -595,7 +534,7 @@ class TopPage extends Component {
                         <TeamBiz
                             teambiz={this.state.teambiz}
                         /> : null}
-
+                       
                     {this.state.userTotalDeposit > 0 ?
                         <PersonalStats
                  

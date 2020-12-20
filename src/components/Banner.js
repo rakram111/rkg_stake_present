@@ -6,33 +6,25 @@ class Banner extends Component {
 
         const colStyle = {
             opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #eee"
+            boxShadow: "0 0 20px #eee", backgroundImage: "radial-gradient(  black, #131050  )"
         };
 
         return (
 
-            <div style={{ paddingTop: "10px" }}>
+            <div style={{ paddingTop: "30px" }}>
                 <div className="row">
-                    <div className="col-xl-3"></div>
-                    <div className="col-xl-6" style={colStyle}>
-                        <br />
-
-
-                        <div style={{ color: "white", fontSize: "17px", fontFamily: "MyFont", textAlign: "left", fontWeight: "bold" }}>
-                            <br /><span style={{ color: "yellow", fontSize: "24px" }}>1.10 %</span> Daily Base Returns<br />
-                            <br /><span style={{ color: "yellow", fontSize: "24px" }}>0.02 %</span> Contract Bonus (Every 1m TRX till 50m TRX)<br />
-                            <br /><span style={{ color: "yellow", fontSize: "24px" }}>0.01 %</span> Contract Bonus (after 50m TRX)<br />
-                            <br /><span style={{ color: "yellow", fontSize: "24px" }}>10 %</span> Affiliate Bonus  <br />
-                            <br /><span style={{ color: "yellow", fontSize: "24px" }}>75 %</span> Generation Bonus on Dividends  <br />
-                            <br />Total Receivable - <span style={{ color: "yellow", fontSize: "24px" }}>320 %</span> <br />
-                        </div>
-                        <br />
-
+                    <div className="col-xl-4"></div>
+                    <div className="col-xl-4" style={colStyle}>
+                        <br />  
+                        <div style={{ color: "white", fontSize: "32px", fontFamily: "MyFont", textAlign: "center", fontWeight: "bold" }}>
+                           $ {this.props.totalInvested*0.031} 
+                         </div>
+                        <br /> 
 
                     </div>
-                    <div className="col-xl-3"></div>
+                    <div className="col-xl-4"></div>
                 </div>
-
+<br />
             </div >
 
         )
