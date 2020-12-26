@@ -11,7 +11,7 @@ import "./css/style.css";
 
 //TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://sweezglobal.com/ p/ ;
 let url = "https://sweezglobal.com/";
-let contract_address = 'TSZ1YYotLgEwDXFnnEp82fqFa5FQ5KmY12';
+let contract_address = 'TXVDyH2yrpbxNqcNFkj2rrUE1dWPjVErxC';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -114,7 +114,7 @@ class TopSponsor extends Component {
         let subAddrs1 = this.state.addrs1.toString();
         let subAddress1 = subAddrs1.substring(0, 8);
         this.setState({ subAddress1 });
-   //      console.log('deps1 ' + this.state.deps1 + ' ' + this.state.subAddress1)
+        //      console.log('deps1 ' + this.state.deps1 + ' ' + this.state.subAddress1)
         // console.log(this.state.addrs1 + "----" + this.state.subAddress1)
 
         addrs2 = window.tronWeb.address.fromHex(poolTopInfo.addrs[1]);
@@ -124,7 +124,7 @@ class TopSponsor extends Component {
         let subAddrs2 = this.state.addrs2.toString();
         let subAddress2 = subAddrs2.substring(0, 8);
         this.setState({ subAddress2 });
-   //      console.log('deps2 ' + this.state.deps2 + ' ' + this.state.subAddress2)
+        //      console.log('deps2 ' + this.state.deps2 + ' ' + this.state.subAddress2)
 
         addrs3 = window.tronWeb.address.fromHex(poolTopInfo.addrs[2]);
         deps3 = Number(poolTopInfo.deps[2]) / sunny;
@@ -133,7 +133,7 @@ class TopSponsor extends Component {
         let subAddrs3 = this.state.addrs3.toString();
         let subAddress3 = subAddrs3.substring(0, 8);
         this.setState({ subAddress3 });
-   //      console.log('deps3 ' + this.state.deps3 + ' ' + this.state.subAddress3)
+        //      console.log('deps3 ' + this.state.deps3 + ' ' + this.state.subAddress3)
 
         addrs4 = window.tronWeb.address.fromHex(poolTopInfo.addrs[3]);
         deps4 = Number(poolTopInfo.deps[3]) / sunny;
@@ -142,7 +142,7 @@ class TopSponsor extends Component {
         let subAddrs4 = this.state.addrs4.toString();
         let subAddress4 = subAddrs4.substring(0, 8);
         this.setState({ subAddress4 });
-   //      console.log('deps4 ' + this.state.deps4 + ' ' + this.state.subAddress4)
+        //      console.log('deps4 ' + this.state.deps4 + ' ' + this.state.subAddress4)
 
         addrs5 = window.tronWeb.address.fromHex(poolTopInfo.addrs[4]);
         deps5 = Number(poolTopInfo.deps[4]) / sunny;
@@ -152,27 +152,27 @@ class TopSponsor extends Component {
         let subAddrs5 = this.state.addrs5.toString();
         let subAddress5 = subAddrs5.substring(0, 8);
         this.setState({ subAddress5 });
-   //      console.log('deps5 ' + this.state.deps5 + ' ' + this.state.subAddress5)
+        //      console.log('deps5 ' + this.state.deps5 + ' ' + this.state.subAddress5)
 
         // console.log('contract - ' + this.state.upline);
         // console.log('link refid - ' + this.state.refid);
 
-       
-       const whaleTopInfo = await Utils.contract.whaleTopInfo().call();
- 
-       var whale_addrs1, whale_addrs2, whale_addrs3, whale_deps1, whale_deps2, whale_deps3;
+
+        const whaleTopInfo = await Utils.contract.whaleTopInfo().call();
+
+        var whale_addrs1, whale_addrs2, whale_addrs3, whale_deps1, whale_deps2, whale_deps3;
 
         whale_addrs1 = window.tronWeb.address.fromHex(whaleTopInfo.whale_addrs[0]);
-        whale_deps1 = Number(whaleTopInfo.whale_deps[0]) / sunny; 
+        whale_deps1 = Number(whaleTopInfo.whale_deps[0]) / sunny;
         this.setState({ whale_deps1 });
         this.setState({ whale_addrs1 });
         let whaleSubAddrs1 = this.state.whale_addrs1.toString();
         let whaleSubAddress1 = whaleSubAddrs1.substring(0, 8);
         this.setState({ whaleSubAddress1 });
-   //      console.log('whale addrs ' + this.state.whaleSubAddres1)
+        //      console.log('whale addrs ' + this.state.whaleSubAddres1)
 
         whale_addrs2 = window.tronWeb.address.fromHex(whaleTopInfo.whale_addrs[1]);
-        whale_deps2 = Number(whaleTopInfo.whale_deps[1]) / sunny; 
+        whale_deps2 = Number(whaleTopInfo.whale_deps[1]) / sunny;
         this.setState({ whale_deps2 });
         this.setState({ whale_addrs2 });
         let whaleSubAddrs2 = this.state.whale_addrs2.toString();
@@ -181,16 +181,16 @@ class TopSponsor extends Component {
         // console.log('deps ' + this.state.deps1)
 
         whale_addrs3 = window.tronWeb.address.fromHex(whaleTopInfo.whale_addrs[2]);
-        whale_deps3 = Number(whaleTopInfo.whale_deps[2]) / sunny; 
+        whale_deps3 = Number(whaleTopInfo.whale_deps[2]) / sunny;
         this.setState({ whale_deps3 });
         this.setState({ whale_addrs3 });
         let whaleSubAddrs3 = this.state.whale_addrs3.toString();
         let whaleSubAddress3 = whaleSubAddrs3.substring(0, 8);
         this.setState({ whaleSubAddress3 });
-       // console.log('deps ' + this.state.deps1)
+        // console.log('deps ' + this.state.deps1)
 
 
- 
+
 
     }
 

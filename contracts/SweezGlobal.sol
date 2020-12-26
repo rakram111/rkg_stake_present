@@ -36,31 +36,31 @@ contract SweezGlobal {
 		 uint256 active_deposits ;
       } 
     
-    // uint256 constant public CONTRACT_BALANCE_STEP = 500000 trx ; // 1000000 trx
-    // uint256 constant public MIN_DEPOSIT = 100 trx ; // 100 trx
-    // uint256 constant public wonder_period = 7 days ; // 7 days 
-    // uint256 constant public active_period = 1 days ; // 1 days 
-    // uint256 constant public active_directs1 = 7 ; // 7 directs 
-    // uint256 constant public active_directs2 = 15 ; // 15 directs 
-    // uint256 constant public active_directs3 = 30 ; // 30 directs 
-    // uint256 constant public aff_bonus = 10 ; // 10 percent
-    // uint256 public shareHolder_value = 5000 trx ;
-    // uint256 public coFounder_value = 50000 trx ;
-    // uint256 constant public pool_period = 1 days; // 1 days  
-    // uint256 constant public wonder_min_deposit = 1000 trx; //  
-
-    uint256 constant public CONTRACT_BALANCE_STEP = 50 trx ; // 500000 trx
-    uint256 constant public MIN_DEPOSIT = 10 trx ; // 100 trx
-    uint256 constant public wonder_period = 3600 ; // 7 days 
-    uint256 constant public active_period = 3600 ; // 7 days 
-    uint256 constant public active_directs1 = 3 ; // 7 days 
-    uint256 constant public active_directs2 = 5 ; // 7 days 
-    uint256 constant public active_directs3 = 7 ; // 7 days 
+    uint256 constant public CONTRACT_BALANCE_STEP = 500000 trx ; // 1000000 trx
+    uint256 constant public MIN_DEPOSIT = 100 trx ; // 100 trx
+    uint256 constant public wonder_period = 7 days ; // 7 days 
+    uint256 constant public active_period = 1 days ; // 1 days 
+    uint256 constant public active_directs1 = 7 ; // 7 directs 
+    uint256 constant public active_directs2 = 15 ; // 15 directs 
+    uint256 constant public active_directs3 = 30 ; // 30 directs 
     uint256 constant public aff_bonus = 10 ; // 10 percent
-    uint256 public shareHolder_value = 50 trx ;
-    uint256 public coFounder_value = 500 trx ;
-    uint256 constant public pool_period = 3600 ; // 1 days 
-    uint256 constant public wonder_min_deposit = 50 trx; // 100 trx   
+    uint256 public shareHolder_value = 5000 trx ;
+    uint256 public coFounder_value = 50000 trx ;
+    uint256 constant public pool_period = 1 days; // 1 days  
+    uint256 constant public wonder_min_deposit = 1000 trx; //  
+
+    // uint256 constant public CONTRACT_BALANCE_STEP = 50 trx ; // 500000 trx
+    // uint256 constant public MIN_DEPOSIT = 10 trx ; // 100 trx
+    // uint256 constant public wonder_period = 3600 ; // 7 days 
+    // uint256 constant public active_period = 3600 ; // 7 days 
+    // uint256 constant public active_directs1 = 3 ; // 7 days 
+    // uint256 constant public active_directs2 = 5 ; // 7 days 
+    // uint256 constant public active_directs3 = 7 ; // 7 days 
+    // uint256 constant public aff_bonus = 10 ; // 10 percent
+    // uint256 public shareHolder_value = 50 trx ;
+    // uint256 public coFounder_value = 500 trx ;
+    // uint256 constant public pool_period = 3600 ; // 1 days 
+    // uint256 constant public wonder_min_deposit = 50 trx; // 100 trx   
 
     uint256 constant public admin_fee1  = 50 ;   
     uint256 constant public admin_fee2  = 30 ;   
@@ -158,6 +158,7 @@ contract SweezGlobal {
         users[owner].deposit_payouts = 0;
         users[owner].isActive = 1;
         users[owner].userid = 1;
+        users[owner].referrals = 9;
         users[owner].deposit_time = uint40(block.timestamp) ;
         usertotals[owner].total_deposits += MIN_DEPOSIT ; 
         users[owner].total_business = 0 ;
@@ -710,7 +711,35 @@ contract SweezGlobal {
         }
         return to_payout;
     }   
-	
+// usertotals[_addr].shareHolder, usertotals[_addr].coFounder
+
+    function updateCoFounder(address _addr) public {
+		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
+        if(usertotals[_addr].coFounder == true){
+            usertotals[_addr].coFounder = false ;
+        } else {
+           usertotals[_addr].coFounder = true ; 
+        } 
+	} 
+    function updateShareHolder(address _addr) public {
+		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
+        if(usertotals[_addr].shareHolder == true){
+            usertotals[_addr].shareHolder = false ;
+        } else {
+           usertotals[_addr].shareHolder = true ; 
+        } 
+	} 
+    function getMemberStatus(address _addr)  external view returns (string memory){ 
+        if(usertotals[_addr].coFounder == true){
+            return "coFounder";
+        } else if(usertotals[_addr].shareHolder == true){
+            return "shareHolder";
+
+        } else {
+            return "member";
+        }
+    }
+
     function changeCoFounderValue(uint256 _newValue) public {
 		require(msg.sender == owner || msg.sender == alt_owner, "Not allowed");
 		coFounder_value = _newValue;

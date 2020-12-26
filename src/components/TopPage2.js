@@ -11,7 +11,7 @@ import MyStakingInfo from "./MyStakingInfo";
 import TeamBiz from "./TeamBiz";
 import ReferralLink from "./ReferralLink";
 import Withdraw from "./Withdraw2";
-import IncomeandTeamStats from "./IncomeandTeamStats.js"; 
+import IncomeandTeamStats from "./IncomeandTeamStats.js";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
@@ -19,7 +19,7 @@ import "./css/style.css";
 // vvvipppp TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXp Q
 // mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
 let url = "https://sweezglobal.com/";
-let contract_address = 'TSZ1YYotLgEwDXFnnEp82fqFa5FQ5KmY12';
+let contract_address = 'TXVDyH2yrpbxNqcNFkj2rrUE1dWPjVErxC';
 
 // let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://tronscan.org/#/address/";
@@ -27,15 +27,15 @@ let contract_address = 'TSZ1YYotLgEwDXFnnEp82fqFa5FQ5KmY12';
 toast.configure();
 
 class TopPage extends Component {
-    
-     
+
+
     async componentDidMount() {
 
         await this.connectTronWeb();
         await this.loadBlockChainData();
         await setInterval(() => {
-               this.setTimes(); 
-        }, 3000); 
+            this.setTimes();
+        }, 3000);
     }
 
     connectTronWeb = async () => {
@@ -158,13 +158,13 @@ class TopPage extends Component {
         this.setState({ teambiz: Number(userInfoTotals.team_biz) / sunny });
         this.setState({ deposit_payouts: Number(userInfoTotals.deposit_payouts) / sunny });
         this.setState({ total_business: Number(userInfoTotals.total_business) / sunny });
- 
+
         /////////////////////////////////////////////////////////////////////////////
         const userInfo = await Utils.contract.userInfo(this.state.account).call();
         // // console.log(userInfo);
 
         this.setState({ upline: window.tronWeb.address.fromHex(userInfo.upline) });
-        this.setState({ subUpline: this.state.upline.toString().substring(0, 8) }); 
+        this.setState({ subUpline: this.state.upline.toString().substring(0, 8) });
         this.setState({ direct_bonus: Number(userInfo.direct_bonus) / sunny });
         this.setState({ gen_bonus: Number(userInfo.gen_bonus) / sunny });
         this.setState({ deposit_amount: Number(userInfo.deposit_amount) / sunny });
@@ -179,35 +179,35 @@ class TopPage extends Component {
         this.setState({ wonder_bonus: Number(userInfo2.wonder_bonus) / sunny });
         this.setState({ wonder_directs: Number(userInfo2.wonder_directs) });
         this.setState({ active_directs: Number(userInfo2.active_directs) });
-        this.setState({ active_bonus: Number(userInfo2.active_bonus)/ sunny });
-        this.setState({ whale_bonus: Number(userInfo2.whale_bonus)/ sunny }); 
+        this.setState({ active_bonus: Number(userInfo2.active_bonus) / sunny });
+        this.setState({ whale_bonus: Number(userInfo2.whale_bonus) / sunny });
 
         const CONTRACT_BALANCE_STEP = await Utils.contract.CONTRACT_BALANCE_STEP().call();
         this.setState({ contract_step: Number(CONTRACT_BALANCE_STEP) / sunny });
-  
+
         const pool_period = await Utils.contract.pool_period().call();
         this.setState({ pool_period: Number(pool_period) });
- 
+
         const active_period = await Utils.contract.active_period().call();
         this.setState({ active_period: Number(active_period) });
- 
+
         const wonder_period = await Utils.contract.wonder_period().call();
         this.setState({ wonder_period: Number(wonder_period) });
- 
+
         const now = await Utils.contract.getNow().call();
         this.setState({ now: Number(now) });
 
-      
+
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(5) });
- 
+
         // this.state.contractBalance > this.state.avlBalance ?
         //     this.setState({ avlBalance: this.state.avlBalance }) :
         //     this.setState({ avlBalance: this.state.contractBalance })
 
         const max_payout = await Utils.contract.maxPayoutOf(this.state.deposit_amount * sunny).call();
         this.setState({ max_payout: Number(Number(max_payout) / sunny) });
-   //      console.log(this.state.max_payout)
+        //      console.log(this.state.max_payout)
 
         // const dividend = await Utils.contract.getUserDividends(this.state.account).call();
         // this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(5) });
@@ -216,20 +216,20 @@ class TopPage extends Component {
         this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(5) });
 
         var income_remaining = this.state.max_payout - this.state.payouts;
-        this.setState({ income_remaining: Number(income_remaining).toFixed(2) }); 
-        console.log('Income rem '+this.state.income_remaining);
-        console.log('aVL rem '+this.state.avlBalance);
+        this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
+        console.log('Income rem ' + this.state.income_remaining);
+        console.log('aVL rem ' + this.state.avlBalance);
 
-        if(this.state.avlBalance > this.state.income_remaining){
-            this.setState({ avlBalance : this.state.income_remaining });
-        } 
-     }
+        if (this.state.avlBalance > this.state.income_remaining) {
+            this.setState({ avlBalance: this.state.income_remaining });
+        }
+    }
 
-     setTimes = async () => {
-         const sunny = 1000000;
+    setTimes = async () => {
+        const sunny = 1000000;
 
         const contractBalance = await Utils.contract.getContractBalance().call();
-        this.setState({ contractBalance: Number(contractBalance / sunny)  });
+        this.setState({ contractBalance: Number(contractBalance / sunny) });
 
         const totalRate = await Utils.contract.getRate().call();
         this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
@@ -245,7 +245,7 @@ class TopPage extends Component {
 
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
-         
+
         // const totalPaid = await Utils.contract.total_withdraw().call();
         // this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
 
@@ -255,7 +255,7 @@ class TopPage extends Component {
         this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
 
         const whale_balance = await Utils.contract.whale_balance().call();
-        this.setState({ whale_balance: Number(Number(whale_balance) / sunny) }); 
+        this.setState({ whale_balance: Number(Number(whale_balance) / sunny) });
 
 
         const dividend = await Utils.contract.getUserDividends(this.state.account).call();
@@ -263,13 +263,13 @@ class TopPage extends Component {
 
         const pool_period = await Utils.contract.pool_period().call();
         this.setState({ pool_period: Number(pool_period) });
- 
+
         const active_period = await Utils.contract.active_period().call();
         this.setState({ active_period: Number(active_period) });
- 
+
         const wonder_period = await Utils.contract.wonder_period().call();
         this.setState({ wonder_period: Number(wonder_period) });
- 
+
         const now = await Utils.contract.getNow().call();
         this.setState({ now: Number(now) });
 
@@ -278,9 +278,9 @@ class TopPage extends Component {
         var wonder_draw_hrs = 0;
         var wonder_draw_mins = 0;
         var wonder_draw_secs = 0;
-        var next_wonder_draw_time = Number(this.state.wonder_period + this.state.deposit_time -  this.state.now );
+        var next_wonder_draw_time = Number(this.state.wonder_period + this.state.deposit_time - this.state.now);
 
-   //      console.log("next wonder in " + next_wonder_draw_time);
+        //      console.log("next wonder in " + next_wonder_draw_time);
 
         if (next_wonder_draw_time > 86400) {
             wonder_draw_days = Math.floor(next_wonder_draw_time / 86400);
@@ -298,24 +298,24 @@ class TopPage extends Component {
         } else {
             wonder_draw_secs = next_wonder_draw_time;
         }
-        if(wonder_draw_secs < 0){
+        if (wonder_draw_secs < 0) {
             wonder_draw_secs = 0;
         }
         this.setState({ wonder_draw_days });
         this.setState({ wonder_draw_hrs });
         this.setState({ wonder_draw_mins });
         this.setState({ wonder_draw_secs });
-   //      console.log('next wonder draw hrs - '  + this.state.wonder_draw_hrs)
-   //      console.log('next wonder draw mins - ' + this.state.wonder_draw_mins)
-   //      console.log('next wonder draw secs - ' + this.state.wonder_draw_secs)
- 
+        //      console.log('next wonder draw hrs - '  + this.state.wonder_draw_hrs)
+        //      console.log('next wonder draw mins - ' + this.state.wonder_draw_mins)
+        //      console.log('next wonder draw secs - ' + this.state.wonder_draw_secs)
+
         // active draw time
         var active_draw_hrs = 0;
         var active_draw_mins = 0;
         var active_draw_secs = 0;
-        var next_active_draw_time = Number(this.state.active_period + this.state.deposit_time -  this.state.now );
+        var next_active_draw_time = Number(this.state.active_period + this.state.deposit_time - this.state.now);
 
-   //      console.log("next active in " + next_active_draw_time);
+        //      console.log("next active in " + next_active_draw_time);
 
         if (next_active_draw_time > 3600) {
             active_draw_hrs = Math.floor(next_active_draw_time / 3600);
@@ -328,17 +328,17 @@ class TopPage extends Component {
         } else {
             active_draw_secs = next_active_draw_time;
         }
-        
-        if(active_draw_secs < 0){
+
+        if (active_draw_secs < 0) {
             active_draw_secs = 0;
         }
         this.setState({ active_draw_hrs });
         this.setState({ active_draw_mins });
         this.setState({ active_draw_secs });
-   //      console.log('next active draw hrs - '  + this.state.active_draw_hrs)
-   //      console.log('next active draw mins - ' + this.state.active_draw_mins)
-   //      console.log('next active draw secs - ' + this.state.active_draw_secs)
- 
+        //      console.log('next active draw hrs - '  + this.state.active_draw_hrs)
+        //      console.log('next active draw mins - ' + this.state.active_draw_mins)
+        //      console.log('next active draw secs - ' + this.state.active_draw_secs)
+
 
 
         // pool draw time
@@ -351,7 +351,7 @@ class TopPage extends Component {
         }
 
         this.setState({ next_draw_time });
-   //      console.log("next time" + this.state.next_draw_time)
+        //      console.log("next time" + this.state.next_draw_time)
 
         if (next_draw_time > 3600) {
             draw_hrs = Math.floor(next_draw_time / 3600);
@@ -367,7 +367,7 @@ class TopPage extends Component {
         this.setState({ draw_hrs });
         this.setState({ draw_mins });
         this.setState({ draw_secs });
-     }
+    }
 
     constructor(props) {
         super(props)
@@ -397,26 +397,26 @@ class TopPage extends Component {
             totalRate: "....",
 
             copySuccess1: false,
-            totalUsers:"....",
-            totalInvested:"....",
-            contractBalance:"....",
-            totalPaid:"....",
-            pool_balance:"....",
-            whale_balance:"....",
+            totalUsers: "....",
+            totalInvested: "....",
+            contractBalance: "....",
+            totalPaid: "....",
+            pool_balance: "....",
+            whale_balance: "....",
 
             tronWeb: {
                 installed: false,
                 loggedIn: false
             },
-            
+
         }
-      this.setTimes = this.setTimes.bind(this);
+        this.setTimes = this.setTimes.bind(this);
 
     }
 
     render() {
 
-        const {count} = this.state
+        const { count } = this.state
 
         const backStyle = {
             backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"
@@ -455,58 +455,58 @@ class TopPage extends Component {
                         </div>
 
                     </div>
-                        <Withdraw
-                            avlBalance={this.state.avlBalance}
-                        /> 
- 
-                         <PersonalStats
-                 
-                            max_payout={this.state.max_payout}
-                            user_status={this.state.user_status} 
-                            account={this.state.account}
-                            subAccount={this.state.subAccount}
-                            upline={this.state.upline}
-                            subUpline={this.state.subUpline}
-                            userTotalDeposit={this.state.userTotalDeposit}
-                            dividend={this.state.dividend}
-                            pool_bonus={this.state.pool_bonus}
-                            direct_bonus={this.state.direct_bonus}
-                            deposit_amount={this.state.deposit_amount}
-                            wonder_bonus={this.state.wonder_bonus}
-                            active_bonus={this.state.active_bonus}
-                            whale_bonus={this.state.whale_bonus}
-                            gen_bonus={this.state.gen_bonus}
-                            userTotalWithdrawn={this.state.payouts}
-                            income_remaining={this.state.income_remaining}
-                            referrals_count={this.state.referrals_count}
-                            total_structure={this.state.total_structure}
-                            avlBalance={this.state.avlBalance}
+                    <Withdraw
+                        avlBalance={this.state.avlBalance}
+                    />
 
-                        /> 
-                        <IncomeandTeamStats
+                    <PersonalStats
 
-                            wonder_draw_days={this.state.wonder_draw_days}
-                            wonder_draw_hrs={this.state.wonder_draw_hrs}
-                            wonder_draw_mins={this.state.wonder_draw_mins}
-                            wonder_draw_secs={this.state.wonder_draw_secs}
+                        max_payout={this.state.max_payout}
+                        user_status={this.state.user_status}
+                        account={this.state.account}
+                        subAccount={this.state.subAccount}
+                        upline={this.state.upline}
+                        subUpline={this.state.subUpline}
+                        userTotalDeposit={this.state.userTotalDeposit}
+                        dividend={this.state.dividend}
+                        pool_bonus={this.state.pool_bonus}
+                        direct_bonus={this.state.direct_bonus}
+                        deposit_amount={this.state.deposit_amount}
+                        wonder_bonus={this.state.wonder_bonus}
+                        active_bonus={this.state.active_bonus}
+                        whale_bonus={this.state.whale_bonus}
+                        gen_bonus={this.state.gen_bonus}
+                        userTotalWithdrawn={this.state.payouts}
+                        income_remaining={this.state.income_remaining}
+                        referrals_count={this.state.referrals_count}
+                        total_structure={this.state.total_structure}
+                        avlBalance={this.state.avlBalance}
 
-                            active_draw_hrs={this.state.active_draw_hrs}
-                            active_draw_mins={this.state.active_draw_mins}
-                            active_draw_secs={this.state.active_draw_secs}
+                    />
+                    <IncomeandTeamStats
 
-                            userTotalDeposit={this.state.userTotalDeposit}
-                            userTotalWithdrawn={this.state.userTotalWithdrawn}
-                            referrals_count={this.state.referrals_count}
-                            wonder_directs={this.state.wonder_directs}
-                            deposit_amount={this.state.deposit_amount}
-                            active_directs={this.state.active_directs}
-                            total_structure={this.state.total_structure}
-                            total_business={this.state.total_business} 
+                        wonder_draw_days={this.state.wonder_draw_days}
+                        wonder_draw_hrs={this.state.wonder_draw_hrs}
+                        wonder_draw_mins={this.state.wonder_draw_mins}
+                        wonder_draw_secs={this.state.wonder_draw_secs}
 
-                        /> 
+                        active_draw_hrs={this.state.active_draw_hrs}
+                        active_draw_mins={this.state.active_draw_mins}
+                        active_draw_secs={this.state.active_draw_secs}
+
+                        userTotalDeposit={this.state.userTotalDeposit}
+                        userTotalWithdrawn={this.state.userTotalWithdrawn}
+                        referrals_count={this.state.referrals_count}
+                        wonder_directs={this.state.wonder_directs}
+                        deposit_amount={this.state.deposit_amount}
+                        active_directs={this.state.active_directs}
+                        total_structure={this.state.total_structure}
+                        total_business={this.state.total_business}
+
+                    />
 
                     <div style={{ paddingBottom: "20px" }}></div>
- 
+
                     <div style={{ paddingBottom: "50px" }}></div>
                 </div>
 
