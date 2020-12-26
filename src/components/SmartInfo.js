@@ -5,7 +5,7 @@ import loader from "./img/loadicon1.gif"
 
 const contract_address = 'TXVDyH2yrpbxNqcNFkj2rrUE1dWPjVErxC';
 
-let contracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
+let contracturl = "https://tronscan.org/#/contract/" + contract_address;
 //https://tronscan.org/#/contract/
 export class SmartInfo extends Component {
 

@@ -3,7 +3,7 @@ import Utils from '../utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-let addressTronScan = "https://shasta.tronscan.org/#/address/";
+let addressTronScan = "https://tronscan.org/#/address/";
 
 toast.configure();
 
@@ -96,16 +96,16 @@ class PersonalStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Direct Bonus</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} TRX</p>
                             <br /> <br />
-                             
+
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>7 Wonder Bonus</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.wonder_bonus} TRX</p>
-                            <br /> <br />    
-                             
+                            <br /> <br />
+
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Active Performer Bonus</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.active_bonus} TRX</p>
-                              
-                            <br /> <br />    
-                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Generation Bonus </p>
+
+                            <br /> <br />
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Generation Bonus </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.gen_bonus} TRX</p>
                             <br /> <br />
 
