@@ -229,6 +229,32 @@ class TopPage extends Component {
         const now = await Utils.contract.getNow().call();
         this.setState({ now: Number(now) });
 
+        var draw_hrs = 0;
+        var draw_mins = 0;
+        var draw_secs = 0;
+        var next_draw_time = Number(this.state.pool_last_draw + this.state.pool_period - this.state.now);
+        if (next_draw_time < 0) {
+            next_draw_time = "1";
+        }
+
+        this.setState({ next_draw_time });
+        //      console.log("next time" + this.state.next_draw_time)
+
+        if (next_draw_time > 3600) {
+            draw_hrs = Math.floor(next_draw_time / 3600);
+            draw_mins = Math.floor((next_draw_time % 3600) / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
+        } else if (next_draw_time > 60) {
+            draw_mins = Math.floor(next_draw_time / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
+
+        } else {
+            draw_secs = next_draw_time;
+        }
+        this.setState({ draw_hrs });
+        this.setState({ draw_mins });
+        this.setState({ draw_secs });
+
 
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(5) });
@@ -310,13 +336,15 @@ class TopPage extends Component {
         var wonder_draw_hrs = 0;
         var wonder_draw_mins = 0;
         var wonder_draw_secs = 0;
+        var new_hrs = 0;
         var next_wonder_draw_time = Number(this.state.wonder_period + this.state.deposit_time - this.state.now);
-
+        // next_wonder_draw_time = 230901;
         //      console.log("next wonder in " + next_wonder_draw_time);
 
         if (next_wonder_draw_time > 86400) {
             wonder_draw_days = Math.floor(next_wonder_draw_time / 86400);
-            wonder_draw_hrs = Math.floor(next_wonder_draw_time % 86400);
+            wonder_draw_hrs = Math.floor((next_wonder_draw_time - wonder_draw_days * 86400) / 3600);
+            //  wonder_draw_hrs = Math.floor(next_wonder_draw_time % 86400);
             wonder_draw_mins = Math.floor((next_wonder_draw_time % 3600) / 60);
             wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
         } else if (next_wonder_draw_time > 3600) {
@@ -337,9 +365,10 @@ class TopPage extends Component {
         this.setState({ wonder_draw_hrs });
         this.setState({ wonder_draw_mins });
         this.setState({ wonder_draw_secs });
-        //      console.log('next wonder draw hrs - '  + this.state.wonder_draw_hrs)
-        //      console.log('next wonder draw mins - ' + this.state.wonder_draw_mins)
-        //      console.log('next wonder draw secs - ' + this.state.wonder_draw_secs)
+        console.log('next wonder draw days - ' + this.state.wonder_draw_days)
+        console.log('next wonder draw hrs - ' + this.state.wonder_draw_hrs)
+        console.log('next wonder draw mins - ' + this.state.wonder_draw_mins)
+        console.log('next wonder draw secs - ' + this.state.wonder_draw_secs)
 
         // active draw time
         var active_draw_hrs = 0;
