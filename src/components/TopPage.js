@@ -7,9 +7,7 @@ import Invest from "./Invest";
 import SmartInfo from "./SmartInfo";
 import PersonalStats from "./PersonalStats";
 import MyPresentStaking from "./MyPresentStaking";
-import MyStakingInfo from "./MyStakingInfo";
 import TeamBiz from "./TeamBiz";
-import Banner from "./Banner";
 import ReferralLink from "./ReferralLink";
 import Withdraw from "./Withdraw2";
 import IncomeandTeamStats from "./IncomeandTeamStats.js";
@@ -112,7 +110,6 @@ class TopPage extends Component {
 
         // Global Stats
         const sunny = 1000000;
-        var extra_biz = 0;
 
         await Utils.contract.getAdmin().call().then(res => {
 
@@ -319,7 +316,7 @@ class TopPage extends Component {
 
         if (next_wonder_draw_time > 86400) {
             wonder_draw_days = Math.floor(next_wonder_draw_time / 86400);
-            wonder_draw_hrs = Math.floor(next_wonder_draw_time / 3600);
+            wonder_draw_hrs = Math.floor(next_wonder_draw_time % 86400);
             wonder_draw_mins = Math.floor((next_wonder_draw_time % 3600) / 60);
             wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
         } else if (next_wonder_draw_time > 3600) {
