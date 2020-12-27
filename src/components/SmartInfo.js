@@ -71,15 +71,15 @@ export class SmartInfo extends Component {
                             <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {Number(this.props.pool_balance * 0.1 * 0.4).toFixed(3)} TRX</a>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Whale Investor Pool Balance</p>
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Lucky Pool Balance</p>
                             <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.whale_balance} TRX</a>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Present Top Investor Share</p>
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Top Lucky User Share</p>
                             <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {Number(this.props.whale_balance * 0.1 * 0.5).toFixed(3)} TRX</a>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Top Sponsor/ Whale Pool Draw In</p>
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Top Sponsor Pool Draw In</p>
                             <a href="#1" style={{ color: "#18E55F", fontSize: "23px", textAlign: "center" }}> {this.props.draw_hrs}h : {this.props.draw_mins}m : {this.props.draw_secs}s</a>
                             <br /> <br />
 

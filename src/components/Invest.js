@@ -17,6 +17,7 @@ export class Invest extends Component {
         }
 
         this.buttonTen = this.buttonTen.bind(this);
+        this.buttonHundred = this.buttonHundred.bind(this);
         this.button5Hundred = this.button5Hundred.bind(this);
         this.button1Thousand = this.button1Thousand.bind(this);
         this.button10Thousand = this.button10Thousand.bind(this);
@@ -43,11 +44,13 @@ export class Invest extends Component {
                 }, 2000);
             }).catch(err => toast.error("Insufficient Balance or Transaction Declined"));
 
-
     }
 
     buttonTen(event) {
         this.setState({ count: this.state.count + 10 });
+    }
+    buttonHundred(event) {
+        this.setState({ count: this.state.count + 100 });
     }
 
     button5Hundred(event) {
@@ -105,7 +108,7 @@ export class Invest extends Component {
             <div style={{ paddingTop: "60px" }} >
                 <div className="row">
                     <div className="col-xl-4"></div>
-                    <div className="col-xl-4" style={colStyle}> 
+                    <div className="col-xl-4" style={colStyle}>
                         <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
                             INFINITY Deposit Section</div>
                         <br />
@@ -118,20 +121,31 @@ export class Invest extends Component {
                                 event.preventDefault();
                                 const refid = this.props.refid;
                                 const amount = this.state.count;
+                                const balance = this.props.balance;
+                                if (amount < balance) {
 
-                                if (amount >= 10) {
-                                    this.invest(refid, amount);
+                                    if (amount + 25 <= balance) {
+                                        if (amount >= 100) {
+                                            this.invest(refid, amount);
+
+                                        } else {
+                                            toast.error("Min deposit allowed is 100 Trons");
+                                        }
+                                    } else {
+                                        toast.error("Keep atleast ~ 25 TRX extra for GAS fee");
+                                    }
+
 
                                 } else {
-                                    toast.error("Min deposit is 10 TRX");
+                                    toast.error("Balance should be greater than deposit amount");
                                 }
                             }}
 
                         >
                             <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br />
-                            <p style={{color:"white", textAlign:"center", fontSize:"20px"}}>Available Balance : {Number(this.props.balance).toFixed(2)} TRX </p><br /> 
+                            <p style={{ color: "white", textAlign: "center", fontSize: "20px" }}>Available Balance : {Number(this.props.balance).toFixed(2)} TRX </p><br />
 
-                            <a href="#10" className="btn btn-primary" style={addButton} onClick={this.buttonTen}>+10</a>
+                            <a href="#100" className="btn btn-primary" style={addButton} onClick={this.buttonHundred}>+100</a>
 
                             <a href="#500" className="btn btn-primary" style={addButton} onClick={this.button5Hundred}>+500</a>
 
@@ -142,9 +156,10 @@ export class Invest extends Component {
                             <a href="#50k" className="btn btn-primary" style={addButton} onClick={this.button50Thousand}>+50 k</a>
                             <a href="#100k" className="btn btn-primary" style={addButton} onClick={this.button100Thousand}>+100 k</a>
                             <a href="#500k" className="btn btn-primary" style={addButton} onClick={this.button5HundredThousand}>+500 k</a>
-                            <a href="#reset" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br /> 
+                            <a href="#10" className="btn btn-primary" style={addButton} onClick={this.buttonTen}>+10</a>
+                            <a href="#reset" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
                             <br />
-                            <p style={{color:"pink", textAlign:"center", fontSize:"16px"}}>Keep 20 TRX extra for Gas Fee</p>
+                            <p style={{ color: "pink", textAlign: "center", fontSize: "16px" }}>Keep ~25 TRX plus extra for Gas Fee</p>
                             {this.props.refLoading ? null :
                                 <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>}
 

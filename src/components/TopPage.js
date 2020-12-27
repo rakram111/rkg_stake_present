@@ -259,9 +259,6 @@ class TopPage extends Component {
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(5) });
 
-        // this.state.contractBalance > this.state.avlBalance ?
-        //     this.setState({ avlBalance: this.state.avlBalance }) :
-        //     this.setState({ avlBalance: this.state.contractBalance })
 
         const max_payout = await Utils.contract.maxPayoutOf(this.state.deposit_amount * sunny).call();
         this.setState({ max_payout: Number(Number(max_payout) / sunny) });
@@ -278,9 +275,6 @@ class TopPage extends Component {
         console.log('Income rem ' + this.state.income_remaining);
         console.log('aVL rem ' + this.state.avlBalance);
 
-        if (this.state.avlBalance > this.state.income_remaining) {
-            this.setState({ avlBalance: this.state.income_remaining });
-        }
     }
 
     setTimes = async () => {
@@ -314,7 +308,6 @@ class TopPage extends Component {
 
         const whale_balance = await Utils.contract.whale_balance().call();
         this.setState({ whale_balance: Number(Number(whale_balance) / sunny).toFixed(2) });
-
 
         const dividend = await Utils.contract.getUserDividends(this.state.account).call();
         this.setState({ dividend: Number(Number(dividend) / 1000000).toFixed(5) });
@@ -459,7 +452,6 @@ class TopPage extends Component {
 
             copySuccess1: false,
             totalUsers: "....",
-            totalInvested: "....",
             contractBalance: "....",
             totalPaid: "....",
             pool_balance: "....",

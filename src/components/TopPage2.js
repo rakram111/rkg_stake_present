@@ -135,6 +135,39 @@ class TopPage extends Component {
         // this.setState({ account: this.state.refid });
         this.setState({ walletload: false });
 
+        const contractBalance = await Utils.contract.getContractBalance().call();
+        this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(2) });
+
+        const totalRate = await Utils.contract.getRate().call();
+        this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
+
+        const totalUsers = await Utils.contract.total_users().call();
+        this.setState({ totalUsers: Number(totalUsers) });
+
+        const pool_last_draw = await Utils.contract.pool_last_draw().call();
+        this.setState({ pool_last_draw: Number(pool_last_draw) });
+
+        const contract_bonus = await Utils.contract.getContractBonus().call();
+        this.setState({ contract_bonus: Number(contract_bonus / 100).toFixed(2) });
+
+        var totalInvested = await Utils.contract.total_deposited().call();
+        this.setState({ totalInvested: Number(totalInvested) / sunny });
+
+        // const totalPaid = await Utils.contract.total_withdraw().call();
+        // this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
+
+        const pool_balance = await Utils.contract.pool_balance().call();
+        this.setState({ pool_balance: Number(Number(pool_balance) / sunny).toFixed(2) });
+
+        this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
+
+        const whale_balance = await Utils.contract.whale_balance().call();
+        this.setState({ whale_balance: Number(Number(whale_balance) / sunny).toFixed(2) });
+
+
+        const dividend = await Utils.contract.getUserDividends(this.state.account).call();
+        this.setState({ dividend: Number(Number(dividend) / 1000000).toFixed(5) });
+
 
         const balTemp = await Utils.tronWeb.trx.getBalance(accTemp);
         const ballTemp = balTemp / sunny;
@@ -197,13 +230,36 @@ class TopPage extends Component {
         const now = await Utils.contract.getNow().call();
         this.setState({ now: Number(now) });
 
+        var draw_hrs = 0;
+        var draw_mins = 0;
+        var draw_secs = 0;
+        var next_draw_time = Number(this.state.pool_last_draw + this.state.pool_period - this.state.now);
+        if (next_draw_time < 0) {
+            next_draw_time = "1";
+        }
+
+        this.setState({ next_draw_time });
+        //      console.log("next time" + this.state.next_draw_time)
+
+        if (next_draw_time > 3600) {
+            draw_hrs = Math.floor(next_draw_time / 3600);
+            draw_mins = Math.floor((next_draw_time % 3600) / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
+        } else if (next_draw_time > 60) {
+            draw_mins = Math.floor(next_draw_time / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
+
+        } else {
+            draw_secs = next_draw_time;
+        }
+        this.setState({ draw_hrs });
+        this.setState({ draw_mins });
+        this.setState({ draw_secs });
+
 
         const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         this.setState({ avlBalance: Number(Number(avlBalance) / sunny).toFixed(5) });
 
-        // this.state.contractBalance > this.state.avlBalance ?
-        //     this.setState({ avlBalance: this.state.avlBalance }) :
-        //     this.setState({ avlBalance: this.state.contractBalance })
 
         const max_payout = await Utils.contract.maxPayoutOf(this.state.deposit_amount * sunny).call();
         this.setState({ max_payout: Number(Number(max_payout) / sunny) });
@@ -213,23 +269,20 @@ class TopPage extends Component {
         // this.setState({ dividend: Number(Number(dividend) / sunny).toFixed(5) });
 
         const pool_bonus = await Utils.contract.poolBonus(this.state.account).call();
-        this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(5) });
+        this.setState({ pool_bonus: Number(Number(pool_bonus) / sunny).toFixed(2) });
 
         var income_remaining = this.state.max_payout - this.state.payouts;
         this.setState({ income_remaining: Number(income_remaining).toFixed(2) });
         console.log('Income rem ' + this.state.income_remaining);
         console.log('aVL rem ' + this.state.avlBalance);
 
-        if (this.state.avlBalance > this.state.income_remaining) {
-            this.setState({ avlBalance: this.state.income_remaining });
-        }
     }
 
     setTimes = async () => {
         const sunny = 1000000;
 
         const contractBalance = await Utils.contract.getContractBalance().call();
-        this.setState({ contractBalance: Number(contractBalance / sunny) });
+        this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(2) });
 
         const totalRate = await Utils.contract.getRate().call();
         this.setState({ totalRate: (Number(totalRate) / 100).toFixed(2) });
@@ -250,12 +303,12 @@ class TopPage extends Component {
         // this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
 
         const pool_balance = await Utils.contract.pool_balance().call();
-        this.setState({ pool_balance: Number(Number(pool_balance) / sunny) });
+        this.setState({ pool_balance: Number(Number(pool_balance) / sunny).toFixed(2) });
 
         this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
 
         const whale_balance = await Utils.contract.whale_balance().call();
-        this.setState({ whale_balance: Number(Number(whale_balance) / sunny) });
+        this.setState({ whale_balance: Number(Number(whale_balance) / sunny).toFixed(2) });
 
 
         const dividend = await Utils.contract.getUserDividends(this.state.account).call();
@@ -278,13 +331,15 @@ class TopPage extends Component {
         var wonder_draw_hrs = 0;
         var wonder_draw_mins = 0;
         var wonder_draw_secs = 0;
+        var new_hrs = 0;
         var next_wonder_draw_time = Number(this.state.wonder_period + this.state.deposit_time - this.state.now);
-
+        // next_wonder_draw_time = 230901;
         //      console.log("next wonder in " + next_wonder_draw_time);
 
         if (next_wonder_draw_time > 86400) {
             wonder_draw_days = Math.floor(next_wonder_draw_time / 86400);
-            wonder_draw_hrs = Math.floor(next_wonder_draw_time / 3600);
+            wonder_draw_hrs = Math.floor((next_wonder_draw_time - wonder_draw_days * 86400) / 3600);
+            //  wonder_draw_hrs = Math.floor(next_wonder_draw_time % 86400);
             wonder_draw_mins = Math.floor((next_wonder_draw_time % 3600) / 60);
             wonder_draw_secs = Math.floor(next_wonder_draw_time % 60);
         } else if (next_wonder_draw_time > 3600) {
@@ -305,9 +360,10 @@ class TopPage extends Component {
         this.setState({ wonder_draw_hrs });
         this.setState({ wonder_draw_mins });
         this.setState({ wonder_draw_secs });
-        //      console.log('next wonder draw hrs - '  + this.state.wonder_draw_hrs)
-        //      console.log('next wonder draw mins - ' + this.state.wonder_draw_mins)
-        //      console.log('next wonder draw secs - ' + this.state.wonder_draw_secs)
+        console.log('next wonder draw days - ' + this.state.wonder_draw_days)
+        console.log('next wonder draw hrs - ' + this.state.wonder_draw_hrs)
+        console.log('next wonder draw mins - ' + this.state.wonder_draw_mins)
+        console.log('next wonder draw secs - ' + this.state.wonder_draw_secs)
 
         // active draw time
         var active_draw_hrs = 0;
@@ -368,6 +424,7 @@ class TopPage extends Component {
         this.setState({ draw_mins });
         this.setState({ draw_secs });
     }
+
 
     constructor(props) {
         super(props)

@@ -21,12 +21,11 @@ class TopSponsor2 extends Component {
                     <div className="col-xl-6" style={colStyle}>
 
                         <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
-                            Top Sponsor and Whale Stats</div>
+                            Top Sponsor Stats</div>
                         <br />
 
                         <div className="col-xl-12" >
-                            <h3 style={{ color: "white", fontSize: "23px", float: "left" }}>Top Sponsors</h3>
-                            <br /><br />
+
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>
                                 1. {this.props.deps1 > 0 ? this.props.deps1 : "..."} TRX </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
@@ -59,10 +58,10 @@ class TopSponsor2 extends Component {
                                 {this.props.deps5 > 0 ? this.props.subAddress5 : null}... </p>
 
                             <br /><br />
-                             
-                             
+
+
                         </div>
-                    
+                        {/*                     
                      <div className="col-xl-12" >
                             <h3 style={{ color: "white", fontSize: "23px", float: "left" }}>Top Whale Investors</h3>
                             <br /><br />
@@ -91,8 +90,8 @@ class TopSponsor2 extends Component {
 
                             <br />
                             <br />
-                        </div>
-                    
+                        </div> */}
+
                     </div>
                     <div className="col-xl-3"></div>
                 </div>
