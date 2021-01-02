@@ -84,13 +84,14 @@ class TopSponsor2 extends Component {
                                 {this.props.whale_deps3 > 0 ? this.props.whaleSubAddress3 : null}... </p>
 
                              <br /><br />
-                            <p>
-                                <a href="https://sweezglobal.com" style={{ color: "red", textDecoration: "underline" }} >Back</a>
-                            </p>
+                            
 
                             <br />
                             <br />
                         </div> */}
+                        <p>
+                            <a href="https://sweezglobal.com" style={{ color: "red", textDecoration: "underline" }} >Back</a>
+                        </p>
 
                     </div>
                     <div className="col-xl-3"></div>
