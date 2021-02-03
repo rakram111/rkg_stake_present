@@ -8,25 +8,25 @@ import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 
 class Withdraw extends Component {
-constructor(props) {
-    super(props)
+    constructor(props) {
+        super(props)
 
-    this.state = {
-         count: "...",
-     }
+        this.state = {
+            count: "...",
+        }
         this.withdraw = this.withdraw.bind(this);
         this.setBalance = this.setBalance.bind(this);
-}
+    }
 
 
-     async componentDidMount() {
+    async componentDidMount() {
 
         await this.connectTronWeb();
-        await setInterval(  () => {
-               this.setBalance();
-     
+        await setInterval(() => {
+            this.setBalance();
+
         }, 1000);
-        
+
         // await updateBalance() {
         // const this.myInterval = setInterval(() => {
         //     const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
@@ -34,12 +34,11 @@ constructor(props) {
         // }, 1000);
         // const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
         // this.setState({ avlBalance: Number(Number(avlBalance) / 1000000).toFixed(5) });
-     }
-     setBalance = async () => {
-            
-                const count = await Utils.contract.getUserBalance(this.state.account).call();
-                this.setState({ count: Number(Number(count) / 1000000).toFixed(6) });
-     }
+    }
+    setBalance = async () => {
+
+
+    }
 
     connectTronWeb = async () => {
         await new Promise(resolve => {
@@ -111,8 +110,8 @@ constructor(props) {
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
         this.setState({ account: accTemp });
     }
- 
-   
+
+
 
     withdraw = async () => {
         await Utils.contract
@@ -125,13 +124,13 @@ constructor(props) {
                 setInterval(() => {
                     window.location = "/";
                 }, 3000);
-            }).catch(err => toast.error("Something went wrong")); 
-    }  
+            }).catch(err => toast.error("Something went wrong"));
+    }
 
     render() {
 
-       const {count} = this.state
- 
+        const { count } = this.state
+
         const colStyle = {
             backgroundImage: "radial-gradient(black, #131050 )", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
             boxShadow: "0 0 20px #eee"
@@ -157,7 +156,7 @@ constructor(props) {
                         <br />
 
 
-                        <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}> {count} TRX  
+                        <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}> {count} TRX
 
                         </div>
 

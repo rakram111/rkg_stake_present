@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-// const contract_address = 'TXVDyH2yrpbxNqcNFkj2rrUE1dWPjVErxC';
+// const contract_address = 'TCCUraEMQzovWE9BpfD16BRGtMPCi76ZA3';
 
-// let contracturl = "https://tronscan.org/#/contract/" + contract_address;
+// let contracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
 
 class MyStakingInfo extends Component {
 

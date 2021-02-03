@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
-import loader from "./img/loadicon1.gif"
 
+const contract_address = 'TCCUraEMQzovWE9BpfD16BRGtMPCi76ZA3';
 
-
-const contract_address = 'TXVDyH2yrpbxNqcNFkj2rrUE1dWPjVErxC';
-
-let contracturl = "https://tronscan.org/#/contract/" + contract_address;
-//https://tronscan.org/#/contract/
+let contracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
+//https://shasta.tronscan.org/#/contract/
 export class SmartInfo extends Component {
 
     constructor(props) {

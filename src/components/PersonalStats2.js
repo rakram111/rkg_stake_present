@@ -3,7 +3,7 @@ import Utils from '../utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-let addressTronScan = "https://tronscan.org/#/contract/";
+let addressTronScan = "https://shasta.tronscan.org/#/contract/";
 
 toast.configure();
 
