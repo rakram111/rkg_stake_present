@@ -38,7 +38,7 @@ contract TronBeast {
     uint256[] public tbt_offer ;  
     uint256[] public next_deposit ;  
 
-    uint256 constant public one_day = 30 ; // 1 days 
+    uint256 constant public one_day = 300 ; // 1 days 
     uint256 constant public tenk_users = 3 ; // 10000 
     uint256 public tbt_price = 20 trx ; // 1000 trx
     uint256 constant public tbt_min_deposit = 50 trx ; // 1000 trx
@@ -102,7 +102,7 @@ contract TronBeast {
         next_deposit.push(25);
         next_deposit.push(30);
   
-        users[owner].deposit_amount = deposit_value;
+        users[owner].deposit_amount = 20*sunny;
         users2[owner].deposit_count = 1;
         for(uint256 i = 4; i >= 0; i--){
          if(deposit_value > pack_values[i]){
@@ -175,8 +175,8 @@ contract TronBeast {
 
         for(uint256 i = 4; i >= 0; i--){
             if(_amount > pack_values[i]){
-         users[owner].max_payout = roi_values[i]*_amount/100;  
-         users[owner].my_num = i;  
+         users[_addr].max_payout = roi_values[i]*_amount/100;  
+         users[_addr].my_num = i;  
          break; 
          }}
 
@@ -219,18 +219,22 @@ contract TronBeast {
         uint256 tbt_amount;
         users2[_addr].locked_balance = 3*users[_addr].max_payout/10; 
         
-                to_tbt = to_payout*tbt_offer[users[_addr].my_num]/100;
-                if( total_users <= tenk_users){ 
-                    tbt_amount = to_tbt/(tbt_price/10);  // 1000 trx | 20 trx per token
-                } else {
-                    tbt_amount = to_tbt/(tbt_price/5);  // 2000 trx | 40 trx per token 
-                }  
+        to_tbt = to_payout*tbt_offer[users[_addr].my_num]/100;
+        to_tbt > address(this).balance ?
+        to_tbt = address(this).balance :
+        to_tbt = to_tbt; 
 
-                tbt.transfer(_addr,tbt_amount*100000); // token transfer
-                users2[_addr].tbt_from_withdrawal += tbt_amount*100000 ;
-                users2[_addr].total_tbt += tbt_amount*100000 ;
-                to_payout -= to_tbt ;
-                users2[_addr].next_min_deposit = to_payout*next_deposit[users[_addr].my_num]/100; 
+        if( total_users <= tenk_users){ 
+            tbt_amount = to_tbt/(tbt_price/10);  // 1000 trx | 20 trx per token
+        } else {
+            tbt_amount = to_tbt/(tbt_price/5);  // 2000 trx | 40 trx per token 
+        }  
+
+        tbt.transfer(_addr,tbt_amount*100000); // token transfer
+        users2[_addr].tbt_from_withdrawal += tbt_amount*100000 ;
+        users2[_addr].total_tbt += tbt_amount*100000 ;
+        to_payout -= to_tbt ;
+        users2[_addr].next_min_deposit = to_payout*next_deposit[users[_addr].my_num]/100; 
              
         to_payout > address(this).balance ?
         to_payout = address(this).balance :
@@ -247,7 +251,7 @@ contract TronBeast {
         users[_addr].isActive = 0; 
         emit Withdraw(_addr, to_payout); 
     }
-    
+
     /*
         Only external call
     */ 

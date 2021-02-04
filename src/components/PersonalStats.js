@@ -87,14 +87,6 @@ class PersonalStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} TRX</p>
                             <br /> <br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>ROI withdrawable in</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.hours} h : {this.props.mins} m : {this.props.secs} s </p>
-                            <br /> <br />
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Withdrawn</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.userTotalWithdrawn} TRX</p>
-                            <br /> <br />
-
 
                         </div>
                     </div>

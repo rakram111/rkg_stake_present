@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Utils from '../utils';
+import Utils from './utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/bootstrap.css";
@@ -13,8 +13,6 @@ export class Invest extends Component {
 
         this.state = {
             count: 0,
-            count1: 0,
-
         }
 
         this.buttonTen = this.buttonTen.bind(this);
@@ -77,6 +75,7 @@ export class Invest extends Component {
     button500Thousand(event) {
         this.setState({ count: this.state.count + 500000 });
     }
+
     reset(event) {
         this.setState({ count: 0 });
     }
@@ -97,6 +96,13 @@ export class Invest extends Component {
             color: "#FFF",
             transition: ".4s", marginTop: "10px", marginLeft: "10px", marginBottom: "10px", fontWeight: "3px", border: "3px solid white", backgroundColor: "black"
         }
+        const dotStyle1 = {
+            height: "20px",
+            width: "20px",
+            backgroundColor: "#bbb",
+            borderRadius: "50%",
+            display: "inline-block",
+        };
 
         const investButton = {
             display: "inline-block",
@@ -112,9 +118,51 @@ export class Invest extends Component {
                     <div className="col-xl-4"></div>
                     <div className="col-xl-4" style={colStyle}>
                         <div className="col-xl-12" style={headerStyle}>
-                            Tron Beast Deposit Section</div>
+                            Beasting Starts here</div>
                         <br />
+                        <div className="row container">
+                            <span style={dotStyle1}>
 
+                            </span>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Investor : <span style={{ color: "yellow" }}> {this.props.pack1 + this.props.pack1} TRX to {this.props.pack2} TRX </span>(200 % ROI)</p>
+
+                        </div>
+                        <div className="row container">
+                            <span style={dotStyle1}>
+
+                            </span>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Business Financier : <span style={{ color: "yellow" }}> {this.props.pack2 + this.props.pack1} TRX to {this.props.pack3} TRX </span>(250 % ROI)</p>
+
+                        </div>
+                        <div className="row container">
+                            <span style={dotStyle1}>
+
+                            </span>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Shark Investor : <span style={{ color: "yellow" }}> {this.props.pack3 + this.props.pack1} TRX to {this.props.pack4} TRX </span>(300 % ROI)</p>
+
+                        </div>
+                        <div className="row container">
+                            <span style={dotStyle1}>
+
+                            </span>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Tycoon Investor : <span style={{ color: "yellow" }}> {this.props.pack4 + this.props.pack1} TRX to {this.props.pack5} TRX </span>(350 % ROI)</p>
+
+                        </div>
+                        <div className="row container">
+                            <span style={dotStyle1}>
+
+                            </span>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Beast Investor : <span style={{ color: "yellow" }}> {this.props.pack5 + this.props.pack1} TRX and above </span>(400 % ROI)</p>
+
+                        </div>
+                        <div className="row container">
+                            <span style={dotStyle1}>
+
+                            </span>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> Min Investment for receiving TBT is <span style={{ color: "yellow" }}>{this.props.tbt_min_deposit} TRX</span></p>
+
+                        </div>
+                        <br />
                         <form
                             onSubmit={(event) => {
 
@@ -123,13 +171,12 @@ export class Invest extends Component {
                                 const amount = this.state.count;
                                 const balance = this.props.balance;
                                 if (amount < balance) {
-
-                                    if (amount + 25 <= balance) {
-                                        if (amount >= 10) {
+                                    if (amount + 25 <= balance && amount < 400) {
+                                        if (amount >= 2 * this.props.pack1) {
                                             this.invest(refid, amount);
 
                                         } else {
-                                            toast.error("Min deposit allowed is 100 Trons");
+                                            toast.error("Min deposit allowed is 20 Trons to 400 Trons");
                                         }
                                     } else {
                                         toast.error("Keep atleast ~ 25 TRX extra for GAS fee");
@@ -140,10 +187,8 @@ export class Invest extends Component {
                                     toast.error("Balance should be greater than deposit amount");
                                 }
                             }}
-
                         >
                             <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br />
-                            <p style={{ color: "white", textAlign: "center", fontSize: "20px" }}>Available Balance : {Number(this.props.balance).toFixed(2)} TRX </p><br />
 
                             <a href="#100" className="btn btn-primary" style={addButton} onClick={this.buttonHundred}>+100</a>
 
@@ -159,9 +204,18 @@ export class Invest extends Component {
                             <a href="#10" className="btn btn-primary" style={addButton} onClick={this.buttonTen}>+10</a>
                             <a href="#reset" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
                             <br />
-                            <p style={{ color: "pink", textAlign: "center", fontSize: "16px" }}>Keep ~25 TRX plus extra for Gas Fee</p>
+
+                            {this.props.deposit_amount > 0 ?
+                                <p style={{ color: "pink", textAlign: "center", fontSize: "16px" }}>Minimum Re-Investment should be greater than required previous deposit
+                                 {/* <span style={{ color: "yellow", paddingLeft: "7px" }}>
+                                        {this.props.next_min_deposit} TRX</span> */}
+                                </p>
+                                : null
+                            }
+
                             {this.props.refLoading ? null :
-                                <button type="submit" className="btn btn-success" style={investButton}>Make Deposit</button>}
+                                <button type="submit" className="btn btn-success" style={investButton}>Make Deposit
+                                </button>}
 
 
                         </form>
@@ -171,6 +225,7 @@ export class Invest extends Component {
 
                     <div className="col-xl-4"></div>
                 </div>
+
 
             </div>
         )

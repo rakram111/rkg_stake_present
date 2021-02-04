@@ -26,15 +26,17 @@ export class ReferralLink extends Component {
     render() {
 
         const colStyle = {
-            backgroundImage: "linear-gradient(to right, #131050, black)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
+            backgroundImage: "linear-gradient(to right, #130401, #514155)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
             boxShadow: "0 0 20px #eee",
         };
+
+        const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
 
         const investButton = {
             display: "inline-block",
             padding: "0.5em 1em",
             textDecoration: "none",
-            color: "white",
+            color: "black",
             transition: "1.4s", marginTop: "30px", marginLeft: "180px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to bottom, #A7ACD9, #9E8FB2)", fontSize: "18px", borderRadius: "30px"
         };
 
@@ -44,7 +46,7 @@ export class ReferralLink extends Component {
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
 
-                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
+                        <div className="col-xl-6" style={headerStyle}>
                             Invitation Section</div>
 
                         <br />

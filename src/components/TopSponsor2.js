@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import 'react-toastify/dist/ReactToastify.css';
-const url = "https//tronbeast.live/";
 
 class TopSponsor2 extends Component {
 

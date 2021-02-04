@@ -3,23 +3,14 @@ import { toast } from 'react-toastify';
 import back from "./Image1/back.jpg"
 import TronWeb from 'tronweb';
 import Utils from '../utils';
-import Invest from "./Invest";
-import SmartInfo from "./SmartInfo";
 import PersonalStats from "./PersonalStats";
-import MyPresentStaking from "./MyPresentStaking";
-import MyStakingInfo from "./MyStakingInfo";
-import TeamBiz from "./TeamBiz";
-import ReferralLink from "./ReferralLink";
 import Withdraw from "./Withdraw2";
 import IncomeandTeamStats from "./IncomeandTeamStats.js";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-// TK4LycnfBcWAfk5QT68AQGffrdWhb8vDx y  
-// vvvipppp TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXp Q
-// mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
 let url = "https://tronbeast.live/";
-let contract_address = 'TGN8Bp3NAVCLcWrVkmLuTHBYibes6JYhZC';
+let contract_address = 'TSd6biB8vSABDHyiu7Qth5P3USdzc7xJhL';
 
 // let tronContracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://shasta.tronscan.org/#/address/";
@@ -111,7 +102,6 @@ class TopPage extends Component {
 
         // Global Stats
         const sunny = 1000000;
-        var extra_biz = 0;
 
         await Utils.contract.getAdmin().call().then(res => {
 
@@ -250,12 +240,10 @@ class TopPage extends Component {
 
         }
         this.setTimes = this.setTimes.bind(this);
-
     }
 
     render() {
 
-        const { count } = this.state
 
         const backStyle = {
             backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"

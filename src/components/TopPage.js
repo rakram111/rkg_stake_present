@@ -3,11 +3,10 @@ import { toast } from 'react-toastify';
 import back from "./Image1/thunder.jpg"
 import TronWeb from 'tronweb';
 import Utils from './utils';
-import Invest from "./Invest";
 import SmartInfo from "./SmartInfo";
+import Invest from "./Invest";
 import TBTstats from "./TBTstats";
 import PersonalStats from "./PersonalStats";
-import MyPresentStaking from "./MyPresentStaking";
 import ReferralLink from "./ReferralLink";
 import Withdraw from "./Withdraw2";
 import IncomeandTeamStats from "./IncomeandTeamStats.js";
@@ -15,11 +14,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
 let url = "https://tronbeast.live/"; // https://tronbeast.live/
-let contract_address = 'TGN8Bp3NAVCLcWrVkmLuTHBYibes6JYhZC';
+let contract_address = 'TSd6biB8vSABDHyiu7Qth5P3USdzc7xJhL';
 let tbt_address = 'TTZZiD4PHpqNBKgCu2vC72HfToUqN62e6Z';
-
-// let tronContracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
-// let tronAddressurl = "https://shasta.tronscan.org/#/address/";
 
 toast.configure();
 
@@ -158,11 +154,9 @@ class TopPage extends Component {
         let subtbt = tbtStr.substring(0, 8);
         this.setState({ subtbt });
 
-
         let contractStr = contract_address.toString();
         let subContract = contractStr.substring(0, 8);
         this.setState({ subContract });
-
 
         const userInfoTotals = await Utils.contract.userInfoTotals(this.state.account).call();
 
@@ -192,11 +186,9 @@ class TopPage extends Component {
         this.setState({ max_payout: Number(userInfo2.max_payout1) / sunny });
         this.setState({ tbt_offer: Number(userInfo2.tbt_offer1) / sunny });
         this.setState({ temp_directs_count: Number(userInfo2.temp_directs_count) });
-
         /////////////////////////////////////////////////////////////////////////////
 
         const packInfo = await Utils.contract.packInfo(this.state.account).call();
-        // // console.log(userInfo);
 
         this.setState({ pack1: Number(packInfo.pack1) / sunny });
         this.setState({ pack2: Number(packInfo.pack2) / sunny });
@@ -204,6 +196,11 @@ class TopPage extends Component {
         this.setState({ pack4: Number(packInfo.pack4) / sunny });
         this.setState({ pack5: Number(packInfo.pack5) / sunny });
         this.setState({ userpack: Number(packInfo.userpack) / sunny });
+
+        const tbtOfferInfo = await Utils.contract.tbtOfferInfo(this.state.account).call();
+        // // console.log(userInfo);
+
+        this.setState({ my_tbt_offer: Number(tbtOfferInfo.usertbtoffer) });
 
         /////////////////////////////////////////////////////////////////////////////
         const tbtInfo = await Utils.contract.tbtInfo(this.state.account).call();
@@ -218,11 +215,15 @@ class TopPage extends Component {
         this.setState({
             total_tbt: Number(tbtInfo.total_tbt1) / sunny
         });
+
         var tbt_min_deposit = await Utils.contract.tbt_min_deposit().call();
         this.setState({ tbt_min_deposit: Number(tbt_min_deposit) / sunny });
 
         const now = await Utils.contract.getNow().call();
         this.setState({ now: Number(now) });
+
+        const my_tbt_offer1 = (0.7 * this.state.my_tbt_offer).toFixed(2)
+        this.setState({ my_tbt_offer1 });
 
     }
 
@@ -240,10 +241,9 @@ class TopPage extends Component {
 
         const now = await Utils.contract.getNow().call();
         this.setState({ now: Number(now) });
+
         const userInfo1 = await Utils.contract.userInfo(this.state.account).call();
-
         this.setState({ deposit_time1: Number(userInfo1.deposit_time) });
-
         this.setState({ payout_time1: Number(userInfo1.payout_time) });
 
         const remaining_time1 = this.state.deposit_time1 + this.state.payout_time1 - this.state.now;
@@ -252,7 +252,7 @@ class TopPage extends Component {
         var draw_mins = 0;
         var draw_secs = 0;
 
-        var next_draw_time = this.state.remaining_time1;
+        var next_draw_time = remaining_time1;
         if (next_draw_time <= 0) {
             next_draw_time = 0;
         }
@@ -261,20 +261,23 @@ class TopPage extends Component {
         console.log("next time" + this.state.payout_time)
 
         if (next_draw_time > 3600) {
+
             draw_hrs = Math.floor(next_draw_time / 3600);
             draw_mins = Math.floor((next_draw_time % 3600) / 60);
             draw_secs = Math.floor(next_draw_time % 60);
+
         } else if (next_draw_time > 60) {
+
             draw_mins = Math.floor(next_draw_time / 60);
             draw_secs = Math.floor(next_draw_time % 60);
 
         } else {
             draw_secs = next_draw_time;
         }
+
         this.setState({ draw_hrs });
         this.setState({ draw_mins });
         this.setState({ draw_secs });
-
     }
 
     constructor(props) {
@@ -310,20 +313,16 @@ class TopPage extends Component {
                 installed: false,
                 loggedIn: false
             },
-
         }
         this.setTimes = this.setTimes.bind(this);
-
     }
 
     render() {
 
         const backStyle = {
-            backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"
-            , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
+            backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont", height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
         };
 
-        // backgroundImage: `url(${back})`, backgroundColor: "blue",
         return (
             <div>
 
@@ -333,50 +332,20 @@ class TopPage extends Component {
                     <div style={{ textAlign: "center" }}>
                         <a href={url} >  <img src={require("./Image1/logo_tronBeast2.png")} alt="Logo" width="460px" /></a>
                     </div>
-                    {/* 
-                    <Banner 
-                        totalInvested={this.state.totalInvested} 
-                    />  */}
-                    {/* 
-                    <div className="row" >
-                        <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://tronbeast.live/joiningGuide">  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
-                        </div>
-                        <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}   >
-                            <a href="https://tronbeast.live/aboutUs"> <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
-                        </div>
-                    </div>
-                    <div className="row" >
-                        <div className="col-xl-4" style={{ textAlign: "center" }}  >
-                        </div>
-                        <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://tronbeast.live/topSponsors"   >
-                                <img src={require("./Image1/TopSponsor.png")} alt="Logo" width="260px" /></a>
-                        </div>
-                        <div className="col-xl-4" style={{ textAlign: "center" }}   >
-                        </div>
 
-                    </div> */}
-                    <MyPresentStaking
-                        totalRate={this.state.totalRate}
-                    />
                     {this.state.user_status !== 0 && this.state.deposit_amount > 0 ?
                         <Withdraw
-                            avlBalance={this.state.avlBalance}
+                            my_tbt_offer={this.state.my_tbt_offer1}
+                            max_payout={this.state.max_payout}
+                            hours={this.state.draw_hrs}
+                            mins={this.state.draw_mins}
+                            secs={this.state.draw_secs}
                         />
                         : null}
 
-                    {/* <Invest
-                        balance={this.state.balance}
-                        refLoading={this.state.refLoading}
-                        refid={this.state.refid}
-                        deposit_amount={this.state.deposit_amount}
-                        user_status={this.state.user_status}
-                        invest={this.invest}
-                        reinvest={this.reinvest}
-                    /> */}
                     {this.state.user_status === 0 ?
                         <Invest
+                            next_min_deposit={this.state.next_min_deposit}
                             balance={this.state.balance}
                             pack1={this.state.pack1}
                             pack2={this.state.pack2}
@@ -387,18 +356,15 @@ class TopPage extends Component {
                             refid={this.state.refid}
                             deposit_amount={this.state.deposit_amount}
                             user_status={this.state.user_status}
+                            tbt_min_deposit={this.state.tbt_min_deposit}
                             invest={this.invest}
-                            reinvest={this.reinvest}
                         /> : null}
 
                     <SmartInfo
-
                         smartLoading={this.state.smartLoading}
                         totalInvested={this.state.totalInvested}
                         contractBalance={this.state.contractBalance}
-                        totalWithdrawn={this.state.totalWithdrawn}
                         subContract={this.state.subContract}
-                        totalDepositCount={this.state.totalDepositCount}
                         totalUsers={this.state.totalUsers}
                         totalPaid={this.state.totalPaid}
                     />
@@ -406,6 +372,7 @@ class TopPage extends Component {
                     {this.state.userTotalDeposit > 0 ?
                         <PersonalStats
 
+                            max_payout={this.state.max_payout}
                             user_status={this.state.user_status}
                             account={this.state.account}
                             subAccount={this.state.subAccount}
@@ -417,10 +384,7 @@ class TopPage extends Component {
                             mins={this.state.draw_mins}
                             secs={this.state.draw_secs}
                             deposit_amount={this.state.deposit_amount}
-                            userTotalWithdrawn={this.state.payouts}
-                            referrals_count={this.state.referrals_count}
                             total_structure={this.state.total_structure}
-                            avlBalance={this.state.avlBalance}
                             direct_bonus={this.state.direct_bonus}
 
                         /> : null}
@@ -432,12 +396,8 @@ class TopPage extends Component {
                         total_tbt={this.state.total_tbt}
                     />
 
-
-
                     {this.state.userTotalDeposit > 0 ?
                         <IncomeandTeamStats
-
-
                             userTotalDeposit={this.state.userTotalDeposit}
                             userTotalWithdrawn={this.state.userTotalWithdrawn}
                             referrals_count={this.state.referrals_count}

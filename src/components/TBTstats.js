@@ -3,7 +3,6 @@ import Utils from '../utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-let addressTronScan = "https://shasta.tronscan.org/#/address/";
 
 toast.configure();
 
@@ -64,7 +63,7 @@ class TBTstats extends Component {
 
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>TBT received from Witdrawal</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>TBT received from Withdrawal</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
                                 {this.props.from_withdrawal} TBT</p>
 

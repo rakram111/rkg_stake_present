@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const contract_address = 'TGN8Bp3NAVCLcWrVkmLuTHBYibes6JYhZC';
+const contract_address = 'TSd6biB8vSABDHyiu7Qth5P3USdzc7xJhL';
 
 let contracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
 //https://shasta.tronscan.org/#/contract/
@@ -17,8 +17,7 @@ export class SmartInfo extends Component {
     }
 
     render() {
-        //   #131050, black 
-        // #130401, #514155
+
         const colStyle = {
             backgroundImage: "linear-gradient(to right, #130401, #514155)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
             boxShadow: "0 0 20px #eee",

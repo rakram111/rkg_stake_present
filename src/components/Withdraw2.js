@@ -1,38 +1,21 @@
 import React, { Component } from 'react'
 import TronWeb from 'tronweb';
-
-import Utils from '../utils';
+import Utils from './utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure();
-
 class Withdraw extends Component {
+
     constructor(props) {
         super(props)
 
         this.withdraw = this.withdraw.bind(this);
-        this.setBalance = this.setBalance.bind(this);
     }
-
 
     async componentDidMount() {
 
         await this.connectTronWeb();
-        await setInterval(() => {
-            this.setBalance();
-
-        }, 1000);
-
-        // await updateBalance() {
-        // const this.myInterval = setInterval(() => {
-        //     const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
-        //     this.setState({ avlBalance: Number(Number(avlBalance) / 1000000).toFixed(5) });
-        // }, 1000);
-        // const avlBalance = await Utils.contract.getUserBalance(this.state.account).call();
-        // this.setState({ avlBalance: Number(Number(avlBalance) / 1000000).toFixed(5) });
-    }
-    setBalance = async () => {
 
 
     }
@@ -116,7 +99,6 @@ class Withdraw extends Component {
             .send({
                 from: this.state.account,
             }).then(res => toast.success(' Withdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
-
             ).then(res => {
                 setInterval(() => {
                     window.location = "/";
@@ -126,10 +108,33 @@ class Withdraw extends Component {
 
     render() {
 
-
         const colStyle = {
-            backgroundImage: "radial-gradient(black, #131050 )", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #eee"
+            backgroundImage: "linear-gradient(to right, #130401, #514155)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
+            boxShadow: "0 0 20px #eee",
+        };
+
+        const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
+
+        const dotStyle1 = {
+            height: "20px",
+            width: "20px",
+            backgroundColor: "#bbb",
+            borderRadius: "50%",
+            display: "inline-block",
+        };
+        const dotStyle2 = {
+            height: "20px",
+            width: "20px",
+            backgroundColor: "#23ACCD",
+            borderRadius: "50%",
+            display: "inline-block",
+        };
+        const dotStyle3 = {
+            height: "20px",
+            width: "20px",
+            backgroundColor: "#58CC30",
+            borderRadius: "50%",
+            display: "inline-block",
         };
 
         const investButton = {
@@ -137,7 +142,7 @@ class Withdraw extends Component {
             padding: "0.5em 1em",
             textDecoration: "none",
             color: "white",
-            transition: ".4s", marginTop: "30px", marginLeft: "180px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to bottom, #FE5858, #EE9617)", fontSize: "18px", borderRadius: "10px"
+            transition: ".4s", marginTop: "30px", marginLeft: "150px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to bottom, #FE5858, #EE9617)", fontSize: "18px", borderRadius: "10px"
         }; // #F67062, #FC5296
 
         return (
@@ -147,19 +152,42 @@ class Withdraw extends Component {
                     <div className="col-xl-4"></div>
                     <div className="col-xl-4" style={colStyle}>
 
-                        <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
-                            ROI ticking</div>
+                        <div className="col-xl-12" style={headerStyle}>
+                            Total ROI</div>
                         <br />
-
-
-                        <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}> 0 TRX
+                        <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}>{this.props.max_payout} TRX
 
                         </div>
 
+                        <br />
+                        <br />
+                        <div className="row container">
+                            <span style={dotStyle1}>
+
+                            </span>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>30 % will be withheld for Re-Investment</p>
+
+                        </div>
+                        <div className="row container">
+                            <span style={dotStyle2}>
+
+                            </span>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>{(this.props.my_tbt_offer)} % will be TBT offering</p>
+
+                        </div>
+                        <div className="row container">
+                            <span style={dotStyle3}>
+
+                            </span>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>{(100 - 30 - this.props.my_tbt_offer).toFixed(2)} % withdrawable</p>
+
+                        </div>
+                        <br />
+                        <p style={{ color: "yellow", textAlign: "center", fontSize: "19px" }}>You can withdraw in </p>
+                        <p style={{ color: "yellow", textAlign: "center", fontSize: "19px" }}>{this.props.hours} h : {this.props.mins} m : {this.props.secs} s</p>
 
                         <form
                             onSubmit={(event) => {
-
                                 event.preventDefault();
 
                                 this.withdraw();
@@ -167,9 +195,9 @@ class Withdraw extends Component {
 
                         >
 
-
-                            {this.props.refLoading ? null :
-                                <button type="submit" className="btn btn-success" style={investButton}>Withdraw</button>}
+                            <br />
+                            {this.props.secs === 0 ?
+                                <button type="submit" className="btn btn-success" style={investButton}>Withdraw</button> : null}
 
 
 
