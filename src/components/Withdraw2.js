@@ -115,10 +115,10 @@ class Withdraw extends Component {
 
     withdraw = async () => {
         await Utils.contract
-            .withdraw()
+            .withdraw(this.state.account)
             .send({
                 from: this.state.account,
-            }).then(res => toast.success(' Wihdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
+            }).then(res => toast.success(' Withdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
 
             ).then(res => {
                 setInterval(() => {
@@ -129,7 +129,6 @@ class Withdraw extends Component {
 
     render() {
 
-        const { count } = this.state
 
         const colStyle = {
             backgroundImage: "radial-gradient(black, #131050 )", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
@@ -152,7 +151,7 @@ class Withdraw extends Component {
                     <div className="col-xl-4" style={colStyle}>
 
                         <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
-                            Withdrawable Balance</div>
+                            ROI ticking</div>
                         <br />
 
 

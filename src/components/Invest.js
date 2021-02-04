@@ -13,6 +13,7 @@ export class Invest extends Component {
 
         this.state = {
             count: 0,
+            count1: 0,
 
         }
 
@@ -76,7 +77,6 @@ export class Invest extends Component {
     button500Thousand(event) {
         this.setState({ count: this.state.count + 500000 });
     }
-
     reset(event) {
         this.setState({ count: 0 });
     }
@@ -84,9 +84,11 @@ export class Invest extends Component {
     render() {
 
         const colStyle = {
-            opacity: "80%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
+            backgroundImage: "linear-gradient(to right, #130401, #514155)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
             boxShadow: "0 0 20px #eee",
         };
+
+        const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
 
         const addButton = {
             display: "inline-block",
@@ -109,12 +111,10 @@ export class Invest extends Component {
                 <div className="row">
                     <div className="col-xl-4"></div>
                     <div className="col-xl-4" style={colStyle}>
-                        <div className="col-xl-12" style={{ marginTop: "-18px", marginLeft: "-5px", backgroundImage: "linear-gradient(to right, #131050, black)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
-                            INFINITY Deposit Section</div>
+                        <div className="col-xl-12" style={headerStyle}>
+                            Tron Beast Deposit Section</div>
                         <br />
-                        <div style={{ textAlign: "center" }}>
-                            <img src={require("./Image1/plan.png")} alt="Logo" width="160px" />
-                        </div><br />
+
                         <form
                             onSubmit={(event) => {
 
@@ -125,7 +125,7 @@ export class Invest extends Component {
                                 if (amount < balance) {
 
                                     if (amount + 25 <= balance) {
-                                        if (amount >= 100) {
+                                        if (amount >= 10) {
                                             this.invest(refid, amount);
 
                                         } else {

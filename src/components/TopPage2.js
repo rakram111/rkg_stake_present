@@ -18,8 +18,8 @@ import "./css/style.css";
 // TK4LycnfBcWAfk5QT68AQGffrdWhb8vDx y  
 // vvvipppp TCxTecpiFJmTEvTfZQjEqDozVSX4XGkXp Q
 // mainnet TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://trusting-curie-768fd6.netlify.ap p/ ;
-let url = "https://sweezglobal.com/";
-let contract_address = 'TCCUraEMQzovWE9BpfD16BRGtMPCi76ZA3';
+let url = "https://tronbeast.live/";
+let contract_address = 'TGN8Bp3NAVCLcWrVkmLuTHBYibes6JYhZC';
 
 // let tronContracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://shasta.tronscan.org/#/address/";
@@ -238,7 +238,6 @@ class TopPage extends Component {
 
             copySuccess1: false,
             totalUsers: "....",
-            totalInvested: "....",
             contractBalance: "....",
             totalPaid: "....",
             pool_balance: "....",
@@ -278,17 +277,17 @@ class TopPage extends Component {
 
                     <div className="row" >
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://sweezglobal.com/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
+                            <a href="https://tronbeast.live/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
                         </div>
                         <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}   >
-                            <a href="https://sweezglobal.com/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
+                            <a href="https://tronbeast.live/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
                         </div>
                     </div>
                     <div className="row" >
                         <div className="col-xl-4" style={{ textAlign: "center" }}  >
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://sweezglobal.com/topSponsors"   >
+                            <a href="https://tronbeast.live/topSponsors"   >
                                 <img src={require("./Image1/TopSponsor.png")} alt="Logo" width="220px" /></a>
                         </div>
                         <div className="col-xl-4" style={{ textAlign: "center" }}   >

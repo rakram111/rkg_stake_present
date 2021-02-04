@@ -41,6 +41,8 @@ class PersonalStats extends Component {
             boxShadow: "0 0 20px #eee",
         };
 
+        const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
+
 
         return (
 
@@ -49,7 +51,7 @@ class PersonalStats extends Component {
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6" style={colStyle}>
 
-                        <div className="col-xl-6" style={{ marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }}>
+                        <div className="col-xl-6" style={headerStyle}>
                             Personal Stats</div>
                         <br />
 
@@ -81,40 +83,12 @@ class PersonalStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.deposit_amount} TRX</p>
                             <br /><br />
 
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Remaining Income</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.income_remaining} TRX</p>
-                            <br /><br />
-
-
-
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Dividends</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.dividend} TRX</p>
-                            <br /> <br />
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Direct Bonus</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Affiliate Bonus</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} TRX</p>
                             <br /> <br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>7 Wonder Bonus</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.wonder_bonus} TRX</p>
-                            <br /> <br />
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Active Performer Bonus</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.active_bonus} TRX</p>
-
-                            <br /> <br />
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Generation Bonus </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.gen_bonus} TRX</p>
-                            <br /> <br />
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Pool Bonus </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.pool_bonus} TRX</p>
-                            <br /> <br />
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Whale Bonus </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.whale_bonus} TRX</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>ROI withdrawable in</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.hours} h : {this.props.mins} m : {this.props.secs} s </p>
                             <br /> <br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Withdrawn</p>

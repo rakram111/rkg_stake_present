@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 
 
-let url = "https://sweezglobal.com/refid/";
+let url = "https://tronbeast.live/referrerAddress/";
 
 export class ReferralLink extends Component {
 
@@ -10,8 +10,8 @@ export class ReferralLink extends Component {
         super(props)
 
         this.state = {
-            copySuccess: '' 
-        } 
+            copySuccess: ''
+        }
     }
 
     copyToClipboard = (e) => {
@@ -35,7 +35,7 @@ export class ReferralLink extends Component {
             padding: "0.5em 1em",
             textDecoration: "none",
             color: "white",
-            transition: "1.4s", marginTop: "30px", marginLeft: "180px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to bottom, #A7ACD9, #9E8FB2)", fontSize: "18px", borderRadius: "30px" 
+            transition: "1.4s", marginTop: "30px", marginLeft: "180px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to bottom, #A7ACD9, #9E8FB2)", fontSize: "18px", borderRadius: "30px"
         };
 
         return (

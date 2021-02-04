@@ -194,7 +194,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1953,
+                        "referencedDeclaration": 1933,
                         "src": "158:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -278,7 +278,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1953,
+                        "referencedDeclaration": 1933,
                         "src": "213:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -840,7 +840,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1953,
+                        "referencedDeclaration": 1933,
                         "src": "158:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -924,7 +924,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1953,
+                        "referencedDeclaration": 1933,
                         "src": "213:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1370,9 +1370,9 @@
     "2": {
       "events": {},
       "links": {},
-      "address": "41ca91b9d6c34638cf97aa24fef84770d2470d431b"
+      "address": "41e4d0d1551680f296da9f1d6d994f90a8be70b37e"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2021-02-03T15:18:58.486Z"
+  "updatedAt": "2021-02-04T06:44:00.823Z"
 }

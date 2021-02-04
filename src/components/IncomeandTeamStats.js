@@ -19,8 +19,6 @@ export class IncomeandTeamStats extends Component {
                         <br />
 
                         <div className="col-xl-12" >
-
-
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Deposited </p>
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.userTotalDeposit} TRX</p>
                             <br />
@@ -29,43 +27,11 @@ export class IncomeandTeamStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.userTotalWithdrawn} TRX</p>
                             <br />
 
-
-
-
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Personally Invited Partners</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> # {this.props.referrals_count}  </p>
-                            <br />
-                             
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Wonder Partners</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> # {this.props.wonder_directs}  </p>
-                            <br />
-
-                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>7 Wonder Bonus Time Left</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>  {this.props.wonder_draw_days}d {this.props.wonder_draw_hrs}h {this.props.wonder_draw_mins}m {this.props.wonder_draw_secs}s  </p>
-                             <br />
-                             
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Active Bonus Partners</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> # {this.props.active_directs}  </p>
-                            <br />
-
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Active Time Left</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>   {this.props.active_draw_hrs}h {this.props.active_draw_mins}m {this.props.active_draw_secs}s  </p>
-                            <br />
-                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Team Partners</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> # {this.props.total_structure} </p>
-                            <br />
-
-                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Business</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.total_business} TRX</p>
-                            <br />
-
                         </div>
                     </div>
                     <div className="col-xl-3"></div>
                 </div>
-
             </div >
-
         )
     }
 }

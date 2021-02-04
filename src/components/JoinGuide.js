@@ -3,7 +3,7 @@ import back from "./Image1/back.jpg"
 
 import "./css/style.css";
 
-let url = "https://sweezglobal.com/";
+let url = "https://tronbeast.live/";
 
 
 class JoinGuide extends Component {
@@ -52,7 +52,7 @@ class JoinGuide extends Component {
                             <br /><br /> How download TRONLINK browser extension?
                             <br /> Official website: <a href="https://www.tronlink.org/">Tron Link here</a>
                             <br /> How to connect TRONLINK to Sweez Global smart contract?
-                            <br /> Open Web browser with TronLink download<br /> Enter <a href="https://www.sweezglobal.com/">sweezglobal.com</a> (ref link) an click enter<br /> Allow TRONLINK wallet to connect to <a href="https://www.sweezglobal.com/">sweezglobal.com</a>
+                            <br /> Open Web browser with TronLink download<br /> Enter <a href="https://www.tronbeast.live/">tronbeast.live</a> (ref link) an click enter<br /> Allow TRONLINK wallet to connect to <a href="https://www.tronbeast.live/">tronbeast.live</a>
                             <br /> First time joining Sweez Global, follow these steps
                             <br /> Copy ref link from sponsor<br /> enter ref link into your pc browser with TRONLINK extension<br /> Select the amount you wish to deposit  <br /> Click join and confirm transaction in wallet
 

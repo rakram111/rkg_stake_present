@@ -1,5 +1,5 @@
-const contractAddress = 'TCCUraEMQzovWE9BpfD16BRGtMPCi76ZA3'
-const tbtAddress = 'TCCUraEMQzovWE9BpfD16BRGtMPCi76ZA3'
+const contractAddress = 'TGN8Bp3NAVCLcWrVkmLuTHBYibes6JYhZC'
+const tbtAddress = 'TGN8Bp3NAVCLcWrVkmLuTHBYibes6JYhZC'
 
 const token_utils = {
     tronWeb: false,

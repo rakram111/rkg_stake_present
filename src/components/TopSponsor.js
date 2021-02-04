@@ -9,8 +9,8 @@ import TopSponsor2 from "./TopSponsor2";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://sweezglobal.com/ p/ ;
-let url = "https://sweezglobal.com/";
+//TM5uShsLgdvTX9JXvwnEgY3zWsCqDWxjN w  TGy7DG3PPmpt4b4sJG9HKnEWDj8xezjTG T let url = "s://hardcore-newton-af71f6.netlify.app/" https://tronbeast.live/ p/ ;
+let url = "https://tronbeast.live/";
 
 // let tronContracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://shasta.tronscan.org/#/address/";
