@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 import back from "./Image1/thunder.jpg"
 import TronWeb from 'tronweb';
-import Utils from 'utils';
+import Utils from './utils';
 import Invest from "./Invest";
 import SmartInfo from "./SmartInfo";
 import TBTstats from "./TBTstats";
@@ -13,7 +13,6 @@ import Withdraw from "./Withdraw2";
 import IncomeandTeamStats from "./IncomeandTeamStats.js";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
-import context from 'react-bootstrap/esm/AccordionContext';
 
 let url = "https://tronbeast.live/"; // https://tronbeast.live/
 let contract_address = 'TGN8Bp3NAVCLcWrVkmLuTHBYibes6JYhZC';

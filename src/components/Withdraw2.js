@@ -11,9 +11,6 @@ class Withdraw extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            count: "...",
-        }
         this.withdraw = this.withdraw.bind(this);
         this.setBalance = this.setBalance.bind(this);
     }
