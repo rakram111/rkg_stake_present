@@ -152,7 +152,7 @@ class Withdraw extends Component {
                         <br />
 
 
-                        <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}> {count} TRX
+                        <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}> 0 TRX
 
                         </div>
 
