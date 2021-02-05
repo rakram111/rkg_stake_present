@@ -183,6 +183,7 @@ class TopPage extends Component {
         this.setState({ tbt_offer: Number(userInfo2.tbt_offer1) / sunny });
         this.setState({ temp_directs_count: Number(userInfo2.temp_directs_count) });
         this.setState({ locked_balance: Number(userInfo2.locked_balance1) / sunny });
+        this.setState({ isReentry: userInfo2.isReentry })
         /////////////////////////////////////////////////////////////////////////////
         console.log("locked bal " + this.state.locked_balance);
 
