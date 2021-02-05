@@ -208,7 +208,9 @@ export class Invest extends Component {
                             {this.props.deposit_amount > 0 ?
                                 <p style={{ color: "pink", textAlign: "center", fontSize: "16px" }}>Minimum Re-Investment should be greater than required previous deposit <br />
                                     <p style={{ color: "yellow", textAlign: "center" }}>
-                                        Locked balance value is <br />{this.props.locked_balance} TRX</p>
+                                        Locked balance value is <br />
+                                        {this.props.locked_balance} TRX
+                                        </p>
                                 </p>
                                 : null
                             }
