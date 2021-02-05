@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 
-const contract_address = 'TCMEx5QT5DXZNHZ4GmtZrxaYLCUYNreraV';
+const contract_address = 'TQLqnrutAoDbyzCuvTkGA8TYdRihYmsEH7';
+let tbt_address = 'TTZZiD4PHpqNBKgCu2vC72HfToUqN62e6Z';
 
 let contracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
+let tbturl = "https://shasta.tronscan.org/#/contract/" + tbt_address;
 //https://shasta.tronscan.org/#/contract/
 export class SmartInfo extends Component {
 
@@ -44,6 +46,10 @@ export class SmartInfo extends Component {
                             <a href={contracturl} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center", paddingTop: "110px" }} target="_blank" rel="noopener noreferrer">{this.props.subContract}...</a>
                             <br /><br />
 
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>TBT Address</p>
+
+                            <a href={tbturl} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center", paddingTop: "110px" }} target="_blank" rel="noopener noreferrer">{this.props.subtbt}...</a>
+                            <br /><br />
 
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Deposits</p>
                             <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.totalInvested} TRX</a>

@@ -159,7 +159,8 @@ export class Invest extends Component {
                             <span style={dotStyle1}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> Min Investment for receiving TBT is <span style={{ color: "yellow" }}>{this.props.tbt_min_deposit} TRX</span></p>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> Min Investment for receiving TBT is <br /><span style={{ color: "yellow" }}>{this.props.tbt_min_deposit} TRX (<span style={{ color: "white" }}> @ price of {this.props.tbt_price} TRX / TBT</span> )</span>
+                            </p>
 
                         </div>
                         <br />
@@ -205,12 +206,12 @@ export class Invest extends Component {
                             <a href="#reset" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
                             <br />
 
-                            {this.props.deposit_amount > 0 ?
-                                <p style={{ color: "pink", textAlign: "center", fontSize: "16px" }}>Minimum Re-Investment should be greater than required previous deposit <br />
+                            {this.props.isReentry === true ?
+                                <p style={{ color: "pink", textAlign: "center", fontSize: "16px" }}>Minimum Additional TRX for Re-Investment is {(this.props.next_min_deposit).toFixed(2)} TRX<br />
                                     <p style={{ color: "yellow", textAlign: "center" }}>
                                         Locked balance value is <br />
                                         {this.props.locked_balance} TRX
-                                        </p>
+                                    </p>
                                 </p>
                                 : null
                             }

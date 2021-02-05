@@ -18,6 +18,7 @@ contract TronBeast {
 	    uint256 payout_time ;
         uint256 my_num ;
         uint256[3] level_income;
+        bool isReentry;
      } 
     
     struct User2 {
@@ -97,7 +98,7 @@ contract TronBeast {
         tbt_offer.push(38);
         tbt_offer.push(46);
 
-        next_deposit.push(0);
+        next_deposit.push(30);
         next_deposit.push(15);
         next_deposit.push(20);
         next_deposit.push(25);
@@ -169,6 +170,7 @@ contract TronBeast {
         users2[_addr].deposit_count++ ;  
         users[_addr].payouts = 0;
         users[_addr].isActive = 1;
+        users[_addr].isReentry = false;
         users[_addr].deposit_time = uint256(block.timestamp);
         
         users2[_addr].total_deposits += _amount;
@@ -222,20 +224,22 @@ contract TronBeast {
         users2[_addr].locked_balance = 3*users[_addr].max_payout/10; 
         
         to_tbt = to_payout*tbt_offer[users[_addr].my_num]/100;
-        to_tbt > address(this).balance ?
-        to_tbt = address(this).balance :
-        to_tbt = to_tbt; 
+        if(to_tbt > 0 ){ 
+                to_tbt > address(this).balance ?
+                to_tbt = address(this).balance :
+                to_tbt = to_tbt; 
 
-        if( total_users <= tenk_users){ 
-            tbt_amount = to_tbt/(tbt_price/10);  // 1000 trx | 20 trx per token
-        } else {
-            tbt_amount = to_tbt/(tbt_price/5);  // 2000 trx | 40 trx per token 
-        }  
+                if( total_users <= tenk_users){ 
+                    tbt_amount = to_tbt/(tbt_price/10);  // 1000 trx | 20 trx per token
+                } else {
+                    tbt_amount = to_tbt/(tbt_price/5);  // 2000 trx | 40 trx per token 
+                }   
 
-        tbt.transfer(_addr,tbt_amount*100000); // token transfer
-        users2[_addr].tbt_from_withdrawal += tbt_amount*100000 ;
-        users2[_addr].total_tbt += tbt_amount*100000 ;
-        to_payout -= to_tbt ;
+                tbt.transfer(_addr,tbt_amount*100000); // token transfer
+                users2[_addr].tbt_from_withdrawal += tbt_amount*100000 ;
+                users2[_addr].total_tbt += tbt_amount*100000 ;
+                to_payout -= to_tbt ;
+        }
         users2[_addr].next_min_deposit = to_payout*next_deposit[users[_addr].my_num]/100; 
              
         to_payout > address(this).balance ?
@@ -251,6 +255,7 @@ contract TronBeast {
              _addr.transfer(to_payout); 
         }
         users[_addr].isActive = 0; 
+        users[_addr].isReentry = true;
         emit Withdraw(_addr, to_payout); 
     }
 
@@ -287,9 +292,9 @@ contract TronBeast {
         return (users2[_addr].tbt_from_deposit, users2[_addr].tbt_from_withdrawal, users2[_addr].total_tbt);
     }
 
-    function userInfo2(address _addr) view external returns( uint256 temp_directs_count, uint256 next_deposit1, uint256 tbt_offer1,  uint256 max_payout1,  uint256 locked_balance1 ) {
+    function userInfo2(address _addr) view external returns( uint256 temp_directs_count, uint256 next_deposit1, uint256 tbt_offer1,  uint256 max_payout1,  uint256 locked_balance1, bool isReentry ) {
         return ( users[_addr].temp_directs_count, users2[_addr].next_min_deposit, 
-        7*users[_addr].max_payout*tbt_offer[users[_addr].my_num]/1000 , users[_addr].max_payout, users2[_addr].locked_balance);
+        7*users[_addr].max_payout*tbt_offer[users[_addr].my_num]/1000 , users[_addr].max_payout, users2[_addr].locked_balance, users[_addr].isReentry);
     }
 
     function packInfo(address _addr) view external returns(uint256 pack1, uint256 pack2, uint256 pack3, uint256 pack4, uint256 pack5, uint256 userpack) {

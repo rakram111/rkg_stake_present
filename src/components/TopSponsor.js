@@ -186,9 +186,7 @@ class TopSponsor extends Component {
         let whaleSubAddrs3 = this.state.whale_addrs3.toString();
         let whaleSubAddress3 = whaleSubAddrs3.substring(0, 8);
         this.setState({ whaleSubAddress3 });
-        // console.log('deps ' + this.state.deps1)
-
-
+        // console.log('deps ' + this.state.deps1) 
 
 
     }

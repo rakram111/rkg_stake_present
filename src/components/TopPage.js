@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
 let url = "https://tronbeast.live/"; // https://tronbeast.live/
-let contract_address = 'TCMEx5QT5DXZNHZ4GmtZrxaYLCUYNreraV';
+let contract_address = 'TQLqnrutAoDbyzCuvTkGA8TYdRihYmsEH7';
 let tbt_address = 'TTZZiD4PHpqNBKgCu2vC72HfToUqN62e6Z';
 
 toast.configure();
@@ -132,6 +132,9 @@ class TopPage extends Component {
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
 
+        var tbt_price = await Utils.contract.tbt_price().call();
+        this.setState({ tbt_price: Number(tbt_price) / sunny });
+
         this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
 
         const balTemp = await Utils.tronWeb.trx.getBalance(accTemp);
@@ -143,13 +146,14 @@ class TopPage extends Component {
         let subAccount = subAccountstr.substring(0, 8);
         this.setState({ subAccount });
 
+        let contractStr = contract_address.toString();
+        let subContract = contractStr.substring(0, 8);
+        this.setState({ subContract });
+
         let tbtStr = tbt_address.toString();
         let subtbt = tbtStr.substring(0, 8);
         this.setState({ subtbt });
 
-        let contractStr = contract_address.toString();
-        let subContract = contractStr.substring(0, 8);
-        this.setState({ subContract });
 
         const userInfoTotals = await Utils.contract.userInfoTotals(this.state.account).call();
 
@@ -178,8 +182,9 @@ class TopPage extends Component {
         this.setState({ max_payout: Number(userInfo2.max_payout1) / sunny });
         this.setState({ tbt_offer: Number(userInfo2.tbt_offer1) / sunny });
         this.setState({ temp_directs_count: Number(userInfo2.temp_directs_count) });
-        this.setState({ locked_balance: Number(userInfo2.locked_balance) / sunny });
+        this.setState({ locked_balance: Number(userInfo2.locked_balance1) / sunny });
         /////////////////////////////////////////////////////////////////////////////
+        console.log("locked bal " + this.state.locked_balance);
 
         const packInfo = await Utils.contract.packInfo(this.state.account).call();
 
@@ -300,12 +305,14 @@ class TopPage extends Component {
                             pack4={this.state.pack4}
                             pack5={this.state.pack5}
                             refLoading={this.state.refLoading}
+                            tbt_price={this.state.tbt_price}
                             refid={this.state.refid}
                             deposit_amount={this.state.deposit_amount}
                             user_status={this.state.user_status}
                             tbt_min_deposit={this.state.tbt_min_deposit}
                             invest={this.invest}
                             locked_balance={this.state.locked_balance}
+                            isReentry={this.state.isReentry}
 
                         /> : null}
 
@@ -314,59 +321,60 @@ class TopPage extends Component {
                         totalInvested={this.state.totalInvested}
                         contractBalance={this.state.contractBalance}
                         subContract={this.state.subContract}
+                        subtbt={this.state.subtbt}
                         totalUsers={this.state.totalUsers}
                         totalPaid={this.state.totalPaid}
                     />
 
                     {this.state.userTotalDeposit > 0 ?
-                        <PersonalStats
+                        <div>
+                            <PersonalStats
 
-                            max_payout={this.state.max_payout}
-                            locked_balance={this.state.locked_balance}
-                            user_status={this.state.user_status}
-                            account={this.state.account}
-                            subAccount={this.state.subAccount}
-                            upline={this.state.upline}
-                            subUpline={this.state.subUpline}
-                            userTotalDeposit={this.state.userTotalDeposit}
-                            payout_time={this.state.payout_time}
-                            hours={this.state.draw_hrs}
-                            mins={this.state.draw_mins}
-                            secs={this.state.draw_secs}
-                            deposit_amount={this.state.deposit_amount}
-                            total_structure={this.state.total_structure}
-                            direct_bonus={this.state.direct_bonus}
+                                max_payout={this.state.max_payout}
+                                locked_balance={this.state.locked_balance}
+                                user_status={this.state.user_status}
+                                account={this.state.account}
+                                subAccount={this.state.subAccount}
+                                upline={this.state.upline}
+                                subUpline={this.state.subUpline}
+                                userTotalDeposit={this.state.userTotalDeposit}
+                                payout_time={this.state.payout_time}
+                                hours={this.state.draw_hrs}
+                                mins={this.state.draw_mins}
+                                secs={this.state.draw_secs}
+                                deposit_amount={this.state.deposit_amount}
+                                total_structure={this.state.total_structure}
+                                direct_bonus={this.state.direct_bonus}
 
-                        /> : null}
+                            />
 
-                    <TBTstats
+                            <TBTstats
 
-                        from_deposit={this.state.from_deposit}
-                        from_withdrawal={this.state.from_withdrawal}
-                        total_tbt={this.state.total_tbt}
-                    />
+                                from_deposit={this.state.from_deposit}
+                                from_withdrawal={this.state.from_withdrawal}
+                                total_tbt={this.state.total_tbt}
+                            />
 
-                    <LevelStats
+                            <LevelStats
 
-                        level1={this.state.level1}
-                        level2={this.state.level2}
-                        level3={this.state.level3}
-                    />
+                                level1={this.state.level1}
+                                level2={this.state.level2}
+                                level3={this.state.level3}
+                            />
 
-                    {this.state.userTotalDeposit > 0 ?
-                        <IncomeandTeamStats
-                            userTotalDeposit={this.state.userTotalDeposit}
-                            userTotalWithdrawn={this.state.userTotalWithdrawn}
-                            referrals_count={this.state.referrals_count}
-                            deposit_amount={this.state.deposit_amount}
-                            total_structure={this.state.total_structure}
+                            <IncomeandTeamStats
+                                userTotalDeposit={this.state.userTotalDeposit}
+                                userTotalWithdrawn={this.state.userTotalWithdrawn}
+                                referrals_count={this.state.referrals_count}
+                                deposit_amount={this.state.deposit_amount}
+                                total_structure={this.state.total_structure}
 
-                        /> : null}
+                            />
 
-                    {this.state.userTotalDeposit > 0 ?
-                        <ReferralLink
-                            account={this.state.account}
-                        /> : null}
+                            <ReferralLink
+                                account={this.state.account}
+                            />
+                        </div> : null}
 
                     <div style={{ paddingBottom: "20px" }}></div>
 

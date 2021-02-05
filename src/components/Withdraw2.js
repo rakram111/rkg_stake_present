@@ -119,15 +119,15 @@ class Withdraw extends Component {
         var balNow = (secGone * secRate).toFixed(6);
         this.setState({ balNow });
         this.setState({ secGone });
-        console.log("secGone " + secGone);
-        console.log("secRate on amount rec " + secRate);
-        console.log("secRate on ROI " + secRate2);
-        console.log("balNow " + balNow);
-        console.log("deposit time " + this.state.deposit_time1);
-        console.log("now " + this.state.now);
-        console.log("differ " + secGone2);
+        // console.log("secGone " + secGone);
+        // console.log("secRate on amount rec " + secRate);
+        // console.log("secRate on ROI " + secRate2);
+        // console.log("balNow " + balNow);
+        // console.log("deposit time " + this.state.deposit_time1);
+        // console.log("now " + this.state.now);
+        // console.log("differ " + secGone2);
 
-        console.log("payout window " + this.state.payout_time1);
+        // console.log("payout window " + this.state.payout_time1);
 
         const remaining_time1 = this.state.deposit_time1 + this.state.payout_time1 - this.state.now;
 
@@ -236,14 +236,14 @@ class Withdraw extends Component {
                             <span style={dotStyle1}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>30 % will be withheld for Re-Investment</p>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>30 % locked for Re-Investment</p>
 
                         </div>
                         <div className="row container">
                             <span style={dotStyle2}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>{(this.props.my_tbt_offer)} % will be TBT offering</p>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>{(this.props.my_tbt_offer)} % to TBT offering</p>
 
                         </div>
                         <div className="row container">
