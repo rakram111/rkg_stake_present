@@ -133,7 +133,17 @@ class TopPage extends Component {
         this.setState({ totalInvested: Number(totalInvested) / sunny });
 
         var tbt_price = await Utils.contract.tbt_price().call();
-        this.setState({ tbt_price: Number(tbt_price) / sunny });
+
+        var tenk_users = await Utils.contract.tenk_users().call();
+        this.setState({ tenk_users: Number(tenk_users) });
+
+        if (totalUsers <= tenk_users) {
+            this.setState({ tbt_price: Number(tbt_price) / sunny });
+
+        } else {
+            this.setState({ tbt_price: Number(tbt_price) / 2 * sunny });
+
+        }
 
         this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
 
