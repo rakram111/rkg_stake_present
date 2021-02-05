@@ -9,17 +9,19 @@ class Withdraw extends Component {
 
     constructor(props) {
         super(props)
-
+        this.state = {
+            balNow: "..."
+        }
         this.withdraw = this.withdraw.bind(this);
     }
 
     async componentDidMount() {
 
         await this.connectTronWeb();
-
-
+        await setInterval(() => {
+            this.setTimes();
+        }, 1000);
     }
-
     connectTronWeb = async () => {
         await new Promise(resolve => {
             const tronWebState = {
@@ -91,7 +93,76 @@ class Withdraw extends Component {
         this.setState({ account: accTemp });
     }
 
+    setTimes = async () => {
+        const sunny = 1000000;
+        const now = await Utils.contract.getNow().call();
+        this.setState({ now: Number(now) });
 
+        const userInfo1 = await Utils.contract.userInfo(this.state.account).call();
+        this.setState({ deposit_time1: Number(userInfo1.deposit_time) });
+        this.setState({ payout_time1: Number(userInfo1.payout_time) });
+
+        const userInfo2 = await Utils.contract.userInfo2(this.state.account).call();
+
+        this.setState({ max_payout: Number(userInfo2.max_payout1) / sunny });
+
+        const secRate = this.state.max_payout / this.state.payout_time1;
+        const secRate2 = this.props.userroi / this.state.payout_time1;
+        var secGone = (this.state.now - this.state.deposit_time1);
+        var secGone2 = secGone;
+        var counter = 1;
+        if (secGone > this.state.payout_time1) {
+            secGone = this.state.payout_time1;
+            counter = 0;
+        }
+        this.setState({ counter });
+        var balNow = (secGone * secRate).toFixed(6);
+        this.setState({ balNow });
+        this.setState({ secGone });
+        console.log("secGone " + secGone);
+        console.log("secRate on amount rec " + secRate);
+        console.log("secRate on ROI " + secRate2);
+        console.log("balNow " + balNow);
+        console.log("deposit time " + this.state.deposit_time1);
+        console.log("now " + this.state.now);
+        console.log("differ " + secGone2);
+
+        console.log("payout window " + this.state.payout_time1);
+
+        const remaining_time1 = this.state.deposit_time1 + this.state.payout_time1 - this.state.now;
+
+        var draw_hrs = 0;
+        var draw_mins = 0;
+        var draw_secs = 0;
+
+        var next_draw_time = remaining_time1;
+        if (next_draw_time <= 0) {
+            next_draw_time = 0;
+        }
+
+        this.setState({ next_draw_time });
+        //   console.log("next time" + this.state.payout_time)
+
+        if (next_draw_time > 3600) {
+
+            draw_hrs = Math.floor(next_draw_time / 3600);
+            draw_mins = Math.floor((next_draw_time % 3600) / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
+
+        } else if (next_draw_time > 60) {
+
+            draw_mins = Math.floor(next_draw_time / 60);
+            draw_secs = Math.floor(next_draw_time % 60);
+
+        } else {
+            draw_secs = next_draw_time;
+        }
+
+        this.setState({ draw_hrs });
+        this.setState({ draw_mins });
+        this.setState({ draw_secs });
+
+    }
 
     withdraw = async () => {
         await Utils.contract
@@ -155,7 +226,7 @@ class Withdraw extends Component {
                         <div className="col-xl-12" style={headerStyle}>
                             Total ROI</div>
                         <br />
-                        <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}>{this.props.max_payout} TRX
+                        <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}>{this.state.balNow} TRX
 
                         </div>
 
@@ -184,7 +255,7 @@ class Withdraw extends Component {
                         </div>
                         <br />
                         <p style={{ color: "yellow", textAlign: "center", fontSize: "19px" }}>You can withdraw in </p>
-                        <p style={{ color: "yellow", textAlign: "center", fontSize: "19px" }}>{this.props.hours} h : {this.props.mins} m : {this.props.secs} s</p>
+                        <p style={{ color: "yellow", textAlign: "center", fontSize: "19px" }}>{this.state.draw_hrs} h : {this.state.draw_mins} m : {this.state.draw_secs} s</p>
 
                         <form
                             onSubmit={(event) => {
@@ -196,7 +267,7 @@ class Withdraw extends Component {
                         >
 
                             <br />
-                            {this.props.secs === 0 ?
+                            {this.state.counter === 0 ?
                                 <button type="submit" className="btn btn-success" style={investButton}>Withdraw</button> : null}
 
 

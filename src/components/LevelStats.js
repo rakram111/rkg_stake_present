@@ -3,10 +3,9 @@ import Utils from '../utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 toast.configure();
 
-class TBTstats extends Component {
+class LevelStats extends Component {
 
     constructor(props) {
         super(props)
@@ -29,7 +28,6 @@ class TBTstats extends Component {
                 window.location = "/";
             });
 
-
     }
 
 
@@ -40,7 +38,7 @@ class TBTstats extends Component {
             boxShadow: "0 0 20px #eee",
         };
 
-        const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
+        const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" };
 
 
         return (
@@ -51,27 +49,25 @@ class TBTstats extends Component {
                     <div className="col-xl-6" style={colStyle}>
 
                         <div className="col-xl-6" style={headerStyle}>
-                            TBT Received
+                            Affiliate Stats
                         </div>
                         <br />
 
                         <div className="col-xl-12" >
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>From Deposit</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Level 1 </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
-                                {this.props.from_deposit} TBT</p>
+                                {this.props.level1} TRX</p>
 
                             <br /><br />
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>From Withdrawal</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Level 2 </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
-                                {this.props.from_withdrawal} TBT</p>
+                                {this.props.level2} TRX</p>
 
                             <br /><br />
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total TBT </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Level 3 </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
-                                {this.props.total_tbt} TBT</p>
+                                {this.props.level3} TRX</p>
 
                             <br /><br />
                         </div>
@@ -84,4 +80,4 @@ class TBTstats extends Component {
     }
 }
 
-export default TBTstats
+export default LevelStats

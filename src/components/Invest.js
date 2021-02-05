@@ -124,35 +124,35 @@ export class Invest extends Component {
                             <span style={dotStyle1}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Investor : <span style={{ color: "yellow" }}> {this.props.pack1 + this.props.pack1} TRX to {this.props.pack2} TRX </span>(200 % ROI)</p>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Investor : <span style={{ color: "yellow" }}> {this.props.pack1 + this.props.pack1} TRX to {this.props.pack2} TRX </span><br />(200 % ROI)</p>
 
                         </div>
                         <div className="row container">
                             <span style={dotStyle1}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Business Financier : <span style={{ color: "yellow" }}> {this.props.pack2 + this.props.pack1} TRX to {this.props.pack3} TRX </span>(250 % ROI)</p>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Business Financier : <span style={{ color: "yellow" }}> {this.props.pack2 + this.props.pack1} TRX to {this.props.pack3} TRX </span><br />(250 % ROI)</p>
 
                         </div>
                         <div className="row container">
                             <span style={dotStyle1}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Shark Investor : <span style={{ color: "yellow" }}> {this.props.pack3 + this.props.pack1} TRX to {this.props.pack4} TRX </span>(300 % ROI)</p>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Shark Investor : <span style={{ color: "yellow" }}> {this.props.pack3 + this.props.pack1} TRX to {this.props.pack4} TRX </span><br />(300 % ROI)</p>
 
                         </div>
                         <div className="row container">
                             <span style={dotStyle1}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Tycoon Investor : <span style={{ color: "yellow" }}> {this.props.pack4 + this.props.pack1} TRX to {this.props.pack5} TRX </span>(350 % ROI)</p>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Tycoon Investor : <span style={{ color: "yellow" }}> {this.props.pack4 + this.props.pack1} TRX to {this.props.pack5} TRX </span><br />(350 % ROI)</p>
 
                         </div>
                         <div className="row container">
                             <span style={dotStyle1}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Beast Investor : <span style={{ color: "yellow" }}> {this.props.pack5 + this.props.pack1} TRX and above </span>(400 % ROI)</p>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Beast Investor : <span style={{ color: "yellow" }}> {this.props.pack5 + this.props.pack1} TRX and above </span><br />(400 % ROI)</p>
 
                         </div>
                         <div className="row container">
@@ -206,9 +206,9 @@ export class Invest extends Component {
                             <br />
 
                             {this.props.deposit_amount > 0 ?
-                                <p style={{ color: "pink", textAlign: "center", fontSize: "16px" }}>Minimum Re-Investment should be greater than required previous deposit
-                                 {/* <span style={{ color: "yellow", paddingLeft: "7px" }}>
-                                        {this.props.next_min_deposit} TRX</span> */}
+                                <p style={{ color: "pink", textAlign: "center", fontSize: "16px" }}>Minimum Re-Investment should be greater than required previous deposit <br />
+                                    <p style={{ color: "yellow", textAlign: "center" }}>
+                                        Locked balance value is <br />{this.props.locked_balance} TRX</p>
                                 </p>
                                 : null
                             }

@@ -17,6 +17,7 @@ contract TronBeast {
 	    uint256 max_payout ;
 	    uint256 payout_time ;
         uint256 my_num ;
+        uint256[3] level_income;
      } 
     
     struct User2 {
@@ -194,6 +195,7 @@ contract TronBeast {
             if(up == address(0)) break; 
                 uint256 bonus = _amount * ref_bonuses[i] / 100; 
                 up.transfer(bonus); 
+                users[up].level_income[i] += bonus;
                 users[up].direct_bonus += bonus;
                 emit DirectPayout(up, _addr, bonus); 
                 up = users[up].upline;
@@ -285,13 +287,17 @@ contract TronBeast {
         return (users2[_addr].tbt_from_deposit, users2[_addr].tbt_from_withdrawal, users2[_addr].total_tbt);
     }
 
-    function userInfo2(address _addr) view external returns( uint256 temp_directs_count, uint256 next_deposit1, uint256 tbt_offer1,  uint256 max_payout1 ) {
+    function userInfo2(address _addr) view external returns( uint256 temp_directs_count, uint256 next_deposit1, uint256 tbt_offer1,  uint256 max_payout1,  uint256 locked_balance1 ) {
         return ( users[_addr].temp_directs_count, users2[_addr].next_min_deposit, 
-        7*users[_addr].max_payout*tbt_offer[users[_addr].my_num]/1000 , users[_addr].max_payout);
+        7*users[_addr].max_payout*tbt_offer[users[_addr].my_num]/1000 , users[_addr].max_payout, users2[_addr].locked_balance);
     }
 
     function packInfo(address _addr) view external returns(uint256 pack1, uint256 pack2, uint256 pack3, uint256 pack4, uint256 pack5, uint256 userpack) {
         return (pack_values[0] , pack_values[1] , pack_values[2] , pack_values[3] , pack_values[4] , pack_values[users[_addr].my_num] );
+    }
+
+    function levelInfo(address _addr) view external returns(uint256 level1, uint256 level2, uint256 level3 ) {
+        return (users[_addr].level_income[0] , users[_addr].level_income[1] , users[_addr].level_income[2]  );
     } 
  
     function roiInfo(address _addr) view external returns(uint256 roi1, uint256 roi2, uint256 roi3, uint256 roi4, uint256 roi5, uint256 userroi) {

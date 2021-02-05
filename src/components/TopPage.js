@@ -5,6 +5,7 @@ import TronWeb from 'tronweb';
 import Utils from './utils';
 import SmartInfo from "./SmartInfo";
 import Invest from "./Invest";
+import LevelStats from "./LevelStats";
 import TBTstats from "./TBTstats";
 import PersonalStats from "./PersonalStats";
 import ReferralLink from "./ReferralLink";
@@ -14,21 +15,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
 let url = "https://tronbeast.live/"; // https://tronbeast.live/
-let contract_address = 'TSd6biB8vSABDHyiu7Qth5P3USdzc7xJhL';
+let contract_address = 'TCMEx5QT5DXZNHZ4GmtZrxaYLCUYNreraV';
 let tbt_address = 'TTZZiD4PHpqNBKgCu2vC72HfToUqN62e6Z';
 
 toast.configure();
 
 class TopPage extends Component {
 
-
     async componentDidMount() {
 
         await this.connectTronWeb();
         await this.loadBlockChainData();
-        await setInterval(() => {
-            this.setTimes();
-        }, 1000);
     }
 
     connectTronWeb = async () => {
@@ -97,12 +94,12 @@ class TopPage extends Component {
                 });
             });
         }
+
         await Utils.setTronWeb(window.tronWeb);
     }
 
     loadBlockChainData = async () => {
 
-        // Global Stats
         const sunny = 1000000;
 
         await Utils.contract.getAdmin().call().then(res => {
@@ -118,13 +115,10 @@ class TopPage extends Component {
         } else {
             this.setState({ refid: this.state.owner });
         }
-
-        // console.log("owner " + this.state.owner);
         this.setState({ refLoading: false });
 
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
         this.setState({ account: accTemp });
-        // this.setState({ account: this.state.refid });
         this.setState({ walletload: false });
 
         const contractBalance = await Utils.contract.getContractBalance().call();
@@ -135,9 +129,6 @@ class TopPage extends Component {
 
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
-
-        // const totalPaid = await Utils.contract.total_withdraw().call();
-        // this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
 
         this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
 
@@ -167,7 +158,6 @@ class TopPage extends Component {
 
         /////////////////////////////////////////////////////////////////////////////
         const userInfo = await Utils.contract.userInfo(this.state.account).call();
-        // // console.log(userInfo);
 
         this.setState({ upline: window.tronWeb.address.fromHex(userInfo.upline) });
         this.setState({ subUpline: this.state.upline.toString().substring(0, 8) });
@@ -186,6 +176,7 @@ class TopPage extends Component {
         this.setState({ max_payout: Number(userInfo2.max_payout1) / sunny });
         this.setState({ tbt_offer: Number(userInfo2.tbt_offer1) / sunny });
         this.setState({ temp_directs_count: Number(userInfo2.temp_directs_count) });
+        this.setState({ locked_balance: Number(userInfo2.locked_balance) / sunny });
         /////////////////////////////////////////////////////////////////////////////
 
         const packInfo = await Utils.contract.packInfo(this.state.account).call();
@@ -197,14 +188,28 @@ class TopPage extends Component {
         this.setState({ pack5: Number(packInfo.pack5) / sunny });
         this.setState({ userpack: Number(packInfo.userpack) / sunny });
 
+        const roiInfo = await Utils.contract.roiInfo(this.state.account).call();
+
+        this.setState({ roi1: Number(roiInfo.roi1) });
+        this.setState({ roi2: Number(roiInfo.roi2) });
+        this.setState({ roi3: Number(roiInfo.roi3) });
+        this.setState({ roi4: Number(roiInfo.roi4) });
+        this.setState({ roi5: Number(roiInfo.roi5) });
+        this.setState({ userroi: Number(roiInfo.userroi) });
+
+
+        const levelInfo = await Utils.contract.levelInfo(this.state.account).call();
+
+        this.setState({ level1: Number(levelInfo.level1) / sunny });
+        this.setState({ level2: Number(levelInfo.level2) / sunny });
+        this.setState({ level3: Number(levelInfo.level3) / sunny });
+
         const tbtOfferInfo = await Utils.contract.tbtOfferInfo(this.state.account).call();
-        // // console.log(userInfo);
 
         this.setState({ my_tbt_offer: Number(tbtOfferInfo.usertbtoffer) });
 
         /////////////////////////////////////////////////////////////////////////////
         const tbtInfo = await Utils.contract.tbtInfo(this.state.account).call();
-        // // console.log(userInfo);
 
         this.setState({
             from_deposit: Number(tbtInfo.from_deposit) / sunny
@@ -224,67 +229,12 @@ class TopPage extends Component {
 
         const my_tbt_offer1 = (0.7 * this.state.my_tbt_offer).toFixed(2)
         this.setState({ my_tbt_offer1 });
-
+        // console.log("tbt min deposit " + this.state.tbt_min_deposit);
     }
-
-    setTimes = async () => {
-        const sunny = 1000000;
-
-        const contractBalance = await Utils.contract.getContractBalance().call();
-        this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(2) });
-
-        const totalUsers = await Utils.contract.total_users().call();
-        this.setState({ totalUsers: Number(totalUsers) });
-
-        var totalInvested = await Utils.contract.total_deposited().call();
-        this.setState({ totalInvested: Number(totalInvested) / sunny });
-
-        const now = await Utils.contract.getNow().call();
-        this.setState({ now: Number(now) });
-
-        const userInfo1 = await Utils.contract.userInfo(this.state.account).call();
-        this.setState({ deposit_time1: Number(userInfo1.deposit_time) });
-        this.setState({ payout_time1: Number(userInfo1.payout_time) });
-
-        const remaining_time1 = this.state.deposit_time1 + this.state.payout_time1 - this.state.now;
-
-        var draw_hrs = 0;
-        var draw_mins = 0;
-        var draw_secs = 0;
-
-        var next_draw_time = remaining_time1;
-        if (next_draw_time <= 0) {
-            next_draw_time = 0;
-        }
-
-        this.setState({ next_draw_time });
-        console.log("next time" + this.state.payout_time)
-
-        if (next_draw_time > 3600) {
-
-            draw_hrs = Math.floor(next_draw_time / 3600);
-            draw_mins = Math.floor((next_draw_time % 3600) / 60);
-            draw_secs = Math.floor(next_draw_time % 60);
-
-        } else if (next_draw_time > 60) {
-
-            draw_mins = Math.floor(next_draw_time / 60);
-            draw_secs = Math.floor(next_draw_time % 60);
-
-        } else {
-            draw_secs = next_draw_time;
-        }
-
-        this.setState({ draw_hrs });
-        this.setState({ draw_mins });
-        this.setState({ draw_secs });
-    }
-
     constructor(props) {
         super(props)
 
         this.state = {
-            guideModalShow: false,
             refLoading: true,
             walletload: true,
             balanceload: true,
@@ -314,18 +264,15 @@ class TopPage extends Component {
                 loggedIn: false
             },
         }
-        this.setTimes = this.setTimes.bind(this);
     }
 
     render() {
-
         const backStyle = {
             backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont", height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
         };
 
         return (
             <div>
-
                 <div style={backStyle}>
                     <hr />
                     <hr />
@@ -337,9 +284,7 @@ class TopPage extends Component {
                         <Withdraw
                             my_tbt_offer={this.state.my_tbt_offer1}
                             max_payout={this.state.max_payout}
-                            hours={this.state.draw_hrs}
-                            mins={this.state.draw_mins}
-                            secs={this.state.draw_secs}
+                            userroi={this.state.userroi}
                         />
                         : null}
 
@@ -373,6 +318,7 @@ class TopPage extends Component {
                         <PersonalStats
 
                             max_payout={this.state.max_payout}
+                            locked_balance={this.state.locked_balance}
                             user_status={this.state.user_status}
                             account={this.state.account}
                             subAccount={this.state.subAccount}
@@ -394,6 +340,13 @@ class TopPage extends Component {
                         from_deposit={this.state.from_deposit}
                         from_withdrawal={this.state.from_withdrawal}
                         total_tbt={this.state.total_tbt}
+                    />
+
+                    <LevelStats
+
+                        level1={this.state.level1}
+                        level2={this.state.level2}
+                        level3={this.state.level3}
                     />
 
                     {this.state.userTotalDeposit > 0 ?

@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
 let url = "https://tronbeast.live/";
-let contract_address = 'TSd6biB8vSABDHyiu7Qth5P3USdzc7xJhL';
+let contract_address = 'TCMEx5QT5DXZNHZ4GmtZrxaYLCUYNreraV';
 
 // let tronContracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
 // let tronAddressurl = "https://shasta.tronscan.org/#/address/";
