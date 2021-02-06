@@ -4,7 +4,6 @@ const contract_address = 'TTRX6WPpHfV3xDsk1B4Yxo6Ex3aUjsu4vh';
 const tbt_address = 'TJEDMQLLkGC3frpSnEhJes8fTWHPpQ5C6P';
 
 let contract_url = "https://tronscan.org/#/contract/" + contract_address;
-let tbt_url = "https://tronscan.org/#/contract/" + tbt_address;
 
 export class SmartInfo extends Component {
 
@@ -35,10 +34,7 @@ export class SmartInfo extends Component {
                             <a href={contract_url} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center", paddingTop: "110px" }} target="_blank" rel="noopener noreferrer">{this.props.subContract}...</a>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>TBT Address</p>
 
-                            <a href={tbt_url} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center", paddingTop: "110px" }} target="_blank" rel="noopener noreferrer">{this.props.subtbt}...</a>
-                            <br /><br />
 
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Deposits</p>
                             <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.totalInvested} TRX</a>
