@@ -39,7 +39,7 @@ export class Invest extends Component {
 
             ).then(res => {
                 setInterval(() => {
-                    window.location = "/dashboard";
+                    window.location = "/";
                 }, 2000);
             }).catch(err => toast.error("Insufficient Balance or Transaction Declined"));
 
