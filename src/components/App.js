@@ -11,8 +11,7 @@ class App extends React.Component {
 
         <div>
           <BrowserRouter>
-            {/* <Route exact path='/' component={Top} /> */}
-            <Route exact path='/dashboard' component={Top} />
+            <Route exact path='/' component={Top} />
             <Route path='/MrBeast/:id' component={Param} />
             {/* <Route path='/view/:id' component={Param2} /> */}
           </BrowserRouter>

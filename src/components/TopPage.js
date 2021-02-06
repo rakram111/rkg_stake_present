@@ -17,6 +17,8 @@ import "./css/style.css";
 let url = "https://tronbeast.live/"; // https://tronbeast.live/
 let contract_address = 'TTRX6WPpHfV3xDsk1B4Yxo6Ex3aUjsu4vh';
 let tbt_address = 'TJEDMQLLkGC3frpSnEhJes8fTWHPpQ5C6P';
+let owner = 'TRBrNmrmX1T4BoUodhWwChRrad1sd5fus5';
+
 
 toast.configure();
 
@@ -110,11 +112,15 @@ class TopPage extends Component {
             this.setState({ owner1: res });
 
         })
+        this.setState({ owner });
 
         if (this.props.refLinkid) {
             this.setState({ refid: this.props.refLinkid });
+            this.setState({ referPresent: true });
 
-        } else {
+        }
+
+        else {
             this.setState({ refid: this.state.owner });
         }
         this.setState({ refLoading: false });
@@ -284,6 +290,7 @@ class TopPage extends Component {
             totalUsers: "....",
             contractBalance: "....",
             totalPaid: "....",
+            referPresent: false,
 
             tronWeb: {
                 installed: false,
@@ -306,7 +313,7 @@ class TopPage extends Component {
                         <a href={url} >  <img src={require("./Image1/logo_tronBeast2.png")} alt="Logo" width="460px" /></a>
                     </div>
 
-                    {this.state.user_status === 0 ?
+                    {this.state.user_status === 0 && this.state.referPresent === true ?
                         <Invest
                             next_min_deposit={this.state.next_min_deposit}
                             balance={this.state.balance}
@@ -326,11 +333,7 @@ class TopPage extends Component {
                             isReentry={this.state.isReentry}
 
                         /> :
-                        <Withdraw
-                            my_tbt_offer={this.state.my_tbt_offer1}
-                            max_payout={this.state.max_payout}
-                            userroi={this.state.userroi}
-                        />}
+                        null}
 
                     <SmartInfo
                         smartLoading={this.state.smartLoading}
@@ -394,6 +397,12 @@ class TopPage extends Component {
                                 account={this.state.account}
                             />
                         </div> : null}
+                    {this.state.user_status == !0 ?
+                        <Withdraw
+                            my_tbt_offer={this.state.my_tbt_offer1}
+                            max_payout={this.state.max_payout}
+                            userroi={this.state.userroi}
+                        /> : null}
 
                     <div style={{ paddingBottom: "20px" }}></div>
 

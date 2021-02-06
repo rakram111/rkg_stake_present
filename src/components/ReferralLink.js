@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-
-
 let url = "https://tronbeast.live/MrBeast/";
 
 export class ReferralLink extends Component {

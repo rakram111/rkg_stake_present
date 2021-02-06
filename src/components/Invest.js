@@ -172,7 +172,7 @@ export class Invest extends Component {
                                 const amount = this.state.count;
                                 const balance = this.props.balance;
                                 if (amount < balance) {
-                                    if (amount + 15 <= balance && amount < 400) {
+                                    if (amount + 15 <= balance) {
                                         if (amount >= 2 * this.props.pack1) {
                                             this.invest(refid, amount);
 
