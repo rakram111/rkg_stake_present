@@ -39,7 +39,7 @@ export class Invest extends Component {
 
             ).then(res => {
                 setInterval(() => {
-                    window.location = "/";
+                    window.location = "/dashboard";
                 }, 2000);
             }).catch(err => toast.error("Insufficient Balance or Transaction Declined"));
 
@@ -172,15 +172,15 @@ export class Invest extends Component {
                                 const amount = this.state.count;
                                 const balance = this.props.balance;
                                 if (amount < balance) {
-                                    if (amount + 25 <= balance && amount < 400) {
+                                    if (amount + 15 <= balance && amount < 400) {
                                         if (amount >= 2 * this.props.pack1) {
                                             this.invest(refid, amount);
 
                                         } else {
-                                            toast.error("Min deposit allowed is 20 Trons to 400 Trons");
+                                            toast.error("Min deposit allowed is 200 Trons");
                                         }
                                     } else {
-                                        toast.error("Keep atleast ~ 25 TRX extra for GAS fee");
+                                        toast.error("Keep atleast ~ 15 TRX extra for GAS fee");
                                     }
 
 

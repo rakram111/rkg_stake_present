@@ -74,6 +74,12 @@ class TBTstats extends Component {
                                 {this.props.total_tbt} TBT</p>
 
                             <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>TBT balance available</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
+                                {this.props.tbt_bal} TBT</p>
+
+                            <br /><br />
                         </div>
                         <div className="col-xl-3"></div>
                     </div>

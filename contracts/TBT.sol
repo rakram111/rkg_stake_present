@@ -28,7 +28,7 @@ contract TBT {
      * Initializes contract with initial supply tokens to the creator of the contract
      */
     uint256 initialSupply = 5000000;
-    string tokenName = 'TronBeastToken';
+    string tokenName = 'Tron Beast Token';
     string tokenSymbol = 'TBT';
     constructor() public {
 

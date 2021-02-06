@@ -4,6 +4,6 @@ module.exports = function (deployer) {
     "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",
     "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",
     "TQ9nCgHVgki3KjXUnC5Vdm3bcuNTQ4EVMY",
-    "TTZZiD4PHpqNBKgCu2vC72HfToUqN62e6Z"
+    "TJEDMQLLkGC3frpSnEhJes8fTWHPpQ5C6P"
   );
 };

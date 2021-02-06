@@ -1,22 +1,12 @@
 import React, { Component } from 'react'
 
-const contract_address = 'TQLqnrutAoDbyzCuvTkGA8TYdRihYmsEH7';
-let tbt_address = 'TTZZiD4PHpqNBKgCu2vC72HfToUqN62e6Z';
+const contract_address = 'TTRX6WPpHfV3xDsk1B4Yxo6Ex3aUjsu4vh';
+const tbt_address = 'TJEDMQLLkGC3frpSnEhJes8fTWHPpQ5C6P';
 
-let contracturl = "https://shasta.tronscan.org/#/contract/" + contract_address;
-let tbturl = "https://shasta.tronscan.org/#/contract/" + tbt_address;
-//https://shasta.tronscan.org/#/contract/
+let contract_url = "https://tronscan.org/#/contract/" + contract_address;
+let tbt_url = "https://tronscan.org/#/contract/" + tbt_address;
+
 export class SmartInfo extends Component {
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            count: 0,
-
-        }
-
-    }
 
     render() {
 
@@ -36,25 +26,31 @@ export class SmartInfo extends Component {
 
                         <div className="col-xl-6" style={headerStyle}>
                             Smart Contract</div>
-
                         <br />
 
                         <div className="col-xl-12" style={{ textAlign: "center" }}>
 
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Contract Address</p>
 
-                            <a href={contracturl} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center", paddingTop: "110px" }} target="_blank" rel="noopener noreferrer">{this.props.subContract}...</a>
+                            <a href={contract_url} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center", paddingTop: "110px" }} target="_blank" rel="noopener noreferrer">{this.props.subContract}...</a>
                             <br /><br />
 
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>TBT Address</p>
 
-                            <a href={tbturl} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center", paddingTop: "110px" }} target="_blank" rel="noopener noreferrer">{this.props.subtbt}...</a>
+                            <a href={tbt_url} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center", paddingTop: "110px" }} target="_blank" rel="noopener noreferrer">{this.props.subtbt}...</a>
                             <br /><br />
 
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Deposits</p>
                             <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.totalInvested} TRX</a>
                             <br /><br />
 
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>TBT claimed by Users </p>
+                            <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.total_tbt_sent} TBT</a>
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>TBT Balance</p>
+                            <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.contract_tbt_bal} TBT</a>
+                            <br /><br />
 
                             {/* <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Paid</p> 
                             <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.totalPaid} TRX</a>

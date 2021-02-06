@@ -105,7 +105,9 @@ class Withdraw extends Component {
         const userInfo2 = await Utils.contract.userInfo2(this.state.account).call();
 
         this.setState({ max_payout: Number(userInfo2.max_payout1) / sunny });
-
+        if (this.state.payout_time1 === 0) {
+            this.setState({ payout_time1: 1 });
+        }
         const secRate = this.state.max_payout / this.state.payout_time1;
         const secRate2 = this.props.userroi / this.state.payout_time1;
         var secGone = (this.state.now - this.state.deposit_time1);

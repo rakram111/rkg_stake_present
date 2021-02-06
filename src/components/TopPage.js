@@ -15,8 +15,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
 let url = "https://tronbeast.live/"; // https://tronbeast.live/
-let contract_address = 'TQLqnrutAoDbyzCuvTkGA8TYdRihYmsEH7';
-let tbt_address = 'TTZZiD4PHpqNBKgCu2vC72HfToUqN62e6Z';
+let contract_address = 'TTRX6WPpHfV3xDsk1B4Yxo6Ex3aUjsu4vh';
+let tbt_address = 'TJEDMQLLkGC3frpSnEhJes8fTWHPpQ5C6P';
 
 toast.configure();
 
@@ -132,6 +132,9 @@ class TopPage extends Component {
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
 
+        var total_tbt_sent = await Utils.contract.total_tbt_sent().call();
+        this.setState({ total_tbt_sent: Number(total_tbt_sent) / sunny });
+
         var tbt_price = await Utils.contract.tbt_price().call();
 
         var tenk_users = await Utils.contract.tenk_users().call();
@@ -141,7 +144,7 @@ class TopPage extends Component {
             this.setState({ tbt_price: Number(tbt_price) / sunny });
 
         } else {
-            this.setState({ tbt_price: Number(tbt_price) / 2 * sunny });
+            this.setState({ tbt_price: Number(2 * tbt_price) / sunny });
 
         }
 
@@ -215,7 +218,6 @@ class TopPage extends Component {
         this.setState({ roi5: Number(roiInfo.roi5) });
         this.setState({ userroi: Number(roiInfo.userroi) });
 
-
         const levelInfo = await Utils.contract.levelInfo(this.state.account).call();
 
         this.setState({ level1: Number(levelInfo.level1) / sunny });
@@ -237,6 +239,12 @@ class TopPage extends Component {
         });
         this.setState({
             total_tbt: Number(tbtInfo.total_tbt1) / sunny
+        });
+        this.setState({
+            tbt_bal: Number(tbtInfo.tbt_bal) / sunny
+        });
+        this.setState({
+            contract_tbt_bal: Number(tbtInfo.contract_tbt_bal) / sunny
         });
 
         var tbt_min_deposit = await Utils.contract.tbt_min_deposit().call();
@@ -298,14 +306,6 @@ class TopPage extends Component {
                         <a href={url} >  <img src={require("./Image1/logo_tronBeast2.png")} alt="Logo" width="460px" /></a>
                     </div>
 
-                    {this.state.user_status !== 0 && this.state.deposit_amount > 0 ?
-                        <Withdraw
-                            my_tbt_offer={this.state.my_tbt_offer1}
-                            max_payout={this.state.max_payout}
-                            userroi={this.state.userroi}
-                        />
-                        : null}
-
                     {this.state.user_status === 0 ?
                         <Invest
                             next_min_deposit={this.state.next_min_deposit}
@@ -325,7 +325,12 @@ class TopPage extends Component {
                             locked_balance={this.state.locked_balance}
                             isReentry={this.state.isReentry}
 
-                        /> : null}
+                        /> :
+                        <Withdraw
+                            my_tbt_offer={this.state.my_tbt_offer1}
+                            max_payout={this.state.max_payout}
+                            userroi={this.state.userroi}
+                        />}
 
                     <SmartInfo
                         smartLoading={this.state.smartLoading}
@@ -335,6 +340,8 @@ class TopPage extends Component {
                         subtbt={this.state.subtbt}
                         totalUsers={this.state.totalUsers}
                         totalPaid={this.state.totalPaid}
+                        total_tbt_sent={this.state.total_tbt_sent}
+                        contract_tbt_bal={this.state.contract_tbt_bal}
                     />
 
                     {this.state.userTotalDeposit > 0 ?
@@ -363,6 +370,7 @@ class TopPage extends Component {
 
                                 from_deposit={this.state.from_deposit}
                                 from_withdrawal={this.state.from_withdrawal}
+                                tbt_bal={this.state.tbt_bal}
                                 total_tbt={this.state.total_tbt}
                             />
 
