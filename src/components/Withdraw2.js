@@ -109,9 +109,9 @@ class Withdraw extends Component {
             this.setState({ payout_time1: 1 });
         }
         const secRate = this.state.max_payout / this.state.payout_time1;
-        const secRate2 = this.props.userroi / this.state.payout_time1;
+        //  const secRate2 = this.props.userroi / this.state.payout_time1;
         var secGone = (this.state.now - this.state.deposit_time1);
-        var secGone2 = secGone;
+        //  var secGone2 = secGone;
         var counter = 1;
         if (secGone > this.state.payout_time1) {
             secGone = this.state.payout_time1;

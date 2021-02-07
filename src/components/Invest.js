@@ -159,7 +159,7 @@ export class Invest extends Component {
                             <span style={dotStyle1}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> Min Investment for receiving TBT is <br /><span style={{ color: "yellow" }}>{this.props.tbt_min_deposit} TRX (<span style={{ color: "white" }}> @ price of {this.props.tbt_price} TRX / TBT</span> )</span>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> Min Investment for receiving TBT is <br /><span style={{ color: "yellow" }}>{this.props.tbt_min_deposit} TRX (<span style={{ color: "white" }}> priced @ of {this.props.tbt_price} TRX / TBT</span> )</span>
                             </p>
 
                         </div>

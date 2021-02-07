@@ -145,14 +145,19 @@ class TopPage extends Component {
 
         var tenk_users = await Utils.contract.tenk_users().call();
         this.setState({ tenk_users: Number(tenk_users) });
+        this.setState({ tbt_price: Number(tbt_price) / sunny });
+        //     console.log("users " + this.state.totalUsers + " tenkusers " + this.state.tenk_users);
 
-        if (totalUsers <= tenk_users) {
-            this.setState({ tbt_price: Number(tbt_price) / sunny });
+        // if (
+        //     totalUsers <= tenk_users) {
+        //     this.setState({ tbt_price: Number(tbt_price) / sunny });
+        //     console.log("1users " + this.state.totalUsers + " tenkusers " + this.state.tenk_users);
 
-        } else {
-            this.setState({ tbt_price: Number(2 * tbt_price) / sunny });
+        // } else {
+        //     this.setState({ tbt_price: Number(2 * tbt_price) / sunny });
+        //     console.log("2users " + this.state.totalUsers + " tenkusers " + this.state.tenk_users);
 
-        }
+        // }
 
         this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
 
@@ -397,12 +402,13 @@ class TopPage extends Component {
                                 account={this.state.account}
                             />
                         </div> : null}
-                    {this.state.user_status == !0 ?
-                        <Withdraw
+
+                    {this.state.user_status === 0 ?
+                        null : <Withdraw
                             my_tbt_offer={this.state.my_tbt_offer1}
                             max_payout={this.state.max_payout}
                             userroi={this.state.userroi}
-                        /> : null}
+                        />}
 
                     <div style={{ paddingBottom: "20px" }}></div>
 
