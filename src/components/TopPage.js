@@ -318,7 +318,7 @@ class TopPage extends Component {
                         <a href={url} >  <img src={require("./Image1/logo_tronBeast2.png")} alt="Logo" width="460px" /></a>
                     </div>
 
-                    {this.state.user_status === 0 && this.state.referPresent === true ?
+                    {/* {this.state.user_status === 0 && this.state.referPresent === true ?
                         <Invest
                             next_min_deposit={this.state.next_min_deposit}
                             balance={this.state.balance}
@@ -338,7 +338,7 @@ class TopPage extends Component {
                             isReentry={this.state.isReentry}
 
                         /> :
-                        null}
+                        null} */}
 
                     <SmartInfo
                         smartLoading={this.state.smartLoading}

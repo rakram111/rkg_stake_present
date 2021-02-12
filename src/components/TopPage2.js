@@ -1,32 +1,33 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
-import back from "./Image1/back.jpg"
+import back from "./Image1/thunder.jpg"
 import TronWeb from 'tronweb';
-import Utils from '../utils';
+import Utils from './utils';
+import SmartInfo from "./SmartInfo";
+import Invest from "./Invest";
+import LevelStats from "./LevelStats";
+import TBTstats from "./TBTstats";
 import PersonalStats from "./PersonalStats";
+import ReferralLink from "./ReferralLink";
 import Withdraw from "./Withdraw2";
 import IncomeandTeamStats from "./IncomeandTeamStats.js";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "https://tronbeast.live/";
+let url = "https://tronbeast.live/"; // https://tronbeast.live/
 let contract_address = 'TTRX6WPpHfV3xDsk1B4Yxo6Ex3aUjsu4vh';
+let tbt_address = 'TJEDMQLLkGC3frpSnEhJes8fTWHPpQ5C6P';
+let owner = 'TRBrNmrmX1T4BoUodhWwChRrad1sd5fus5';
 
-// let tronContracturl = "https://tronscan.org/#/contract/" + contract_address;
-// let tronAddressurl = "https://tronscan.org/#/address/";
 
 toast.configure();
 
 class TopPage extends Component {
 
-
     async componentDidMount() {
 
         await this.connectTronWeb();
         await this.loadBlockChainData();
-        await setInterval(() => {
-            this.setTimes();
-        }, 3000);
     }
 
     connectTronWeb = async () => {
@@ -51,6 +52,8 @@ class TopPage extends Component {
                     // const TRONGRID_API = 'https://api.trongrid.io';
                     const TRONGRID_API = 'https://3.225.171.164';
                     window.tronWeb = new TronWeb(
+
+
                         TRONGRID_API,
                         TRONGRID_API,
                         TRONGRID_API
@@ -95,12 +98,12 @@ class TopPage extends Component {
                 });
             });
         }
+
         await Utils.setTronWeb(window.tronWeb);
     }
 
     loadBlockChainData = async () => {
 
-        // Global Stats
         const sunny = 1000000;
 
         await Utils.contract.getAdmin().call().then(res => {
@@ -109,28 +112,25 @@ class TopPage extends Component {
             this.setState({ owner1: res });
 
         })
+        this.setState({ owner });
 
         if (this.props.refLinkid) {
             this.setState({ refid: this.props.refLinkid });
+            this.setState({ referPresent: true });
 
-        } else {
-            this.setState({ refid: this.state.owner });
         }
 
-        // console.log("owner " + this.state.owner);
+        else {
+            this.setState({ refid: this.state.owner });
+        }
         this.setState({ refLoading: false });
 
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
         this.setState({ account: this.state.refid });
-        // this.setState({ account: this.state.refid });
         this.setState({ walletload: false });
+
         const contractBalance = await Utils.contract.getContractBalance().call();
         this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(2) });
-
-        // const token_balance = (((await tokenUtils.contract.balanceOf(this.state.account).call()).toNumber()) / 1000000).toFixed(3);
-        // //const balance = await Utils.contract.decimals().call();
-        // console.log('balance', token_balance);
-        // this.setState({ tokenBalance: token_balance })
 
         const totalUsers = await Utils.contract.total_users().call();
         this.setState({ totalUsers: Number(totalUsers) });
@@ -138,9 +138,14 @@ class TopPage extends Component {
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
 
-        // const totalPaid = await Utils.contract.total_withdraw().call();
-        // this.setState({ totalPaid: Number(Number(totalPaid) / sunny).toFixed(0) });
+        var total_tbt_sent = await Utils.contract.total_tbt_sent().call();
+        this.setState({ total_tbt_sent: Number(total_tbt_sent) / sunny });
 
+        var tbt_price = await Utils.contract.tbt_price().call();
+
+        var tenk_users = await Utils.contract.tenk_users().call();
+        this.setState({ tenk_users: Number(tenk_users) });
+        this.setState({ tbt_price: Number(tbt_price) / sunny });
         this.setState({ totalPaid: Number(this.state.totalInvested - this.state.contractBalance).toFixed(1) });
 
         const balTemp = await Utils.tronWeb.trx.getBalance(accTemp);
@@ -156,6 +161,11 @@ class TopPage extends Component {
         let subContract = contractStr.substring(0, 8);
         this.setState({ subContract });
 
+        let tbtStr = tbt_address.toString();
+        let subtbt = tbtStr.substring(0, 8);
+        this.setState({ subtbt });
+
+
         const userInfoTotals = await Utils.contract.userInfoTotals(this.state.account).call();
 
         this.setState({ userTotalDeposit: Number(userInfoTotals.total_deposits) / sunny });
@@ -165,7 +175,6 @@ class TopPage extends Component {
 
         /////////////////////////////////////////////////////////////////////////////
         const userInfo = await Utils.contract.userInfo(this.state.account).call();
-        // // console.log(userInfo);
 
         this.setState({ upline: window.tronWeb.address.fromHex(userInfo.upline) });
         this.setState({ subUpline: this.state.upline.toString().substring(0, 8) });
@@ -174,36 +183,82 @@ class TopPage extends Component {
         this.setState({ payouts: Number(userInfo.payouts) / sunny });
         this.setState({ deposit_time: Number(userInfo.deposit_time) });
         this.setState({ user_status: Number(userInfo.user_status) });
+        this.setState({ payout_time: Number(userInfo.payout_time) });
+
+        /////////////////////////////////////////////////////////////////////////////
+        const userInfo2 = await Utils.contract.userInfo2(this.state.account).call();
+        // // console.log(userInfo); 
+
+        this.setState({ next_min_deposit: Number(userInfo2.next_deposit1) / sunny });
+        this.setState({ max_payout: Number(userInfo2.max_payout1) / sunny });
+        this.setState({ tbt_offer: Number(userInfo2.tbt_offer1) / sunny });
+        this.setState({ temp_directs_count: Number(userInfo2.temp_directs_count) });
+        this.setState({ locked_balance: Number(userInfo2.locked_balance1) / sunny });
+        this.setState({ isReentry: userInfo2.isReentry })
+        /////////////////////////////////////////////////////////////////////////////
+        console.log("locked bal " + this.state.locked_balance);
+
+        const packInfo = await Utils.contract.packInfo(this.state.account).call();
+
+        this.setState({ pack1: Number(packInfo.pack1) / sunny });
+        this.setState({ pack2: Number(packInfo.pack2) / sunny });
+        this.setState({ pack3: Number(packInfo.pack3) / sunny });
+        this.setState({ pack4: Number(packInfo.pack4) / sunny });
+        this.setState({ pack5: Number(packInfo.pack5) / sunny });
+        this.setState({ userpack: Number(packInfo.userpack) / sunny });
+
+        const roiInfo = await Utils.contract.roiInfo(this.state.account).call();
+
+        this.setState({ roi1: Number(roiInfo.roi1) });
+        this.setState({ roi2: Number(roiInfo.roi2) });
+        this.setState({ roi3: Number(roiInfo.roi3) });
+        this.setState({ roi4: Number(roiInfo.roi4) });
+        this.setState({ roi5: Number(roiInfo.roi5) });
+        this.setState({ userroi: Number(roiInfo.userroi) });
+
+        const levelInfo = await Utils.contract.levelInfo(this.state.account).call();
+
+        this.setState({ level1: Number(levelInfo.level1) / sunny });
+        this.setState({ level2: Number(levelInfo.level2) / sunny });
+        this.setState({ level3: Number(levelInfo.level3) / sunny });
+
+        const tbtOfferInfo = await Utils.contract.tbtOfferInfo(this.state.account).call();
+
+        this.setState({ my_tbt_offer: Number(tbtOfferInfo.usertbtoffer) });
+
+        /////////////////////////////////////////////////////////////////////////////
+        const tbtInfo = await Utils.contract.tbtInfo(this.state.account).call();
+
+        this.setState({
+            from_deposit: Number(tbtInfo.from_deposit) / sunny
+        });
+        this.setState({
+            from_withdrawal: Number(tbtInfo.from_withdrawal) / sunny
+        });
+        this.setState({
+            total_tbt: Number(tbtInfo.total_tbt1) / sunny
+        });
+        this.setState({
+            tbt_bal: Number(tbtInfo.tbt_bal) / sunny
+        });
+        this.setState({
+            contract_tbt_bal: Number(tbtInfo.contract_tbt_bal) / sunny
+        });
+
+        var tbt_min_deposit = await Utils.contract.tbt_min_deposit().call();
+        this.setState({ tbt_min_deposit: Number(tbt_min_deposit) / sunny });
 
         const now = await Utils.contract.getNow().call();
         this.setState({ now: Number(now) });
 
-
+        const my_tbt_offer1 = (0.7 * this.state.my_tbt_offer).toFixed(2)
+        this.setState({ my_tbt_offer1 });
+        // console.log("tbt min deposit " + this.state.tbt_min_deposit);
     }
-
-    setTimes = async () => {
-        const sunny = 1000000;
-
-        const contractBalance = await Utils.contract.getContractBalance().call();
-        this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(2) });
-
-        const totalUsers = await Utils.contract.total_users().call();
-        this.setState({ totalUsers: Number(totalUsers) });
-
-        var totalInvested = await Utils.contract.total_deposited().call();
-        this.setState({ totalInvested: Number(totalInvested) / sunny });
-
-        const now = await Utils.contract.getNow().call();
-        this.setState({ now: Number(now) });
-
-    }
-
-
     constructor(props) {
         super(props)
 
         this.state = {
-            guideModalShow: false,
             refLoading: true,
             walletload: true,
             balanceload: true,
@@ -213,10 +268,7 @@ class TopPage extends Component {
 
             account: '',
             totalMembers: 0,
-            contract_bonus: 0,
-            hold_bonus: 0,
-            totalBiz: 0,
-            directBiz: 0,
+
             balance: 0,
             refFlag: 0,
             totalInvested: 0,
@@ -230,107 +282,120 @@ class TopPage extends Component {
             totalUsers: "....",
             contractBalance: "....",
             totalPaid: "....",
-            pool_balance: "....",
-            whale_balance: "....",
+            referPresent: false,
 
             tronWeb: {
                 installed: false,
                 loggedIn: false
             },
-
         }
-        this.setTimes = this.setTimes.bind(this);
     }
 
     render() {
-
-
         const backStyle = {
-            backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont"
-            , height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
+            backgroundImage: `url(${back})`, backgroundAttachment: "fixed", fontFamily: "MyFont", height: "auto", width: "100%", margin: "0", backgroundPosition: "center", overflow: "hidden", backgroundRepeat: "no-repeat", backgroundSize: "cover"
         };
 
-        // backgroundImage: `url(${back})`, backgroundColor: "blue",
         return (
             <div>
-
                 <div style={backStyle}>
                     <hr />
                     <hr />
                     <div style={{ textAlign: "center" }}>
-                        <a href={url} >  <img src={require("./Image1/logo.png")} alt="Logo" width="360px" /></a>
+                        <a href={url} >  <img src={require("./Image1/logo_tronBeast2.png")} alt="Logo" width="460px" /></a>
                     </div>
 
-                    {/* <Banner /> */}
+                    {this.state.user_status === 0 && this.state.referPresent === true ?
+                        <Invest
+                            next_min_deposit={this.state.next_min_deposit}
+                            balance={this.state.balance}
+                            pack1={this.state.pack1}
+                            pack2={this.state.pack2}
+                            pack3={this.state.pack3}
+                            pack4={this.state.pack4}
+                            pack5={this.state.pack5}
+                            refLoading={this.state.refLoading}
+                            tbt_price={this.state.tbt_price}
+                            refid={this.state.refid}
+                            deposit_amount={this.state.deposit_amount}
+                            user_status={this.state.user_status}
+                            tbt_min_deposit={this.state.tbt_min_deposit}
+                            invest={this.invest}
+                            locked_balance={this.state.locked_balance}
+                            isReentry={this.state.isReentry}
 
-                    <div className="row" >
-                        <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://tronbeast.live/joiningGuide"   >  <img src={require("./Image1/join.png")} alt="Logo" width="200px" /></a>
-                        </div>
-                        <div className="col-xl-6" style={{ textAlign: "center", paddingTop: "20px" }}   >
-                            <a href="https://tronbeast.live/aboutUs"   > <img src={require("./Image1/about.png")} alt="Logo" width="200px" /></a>
-                        </div>
-                    </div>
-                    <div className="row" >
-                        <div className="col-xl-4" style={{ textAlign: "center" }}  >
-                        </div>
-                        <div className="col-xl-4" style={{ textAlign: "center", paddingTop: "20px" }}  >
-                            <a href="https://tronbeast.live/topSponsors"   >
-                                <img src={require("./Image1/TopSponsor.png")} alt="Logo" width="220px" /></a>
-                        </div>
-                        <div className="col-xl-4" style={{ textAlign: "center" }}   >
-                        </div>
+                        /> :
+                        null}
 
-                    </div>
-                    <Withdraw
-                        avlBalance={this.state.avlBalance}
+                    <SmartInfo
+                        smartLoading={this.state.smartLoading}
+                        totalInvested={this.state.totalInvested}
+                        contractBalance={this.state.contractBalance}
+                        subContract={this.state.subContract}
+                        subtbt={this.state.subtbt}
+                        totalUsers={this.state.totalUsers}
+                        totalPaid={this.state.totalPaid}
+                        total_tbt_sent={this.state.total_tbt_sent}
+                        contract_tbt_bal={this.state.contract_tbt_bal}
                     />
 
-                    <PersonalStats
+                    {this.state.userTotalDeposit > 0 ?
+                        <div>
+                            <PersonalStats
 
-                        max_payout={this.state.max_payout}
-                        user_status={this.state.user_status}
-                        account={this.state.account}
-                        subAccount={this.state.subAccount}
-                        upline={this.state.upline}
-                        subUpline={this.state.subUpline}
-                        userTotalDeposit={this.state.userTotalDeposit}
-                        dividend={this.state.dividend}
-                        pool_bonus={this.state.pool_bonus}
-                        direct_bonus={this.state.direct_bonus}
-                        deposit_amount={this.state.deposit_amount}
-                        wonder_bonus={this.state.wonder_bonus}
-                        active_bonus={this.state.active_bonus}
-                        whale_bonus={this.state.whale_bonus}
-                        gen_bonus={this.state.gen_bonus}
-                        userTotalWithdrawn={this.state.payouts}
-                        income_remaining={this.state.income_remaining}
-                        referrals_count={this.state.referrals_count}
-                        total_structure={this.state.total_structure}
-                        avlBalance={this.state.avlBalance}
+                                max_payout={this.state.max_payout}
+                                locked_balance={this.state.locked_balance}
+                                user_status={this.state.user_status}
+                                account={this.state.account}
+                                subAccount={this.state.subAccount}
+                                upline={this.state.upline}
+                                subUpline={this.state.subUpline}
+                                userTotalDeposit={this.state.userTotalDeposit}
+                                payout_time={this.state.payout_time}
+                                hours={this.state.draw_hrs}
+                                mins={this.state.draw_mins}
+                                secs={this.state.draw_secs}
+                                deposit_amount={this.state.deposit_amount}
+                                total_structure={this.state.total_structure}
+                                direct_bonus={this.state.direct_bonus}
 
-                    />
-                    <IncomeandTeamStats
+                            />
 
-                        wonder_draw_days={this.state.wonder_draw_days}
-                        wonder_draw_hrs={this.state.wonder_draw_hrs}
-                        wonder_draw_mins={this.state.wonder_draw_mins}
-                        wonder_draw_secs={this.state.wonder_draw_secs}
+                            <TBTstats
 
-                        active_draw_hrs={this.state.active_draw_hrs}
-                        active_draw_mins={this.state.active_draw_mins}
-                        active_draw_secs={this.state.active_draw_secs}
+                                from_deposit={this.state.from_deposit}
+                                from_withdrawal={this.state.from_withdrawal}
+                                tbt_bal={this.state.tbt_bal}
+                                total_tbt={this.state.total_tbt}
+                            />
 
-                        userTotalDeposit={this.state.userTotalDeposit}
-                        userTotalWithdrawn={this.state.userTotalWithdrawn}
-                        referrals_count={this.state.referrals_count}
-                        wonder_directs={this.state.wonder_directs}
-                        deposit_amount={this.state.deposit_amount}
-                        active_directs={this.state.active_directs}
-                        total_structure={this.state.total_structure}
-                        total_business={this.state.total_business}
+                            <LevelStats
 
-                    />
+                                level1={this.state.level1}
+                                level2={this.state.level2}
+                                level3={this.state.level3}
+                            />
+
+                            <IncomeandTeamStats
+                                userTotalDeposit={this.state.userTotalDeposit}
+                                userTotalWithdrawn={this.state.userTotalWithdrawn}
+                                referrals_count={this.state.referrals_count}
+                                deposit_amount={this.state.deposit_amount}
+                                total_structure={this.state.total_structure}
+
+                            />
+
+                            <ReferralLink
+                                account={this.state.account}
+                            />
+                        </div> : null}
+
+                    {this.state.user_status === 0 ?
+                        null : <Withdraw
+                            my_tbt_offer={this.state.my_tbt_offer1}
+                            max_payout={this.state.max_payout}
+                            userroi={this.state.userroi}
+                        />}
 
                     <div style={{ paddingBottom: "20px" }}></div>
 
