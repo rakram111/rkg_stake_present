@@ -57,17 +57,17 @@ class LevelStats extends Component {
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Level 1 </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
-                                {this.props.level1} TRX</p>
+                                {this.props.level1} RKG </p>
 
                             <br /><br />
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Level 2 </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
-                                {this.props.level2} TRX</p>
+                                {this.props.level2} RKG </p>
 
                             <br /><br />
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Level 3 </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
-                                {this.props.level3} TRX</p>
+                                {this.props.level3} RKG </p>
 
                             <br /><br />
                         </div>

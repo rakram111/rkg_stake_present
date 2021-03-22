@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
 
-const contract_address = 'TTRX6WPpHfV3xDsk1B4Yxo6Ex3aUjsu4vh';
+const contract_address = 'TPG7u3Uq4coxuVJv3cyA1Sm84cxyCMR4n2';
 // const tbt_address = 'TJEDMQLLkGC3frpSnEhJes8fTWHPpQ5C6P';
 
-let contract_url = "https://tronscan.org/#/contract/" + contract_address;
+let contract_url = "https://shasta.tronscan.org/#/contract/" + contract_address;
 
 export class SmartInfo extends Component {
 
     render() {
 
         const colStyle = {
-            backgroundImage: "linear-gradient(to right, #130401, #514155)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
-            boxShadow: "0 0 20px #eee",
+            backgroundImage: "linear-gradient(to right, , #514155)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px", boxShadow: "0 0 10px #eee",
         };
 
-        const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
+        const headerStyle = { marginTop: "18px", backgroundImage: "linear-gradient(to right, , #514155)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
 
         return (
 
@@ -34,19 +33,11 @@ export class SmartInfo extends Component {
                             <a href={contract_url} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center", paddingTop: "110px" }} target="_blank" rel="noopener noreferrer">{this.props.subContract}...</a>
                             <br /><br />
 
-
-
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Deposits</p>
-                            <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.totalInvested} TRX</a>
+                            <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.totalInvested} RKG</a>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>TBT claimed by Users </p>
-                            <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.total_tbt_sent} TBT</a>
-                            <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>TBT Balance</p>
-                            <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.contract_tbt_bal} TBT</a>
-                            <br /><br />
 
                             {/* <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Paid</p> 
                             <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.totalPaid} TRX</a>

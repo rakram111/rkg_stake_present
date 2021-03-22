@@ -1,10 +1,226 @@
 {
-  "contractName": "SafeMath",
-  "abi": [],
-  "bytecode": "0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea165627a7a72305820a77abffd4b6cfd15aca1aa4bf05935c3b4672a4e88450d9a495f697d9b8e44360029",
-  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea165627a7a72305820a77abffd4b6cfd15aca1aa4bf05935c3b4672a4e88450d9a495f697d9b8e44360029",
-  "sourceMap": "864:487:1:-;;132:2:-1;166:7;155:9;146:7;137:37;252:7;246:14;243:1;238:23;232:4;229:33;270:1;265:20;;;;222:63;;265:20;274:9;222:63;;298:9;295:1;288:20;328:4;319:7;311:22;352:7;343;336:24",
-  "deployedSourceMap": "864:487:1:-;;;;;;;;",
+  "contractName": "ITRC20",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "spender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Approval",
+      "type": "event"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalSupply",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "spender",
+          "type": "address"
+        },
+        {
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "approve",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "transfer",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "transferFrom",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "name",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "symbol",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "decimals",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "name": "spender",
+          "type": "address"
+        }
+      ],
+      "name": "allowance",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
   "source": "\r\npragma solidity 0.5.4;\r\n\r\ninterface ITRC20 {\r\n   \r\n    event Transfer(address indexed from, address indexed to, uint256 value);\r\n    event Approval(address indexed owner, address indexed spender, uint256 value);\r\n\r\n    function totalSupply() external view returns(uint256);\r\n    function balanceOf(address owner) external view returns(uint256);\r\n    function approve(address spender, uint256 value) external returns(bool);\r\n    function transfer(address to, uint256 value) external returns(bool);\r\n    function transferFrom(address from, address to, uint256 value) external returns(bool);\r\n\r\n    function name() external view returns(string memory);\r\n    function symbol() external view returns(string memory);\r\n    function decimals() external view returns(uint8);\r\n    function allowance(address owner, address spender) external view returns(uint256);\r\n\r\n}\r\n\r\nlibrary SafeMath {\r\n    function add(uint256 x, uint256 y) internal pure returns(uint256 z) {\r\n        require((z = x + y) >= x, \"SafeMath: MATH_ADD_OVERFLOW\");\r\n    }\r\n\r\n    function sub(uint256 x, uint256 y) internal pure returns(uint256 z) {\r\n        require((z = x - y) <= x, \"SafeMath: MATH_SUB_UNDERFLOW\");\r\n    }\r\n\r\n    function mul(uint256 x, uint256 y) internal pure returns(uint256 z) {\r\n        require(y == 0 || (z = x * y) / y == x, \"SafeMath: MATH_MUL_OVERFLOW\");\r\n    }\r\n}\r\n\r\ncontract TRC20 is ITRC20 {\r\n    using SafeMath for uint256;\r\n\r\n    string public name;\r\n    string public symbol;\r\n    uint8 public decimals;\r\n\r\n    uint256 public totalSupply;\r\n\r\n    mapping(address => uint256) public balanceOf;\r\n    mapping(address => mapping(address => uint256)) public allowance;\r\n\r\n    function _mint(address to, uint256 value) internal {\r\n        totalSupply = totalSupply.add(value);\r\n        balanceOf[to] = balanceOf[to].add(value);\r\n\r\n        emit Transfer(address(0), to, value);\r\n    }\r\n\r\n    function _burn(address from, uint256 value) internal {\r\n        balanceOf[from] = balanceOf[from].sub(value);\r\n        totalSupply = totalSupply.sub(value);\r\n\r\n        emit Transfer(from, address(0), value);\r\n    }\r\n\r\n    function _approve(address owner, address spender, uint256 value) private {\r\n        allowance[owner][spender] = value;\r\n\r\n        emit Approval(owner, spender, value);\r\n    }\r\n\r\n    function _transfer(address from, address to, uint256 value) private {\r\n        balanceOf[from] = balanceOf[from].sub(value);\r\n        balanceOf[to] = balanceOf[to].add(value);\r\n\r\n        emit Transfer(from, to, value);\r\n    }\r\n\r\n    function approve(address spender, uint256 value) external returns(bool) {\r\n        _approve(msg.sender, spender, value);\r\n\r\n        return true;\r\n    }\r\n\r\n    function transfer(address to, uint256 value) external returns(bool) {\r\n        _transfer(msg.sender, to, value);\r\n\r\n        return true;\r\n    }\r\n\r\n    function transferFrom(address from, address to, uint256 value) external returns(bool) {\r\n        if(allowance[from][msg.sender] != uint256(-1)) {\r\n            allowance[from][msg.sender] = allowance[from][msg.sender].sub(value);\r\n        }\r\n\r\n        _transfer(from, to, value);\r\n\r\n        return true;\r\n    }\r\n}\r\n\r\ncontract RKG is TRC20 {\r\n    address public owner;\r\n    address public back_owner;\r\n    bool public stopmint;\r\n\r\n    modifier onlyOwner() {\r\n        require(msg.sender == owner, \"RKG: ACCESS_DENIED\");\r\n        _;\r\n    }\r\n\r\n    modifier onlyBackOwner() {\r\n        require(msg.sender == back_owner, \"RKG: ACCESS_DENIED\");\r\n        _;\r\n    }\r\n\r\n    constructor(address _owner, address _back_owner) public {\r\n        owner = _owner;\r\n        back_owner = _back_owner;\r\n\r\n        name = \"RKG Coin\";\r\n        symbol = \"RKG\";\r\n        decimals = 6; \r\n\r\n        totalSupply = 1100000000 * 10 ** uint256(decimals);  // Update total supply with the decimal amount\r\n        balanceOf[owner] = totalSupply;  \r\n    }\r\n\r\n    function mint(address to, uint256 value) external onlyOwner {\r\n        require(!stopmint, \"RKG: MINT_ALREADY_STOPPED\");\r\n\r\n        _mint(to, value*10**uint256(decimals));\r\n    }\r\n\r\n    function burn(uint256 value) external onlyOwner {\r\n        require(balanceOf[msg.sender] >= value, \"RKG: INSUFFICIENT_FUNDS\");\r\n\r\n        _burn(msg.sender, value*10**uint256(decimals));\r\n    }\r\n\r\n    function stopMint() external onlyOwner {\r\n        require(!stopmint, \"RKG: MINT_ALREADY_STOPPED\");\r\n\r\n        stopmint = true;\r\n    }\r\n\r\n    function transferOwnership(address _newOwner) external onlyBackOwner {\r\n        owner = _newOwner;\r\n        stopmint = false;\r\n    }\r\n     \r\n}",
   "sourcePath": "C:\\Users\\RAAKESH\\Desktop\\Coding\\TronDapp\\AATRON BEAST\\Code\\contracts\\RKG.sol",
   "ast": {
@@ -14783,5 +14999,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2021-03-22T03:38:54.462Z"
+  "updatedAt": "2021-03-22T03:38:54.453Z"
 }

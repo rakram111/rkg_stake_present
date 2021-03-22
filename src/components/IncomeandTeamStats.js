@@ -22,11 +22,11 @@ export class IncomeandTeamStats extends Component {
 
                         <div className="col-xl-12" >
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Deposited </p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.userTotalDeposit} TRX</p>
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.userTotalDeposit} RKG </p>
                             <br />
 
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Received</p>
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.userTotalWithdrawn} TRX</p>
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}> {this.props.userTotalWithdrawn} RKG </p>
                             <br />
 
                         </div>

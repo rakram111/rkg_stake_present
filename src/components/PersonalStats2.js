@@ -3,7 +3,7 @@ import Utils from '../utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-let addressTronScan = "https://tronscan.org/#/contract/";
+let addressTronScan = "https://shasta.tronscan.org/#/contract/";
 
 toast.configure();
 
@@ -75,38 +75,38 @@ class PersonalStats extends Component {
 
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Present Deposit </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.deposit_amount} TRX</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.deposit_amount} RKG </p>
                             <br /><br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Remaining Income </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.income_remaining} TRX</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.income_remaining} RKG </p>
                             <br /><br />
 
 
 
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Dividends</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.dividend} TRX</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.dividend} RKG </p>
                             <br /> <br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Direct Bonus</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} TRX</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} RKG </p>
                             <br /> <br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Generation Bonus </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.gen_bonus} TRX</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.gen_bonus} RKG </p>
                             <br /> <br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Pool Bonus </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.pool_bonus} TRX</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.pool_bonus} RKG </p>
                             <br /> <br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Total Withdrawn</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.userTotalWithdrawn} TRX</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.userTotalWithdrawn} RKG </p>
                             <br /> <br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Balance Available</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.avlBalance} TRX</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.avlBalance} RKG </p>
                             <br /> <br />
 
 
