@@ -45,21 +45,6 @@ export class Invest extends Component {
 
         const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
 
-        const addButton = {
-            display: "inline-block",
-            padding: "0.5em 1em",
-            textDecoration: "none",
-            color: "#FFF",
-            transition: ".4s", marginTop: "10px", marginLeft: "10px", marginBottom: "10px", fontWeight: "3px", border: "3px solid white", backgroundColor: "black"
-        }
-        const dotStyle1 = {
-            height: "20px",
-            width: "20px",
-            backgroundColor: "#bbb",
-            borderRadius: "50%",
-            display: "inline-block",
-        };
-
         const investButton = {
             display: "inline-block",
             padding: "0.5em 1em",

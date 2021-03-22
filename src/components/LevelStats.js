@@ -70,6 +70,19 @@ class LevelStats extends Component {
                                 {this.props.level3} RKG </p>
 
                             <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Level 4 </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
+                                {this.props.level4} RKG </p>
+
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Level 5 </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right", fontFamily: "MyFont" }}>
+                                {this.props.level5} RKG </p>
+
+                            <br /><br />
+
                         </div>
                         <div className="col-xl-3"></div>
                     </div>

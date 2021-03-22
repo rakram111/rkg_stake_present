@@ -7,17 +7,15 @@ import SmartInfo from "./SmartInfo";
 import Invest from "./Invest";
 import Token from "./Token";
 import LevelStats from "./LevelStats";
-import TBTstats from "./TBTstats";
 import PersonalStats from "./PersonalStats";
 import ReferralLink from "./ReferralLink";
-import Withdraw from "./Withdraw2";
 import IncomeandTeamStats from "./IncomeandTeamStats.js";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 import SuperStats from './SuperStats';
 
 let url = "http://localhost:3000/"; // http://localhost:3000/
-let contract_address = 'TPG7u3Uq4coxuVJv3cyA1Sm84cxyCMR4n2';
+let contract_address = 'TU5oYTsq11mp2U9T7jE37feMy14N5YATf1 ';
 let rkg_address = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX';
 let owner = 'TMKKWtwErWh5EKNuLLVbSwGq8aKuTz4uUA';
 
@@ -114,6 +112,7 @@ class TopPage extends Component {
 
         })
         this.setState({ owner });
+        // console.log("owner" + this.state.owner);
 
         if (this.props.refLinkid) {
             this.setState({ refid: this.props.refLinkid });
@@ -127,23 +126,12 @@ class TopPage extends Component {
         this.setState({ account: accTemp });
         this.setState({ walletload: false });
 
-        const contractBalance = await Utils.contract.getContractBalance().call();
-        this.setState({ contractBalance: Number(contractBalance / sunny).toFixed(2) });
-
         const totalUsers = await Utils.contract.total_users().call();
         this.setState({ totalUsers: Number(totalUsers) });
 
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
 
-        var total_tbt_sent = await Utils.contract.total_tbt_sent().call();
-        this.setState({ total_tbt_sent: Number(total_tbt_sent) / sunny });
-
-        var tbt_price = await Utils.contract.tbt_price().call();
-
-        var tenk_users = await Utils.contract.tenk_users().call();
-        this.setState({ tenk_users: Number(tenk_users) });
-        this.setState({ tbt_price: Number(tbt_price) / sunny });
         //     console.log("users " + this.state.totalUsers + " tenkusers " + this.state.tenk_users);
 
         // if (
@@ -279,6 +267,9 @@ class TopPage extends Component {
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
 
+        var dividends_total = await Utils.contract.dividends_total().call();
+        this.setState({ dividends_total: Number(dividends_total) / sunny });
+
         let subAccountstr = this.state.account.toString();
         let subAccount = subAccountstr.substring(0, 8);
         this.setState({ subAccount });
@@ -323,6 +314,7 @@ class TopPage extends Component {
         this.setState({ level5: Number(levelInfo.level5) / sunny });
 
     }
+
     constructor(props) {
         super(props)
 
@@ -414,7 +406,7 @@ class TopPage extends Component {
                                 upline={this.state.upline}
                                 subUpline={this.state.subUpline}
                                 userTotalDeposit={this.state.userTotalDeposit}
-                                payout_time={this.state.payout_time}
+                                dividends_total={this.state.dividends_total}
 
                                 deposit_amount={this.state.deposit_amount}
                                 total_structure={this.state.total_structure}
@@ -445,7 +437,6 @@ class TopPage extends Component {
                                 userTotalDeposit={this.state.userTotalDeposit}
                                 userTotalWithdrawn={this.state.userTotalWithdrawn}
                                 referrals_count={this.state.direct_referrals}
-                                deposit_amount={this.state.deposit_amount}
 
                             />
 
