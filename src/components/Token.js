@@ -1,6 +1,6 @@
 import React from 'react';
 import TronWeb from 'tronweb';
-import Utils from 'utils/index.js';
+import Utils from './tokenutils';
 import Swal from 'sweetalert2';
 
 import { toast } from 'react-toastify';
