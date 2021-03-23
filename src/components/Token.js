@@ -1,10 +1,6 @@
 import React from 'react';
 import TronWeb from 'tronweb';
-<<<<<<< HEAD
-import Utils from '../tokenutils';
-=======
 import Utils from './tokenutils';
->>>>>>> 4e46aaa9338e38d0bf56091e77f0291e67c6923c
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,11 +22,7 @@ class Token extends React.Component {
             transferaddress: '',
             transferamount: '',
             contractAddress: '',
-<<<<<<< HEAD
-            contract_address: 'TGDZQRunDZ7DAZr3k37u79YAYzFUTXqXvK',
-=======
-            contract_address: 'TU5oYTsq11mp2U9T7jE37feMy14N5YATf1 ',
->>>>>>> 4e46aaa9338e38d0bf56091e77f0291e67c6923c
+            contract_address: 'TGDZQRunDZ7DAZr3k37u79YAYzFUTXqXvK ',
             tokenname: '',
             tokensymbol: '',
             tronwebaddress: '',
