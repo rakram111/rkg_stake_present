@@ -42,6 +42,7 @@ export class Invest extends Component {
             boxShadow: "0 0 20px #eee",
         };
 
+
         const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
 
         const investButton = {

@@ -16,7 +16,7 @@ import SuperStats from './SuperStats';
 let url = "https://rkgstaking.com/"; // https://rkgstaking.com/
 
 let contract_address = 'TGDZQRunDZ7DAZr3k37u79YAYzFUTXqXvK  ';
-let rkg_address = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX';
+// let rkg_address = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX';
 
 toast.configure();
 

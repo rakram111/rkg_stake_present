@@ -423,6 +423,14 @@ class Token extends React.Component {
             transition: ".4s", marginTop: "30px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to bottom, #5AFF15, #FBB034)", fontSize: "18px", borderRadius: "30px", marginLeft: "150px"
         };
 
+        const dotStyle1 = {
+            height: "20px",
+            width: "20px",
+            backgroundColor: "#bbb",
+            borderRadius: "50%",
+            display: "inline-block",
+        };
+
         return (
             <div className='row'>
                 <div className="col-xl-4"></div>
