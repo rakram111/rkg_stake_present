@@ -12,6 +12,7 @@ import IncomeandTeamStats from "./IncomeandTeamStats.js";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 import SuperStats from './SuperStats';
+import Withdraw from './Withdraw2';
 
 let url = "https://rkgstaking.com/"; // https://rkgstaking.com/
 
@@ -355,12 +356,10 @@ class TopPage extends Component {
                             />
                         </div> : null}
 
-                    {/* {this.state.user_status === 0 ?
-                        null : <Withdraw
-                            my_tbt_offer={this.state.my_tbt_offer1}
-                            max_payout={this.state.max_payout}
-                            userroi={this.state.userroi}
-                        />} */}
+                    {this.state.user_status === 1 ?
+                        <Withdraw
+
+                        /> : null}
 
                     <div style={{ paddingBottom: "20px" }}></div>
 

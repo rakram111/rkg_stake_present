@@ -10,8 +10,6 @@ toast.configure();
 
 const TOKEN_ADDRESS = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX';
 
-//let contract_address = 'TUx4rh6X22oCbmYVaQdSCthCCeerg7bDNq'; 
-
 class Token extends React.Component {
 
     constructor(props) {
@@ -23,7 +21,7 @@ class Token extends React.Component {
             transferaddress: '',
             transferamount: '',
             contractAddress: '',
-            contract_address: 'TGDZQRunDZ7DAZr3k37u79YAYzFUTXqXvK',
+            contract_address: 'TGDZQRunDZ7DAZr3k37u79YAYzFUTXqXvK ',
             tokenname: '',
             tokensymbol: '',
             tronwebaddress: '',
@@ -42,7 +40,6 @@ class Token extends React.Component {
                 loggedIn: false
             },
         }
-
 
         this.buttonTen = this.buttonTen.bind(this);
         this.buttonHundred = this.buttonHundred.bind(this);
@@ -149,7 +146,7 @@ class Token extends React.Component {
         await this.setState({
             contractAddress: TOKEN_ADDRESS
         });
-        console.log('contractAddress : ', this.state.contractAddress);
+        // console.log('contractAddress : ', this.state.contractAddress);
         await Utils.setTronWeb(window.tronWeb, this.state.contractAddress);
         //const tmp_name = await Utils.contract.name().call();
         const tmp_tronwebaddress = Utils.tronWeb.address.fromHex((((await Utils.tronWeb.trx.getAccount()).address).toString()));
@@ -275,6 +272,8 @@ class Token extends React.Component {
     /////////////////////////////  TRANSFER FROM END ///////////////////////////////////
 
 
+    //////////////////////////////////// APPROVE ////////////////////////////
+
     updateApproveValue(evt) {
 
         this.setState({
@@ -353,6 +352,15 @@ class Token extends React.Component {
         });
     }
 
+    Approve(_spender, _amount) {
+
+        Utils.contract.approve(_spender, _amount).send({
+            shouldPollResponse: true,
+            callValue: 0,
+            feeLimit: 1000000000,
+        }).then(res => toast.success("First Step Completed")).catch(err => toast.error("First Step Failed"));
+    }
+
     /////////////////////////// BURN FROM END /////////////////////////////////
     buttonTen(event) {
         this.setState({ count: this.state.count + 10 });
@@ -389,16 +397,6 @@ class Token extends React.Component {
         this.setState({ count: 0 });
     }
 
-    //////////////////////////////////// APPROVE ////////////////////////////
-    Approve(_spender, _amount) {
-
-        Utils.contract.approve(_spender, _amount).send({
-            shouldPollResponse: true,
-            callValue: 0,
-            feeLimit: 1000000000,
-        }).then(res => toast.success("first step completed")).catch(err => toast.error("First step failed"));
-    }
-
     render() {
         const colStyle = {
             backgroundImage: "linear-gradient(to right, #130401, #514155)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
@@ -431,7 +429,6 @@ class Token extends React.Component {
             borderRadius: "50%",
             display: "inline-block",
         };
-
 
         return (
             <div className='row'>
@@ -499,23 +496,10 @@ class Token extends React.Component {
                 </div>
 
                 <div className="col-xl-4"></div>
-                {/* 
-                <br />
-                <p> Amount : </p>
-                <input style={{ width: "400px" }} value={this.state.approveamount} onChange={this.updateApproveValue} />
-                <br />
-                <br />
-                <button className='btn btn-primary' onClick={(event) => {
-                    event.preventDefault()
-                    this.Approve(this.state.contract_address, this.state.approveamount * 1000000)
-                }}>Approve
-                  </button>
-                <br />
-                <br />
-                <br />
 
-                <br /> */}
+                <br />
             </div>
+
         );
     }
 }

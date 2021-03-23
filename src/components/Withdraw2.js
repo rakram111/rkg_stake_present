@@ -102,12 +102,6 @@ class Withdraw extends Component {
         this.setState({ deposit_time1: Number(userInfo1.deposit_time) });
         this.setState({ payout_time1: Number(userInfo1.payout_time) });
 
-        const userInfo2 = await Utils.contract.userInfo2(this.state.account).call();
-
-        this.setState({ max_payout: Number(userInfo2.max_payout1) / sunny });
-        if (this.state.payout_time1 === 0) {
-            this.setState({ payout_time1: 1 });
-        }
         const secRate = this.state.max_payout / this.state.payout_time1;
         //  const secRate2 = this.props.userroi / this.state.payout_time1;
         var secGone = (this.state.now - this.state.deposit_time1);
@@ -168,7 +162,7 @@ class Withdraw extends Component {
 
     withdraw = async () => {
         await Utils.contract
-            .withdraw(this.state.account)
+            .withdraw()
             .send({
                 from: this.state.account,
             }).then(res => toast.success(' Withdrawal processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 })
@@ -188,27 +182,27 @@ class Withdraw extends Component {
 
         const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
 
-        const dotStyle1 = {
-            height: "20px",
-            width: "20px",
-            backgroundColor: "#bbb",
-            borderRadius: "50%",
-            display: "inline-block",
-        };
-        const dotStyle2 = {
-            height: "20px",
-            width: "20px",
-            backgroundColor: "#23ACCD",
-            borderRadius: "50%",
-            display: "inline-block",
-        };
-        const dotStyle3 = {
-            height: "20px",
-            width: "20px",
-            backgroundColor: "#58CC30",
-            borderRadius: "50%",
-            display: "inline-block",
-        };
+        // const dotStyle1 = {
+        //     height: "20px",
+        //     width: "20px",
+        //     backgroundColor: "#bbb",
+        //     borderRadius: "50%",
+        //     display: "inline-block",
+        // };
+        // const dotStyle2 = {
+        //     height: "20px",
+        //     width: "20px",
+        //     backgroundColor: "#23ACCD",
+        //     borderRadius: "50%",
+        //     display: "inline-block",
+        // };
+        // const dotStyle3 = {
+        //     height: "20px",
+        //     width: "20px",
+        //     backgroundColor: "#58CC30",
+        //     borderRadius: "50%",
+        //     display: "inline-block",
+        // };
 
         const investButton = {
             display: "inline-block",
@@ -226,39 +220,9 @@ class Withdraw extends Component {
                     <div className="col-xl-4" style={colStyle}>
 
                         <div className="col-xl-12" style={headerStyle}>
-                            Total ROI</div>
+                            Total Withdrawable</div>
                         <br />
-                        <div style={{ color: "white", fontSize: "29px", fontFamily: "MyFont", textAlign: "center" }}>{this.state.balNow} TRX
-
-                        </div>
-
-                        <br />
-                        <br />
-                        <div className="row container">
-                            <span style={dotStyle1}>
-
-                            </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>30 % locked for Re-Investment</p>
-
-                        </div>
-                        <div className="row container">
-                            <span style={dotStyle2}>
-
-                            </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>{(this.props.my_tbt_offer)} % to TBT offering</p>
-
-                        </div>
-                        <div className="row container">
-                            <span style={dotStyle3}>
-
-                            </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>{(100 - 30 - this.props.my_tbt_offer).toFixed(2)} % withdrawable</p>
-
-                        </div>
-                        <br />
-                        <p style={{ color: "yellow", textAlign: "center", fontSize: "19px" }}>You can withdraw in </p>
-                        <p style={{ color: "yellow", textAlign: "center", fontSize: "19px" }}>{this.state.draw_hrs} h : {this.state.draw_mins} m : {this.state.draw_secs} s</p>
-
+                        <h2 style={{ color: "white", textAlign: "center" }}>???</h2>
                         <form
                             onSubmit={(event) => {
                                 event.preventDefault();
@@ -268,10 +232,7 @@ class Withdraw extends Component {
 
                         >
 
-                            <br />
-                            {this.state.counter === 0 ?
-                                <button type="submit" className="btn btn-success" style={investButton}>Withdraw</button> : null}
-
+                            <button type="submit" className="btn btn-success" style={investButton}>Withdraw</button>
 
 
                         </form>
