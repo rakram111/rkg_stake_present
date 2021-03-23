@@ -1,6 +1,10 @@
 import React from 'react';
 import TronWeb from 'tronweb';
+<<<<<<< HEAD
 import Utils from '../tokenutils';
+=======
+import Utils from './tokenutils';
+>>>>>>> 4e46aaa9338e38d0bf56091e77f0291e67c6923c
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,7 +26,11 @@ class Token extends React.Component {
             transferaddress: '',
             transferamount: '',
             contractAddress: '',
+<<<<<<< HEAD
             contract_address: 'TGDZQRunDZ7DAZr3k37u79YAYzFUTXqXvK',
+=======
+            contract_address: 'TU5oYTsq11mp2U9T7jE37feMy14N5YATf1 ',
+>>>>>>> 4e46aaa9338e38d0bf56091e77f0291e67c6923c
             tokenname: '',
             tokensymbol: '',
             tronwebaddress: '',
@@ -413,13 +421,7 @@ class Token extends React.Component {
             color: "#FFF",
             transition: ".4s", marginTop: "10px", marginLeft: "10px", marginBottom: "10px", fontWeight: "3px", border: "3px solid white", backgroundColor: "black"
         }
-        const dotStyle1 = {
-            height: "20px",
-            width: "20px",
-            backgroundColor: "#bbb",
-            borderRadius: "50%",
-            display: "inline-block",
-        };
+
 
         const investButton = {
             display: "inline-block",
