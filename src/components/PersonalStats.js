@@ -75,29 +75,16 @@ class PersonalStats extends Component {
 
                             <br /><br />
 
-<<<<<<< HEAD
-=======
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Staked Returns</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.dividends} RKG </p>
-                            <br /><br />
-
-
->>>>>>> 4e46aaa9338e38d0bf56091e77f0291e67c6923c
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Present Deposit </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.deposit_amount} RKG </p>
                             <br /><br />
 
-<<<<<<< HEAD
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Max Payable </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.max_pay} RKG </p>
                             <br /><br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Compounding ROI</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.net_dividends} RKG </p>
-=======
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Affiliate Bonus</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.instant_bonus} RKG </p>
->>>>>>> 4e46aaa9338e38d0bf56091e77f0291e67c6923c
                             <br /> <br />
 
 

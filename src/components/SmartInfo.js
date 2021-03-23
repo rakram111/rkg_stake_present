@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 
-<<<<<<< HEAD
 const contract_address = 'TGDZQRunDZ7DAZr3k37u79YAYzFUTXqXvK  ';
-=======
-const contract_address = 'TU5oYTsq11mp2U9T7jE37feMy14N5YATf1 ';
->>>>>>> 4e46aaa9338e38d0bf56091e77f0291e67c6923c
 // const tbt_address = 'TJEDMQLLkGC3frpSnEhJes8fTWHPpQ5C6P';
 
 let contract_url = "https://shasta.tronscan.org/#/contract/" + contract_address;
