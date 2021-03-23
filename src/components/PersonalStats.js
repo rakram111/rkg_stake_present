@@ -96,6 +96,10 @@ class PersonalStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} RKG </p>
                             <br /><br />
 
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Generation Bonus</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.gen_bonus} RKG </p>
+                            <br /><br />
+
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Period</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.period}  </p>
                             <br /><br />

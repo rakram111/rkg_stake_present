@@ -114,10 +114,12 @@ contract RKGcontract  {
 
         address upline = users[_addr].upline;
         address up = users[_addr].upline;
+
         update_max_payout(up);
+        
         users[upline].direct_biz += _amount; 
 
-        if(users[upline].deposit_amount >= _amount && block.timestamp <= (users[upline].deposit_time + super_time)){
+        if(users[upline].deposit_amount <= _amount && block.timestamp <= users[upline].deposit_time + super_time){
             users2[upline].super_directs++;
             if(users2[upline].super_directs == 5 && users2[upline].super5_bonus == 0){
                 users2[upline].super5_bonus = users[upline].deposit_amount/2;

@@ -31,6 +31,7 @@ class TopPage extends Component {
             this.setTimes();
         }, 3000);
     }
+
     connectTronWeb = async () => {
         await new Promise(resolve => {
             const tronWebState = {
@@ -167,6 +168,7 @@ class TopPage extends Component {
         this.setState({ upline: window.tronWeb.address.fromHex(userInfo.upline) });
         this.setState({ subUpline: this.state.upline.toString().substring(0, 8) });
         this.setState({ direct_bonus: Number(userInfo.direct_bonus) / sunny });
+        this.setState({ gen_bonus: Number(userInfo.gen_bonus) / sunny });
         this.setState({ deposit_amount: Number(userInfo.deposit_amount) / sunny });
         this.setState({ payouts: Number(userInfo.payouts) / sunny });
         this.setState({ deposit_time: Number(userInfo.deposit_time) });
@@ -195,43 +197,6 @@ class TopPage extends Component {
         const now_time = await Utils.contract.getNow().call();
         this.setState({ now_time: Number(now_time) });
 
-        const divSupport = await Utils.contract.getDivSupport(this.state.account).call();
-
-        this.setState({ _Period_days: Number(divSupport._Period_days) });
-        this.setState({ _deposit_amount: Number(divSupport._deposit_amount) });
-        console.log("_Period_days " + this.state._Period_days);
-
-        const daily_roi = await Utils.contract.daily_roi().call();
-        this.setState({ daily_roi: Number(daily_roi) });
-        console.log("daily ROI " + this.state.daily_roi);
-
-        var total_dividends = this.state._deposit_amount;
-        for (var i = 0; i <= this.state._Period_days; i++) {
-            total_dividends += this.state.daily_roi * this.state._deposit_amount / 1000;
-        }
-        this.setState({ total_dividends: (total_dividends / sunny).toFixed(6) });
-        console.log("total_dividends " + this.state.total_dividends);
-
-        var net_dividends = 0;
-        net_dividends = this.state.total_dividends - this.state.deposit_amount;
-
-        this.setState({ net_dividends: net_dividends.toFixed(6) });
-        console.log("net_dividends " + this.state.net_dividends);
-
-        const total_bonus = await Utils.contract.getUserBonus(this.state.account).call();
-        this.setState({ total_bonus: Number(total_bonus) / sunny });
-        console.log("total_bonus " + this.state.total_bonus);
-
-        var net_draw = 0;
-
-        net_draw = this.state.total_bonus + this.state.net_dividends - this.state.deposit_payouts;
-        if (net_draw > this.state.max_payout) {
-            net_draw = this.state.max_payout;
-        }
-        this.setState({ net_draw });
-
-
-
     }
 
     setTimes = async () => {
@@ -245,7 +210,6 @@ class TopPage extends Component {
 
         var dividends_total = await Utils.contract.dividends_total(this.state.account).call();
         this.setState({ dividends_total: Number(dividends_total) / sunny });
-
 
         const max_pay = await Utils.contract.MaxPay(this.state.account).call();
         this.setState({ max_pay: Number(max_pay) / sunny });
@@ -287,9 +251,7 @@ class TopPage extends Component {
             net_draw = this.state.max_payout;
         }
         this.setState({ net_draw });
-
     }
-
 
     constructor(props) {
         super(props)
@@ -352,6 +314,7 @@ class TopPage extends Component {
 
                         /> :
                         null}
+
                     {this.state.allowed < this.state.MIN_DEPOSIT && this.state.deposit_amount === 0 ?
                         <Token
                             MIN_DEPOSIT={this.state.MIN_DEPOSIT}
@@ -374,6 +337,7 @@ class TopPage extends Component {
                         <div>
                             <PersonalStats
 
+                                gen_bonus={this.state.gen_bonus}
                                 max_payout={this.state.max_payout}
                                 user_status={this.state.user_status}
                                 account={this.state.account}
@@ -386,9 +350,9 @@ class TopPage extends Component {
                                 direct_bonus={this.state.direct_bonus}
                                 direct_biz={this.state.direct_biz}
                                 max_pay={this.state.max_pay}
-
                                 deposit_amount={this.state.deposit_amount}
                                 period={this.state._Period_days}
+
 
                             />
 
@@ -400,10 +364,10 @@ class TopPage extends Component {
                                 isSuper={this.state.isSuper}
                                 super_business={this.state.super_business}
 
-
                             />
 
                             <IncomeandTeamStats
+
                                 userTotalWithdrawn={this.state.userTotalWithdrawn}
                                 userTotalDeposit={this.state.userTotalDeposit}
                                 deposit_payouts={this.state.userTotalWithdrawn}
