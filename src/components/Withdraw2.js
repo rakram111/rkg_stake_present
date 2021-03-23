@@ -222,7 +222,7 @@ class Withdraw extends Component {
                         <div className="col-xl-12" style={headerStyle}>
                             Total Withdrawable</div>
                         <br />
-                        <h2 style={{ color: "white", textAlign: "center" }}>???</h2>
+                        <h2 style={{ color: "white", textAlign: "center" }}> {this.props.net_draw} RKG</h2>
                         <form
                             onSubmit={(event) => {
                                 event.preventDefault();

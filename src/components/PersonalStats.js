@@ -83,6 +83,23 @@ class PersonalStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.max_pay} RKG </p>
                             <br /><br />
 
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Directs Count </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_referrals}   </p>
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Direct Business</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_biz} RKG </p>
+
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Direct Bonus</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} RKG </p>
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Period</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.period}  </p>
+                            <br /><br />
+
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Compounding ROI</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.net_dividends} RKG </p>
                             <br /> <br />

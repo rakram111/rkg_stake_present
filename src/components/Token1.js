@@ -21,7 +21,7 @@ class Token extends React.Component {
             transferaddress: '',
             transferamount: '',
             contractAddress: '',
-            contract_address: 'TGDZQRunDZ7DAZr3k37u79YAYzFUTXqXvK ',
+            contract_address: 'TDKMEycaTRhHrh76TxRqav3KJFibhgTMqt ',
             tokenname: '',
             tokensymbol: '',
             tronwebaddress: '',

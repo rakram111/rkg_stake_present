@@ -81,6 +81,7 @@ export class Invest extends Component {
                         >
                             <p style={{ textAlign: "center", color: "white" }}>Your upline</p>
                             <p style={{ textAlign: "center", color: "orange" }}>{this.props.refid}</p>
+                            <p style={{ textAlign: "center", color: "orange" }}>Bal : {this.props.user_rkg_balance} RKG</p>
 
                             {this.props.refLoading ? null :
                                 <button type="submit" className="btn btn-success" style={investButton}>Complete Deposit
