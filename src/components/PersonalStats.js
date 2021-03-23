@@ -63,8 +63,6 @@ class PersonalStats extends Component {
 
                             <br /><br />
 
-
-
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Your Address</p>
                             <a href={addressTronScan + this.props.account} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
                                 {this.props.subAccount}...</a>
@@ -77,14 +75,16 @@ class PersonalStats extends Component {
 
                             <br /><br />
 
-
-
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Present Deposit </p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.deposit_amount} RKG </p>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Affiliate Bonus</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.direct_bonus} RKG </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Max Payable </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.max_pay} RKG </p>
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Compounding ROI</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.net_dividends} RKG </p>
                             <br /> <br />
 
 

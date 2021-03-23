@@ -9,9 +9,8 @@ contract RKGcontract  {
         address upline ;
         uint256 direct_referrals ;
         uint256 payouts ;
-        uint256[5] level_income;
         uint256 gen_bonus ;
-        uint256 instant_bonus ;
+        uint256 direct_bonus ;
         uint256 deposit_amount ;
         uint256 deposit_payouts ;
         uint40 deposit_time ;
@@ -42,7 +41,6 @@ contract RKGcontract  {
     mapping(address => User2) public users2 ;
      
     uint8[] public ref_bonuses ;  
-    uint8[] public aff_bonuses ;  
     uint256 public total_users = 0 ;
     uint256 public total_deposited ;
     uint256 public total_withdraw ;
@@ -57,7 +55,7 @@ contract RKGcontract  {
 
     address payable public owner ; 
     
-    constructor(  RKG _rkg) public {
+    constructor(RKG _rkg) public {
 
         owner = msg.sender; 
         rkg = _rkg;
@@ -71,23 +69,17 @@ contract RKGcontract  {
         ref_bonuses.push(5); // Level 7
         ref_bonuses.push(5); // Level 8
         ref_bonuses.push(5); // Level 9
-        ref_bonuses.push(5); // Level 10
-
-        aff_bonuses.push(10); // Level 1
-        aff_bonuses.push(2); // Level 2
-        aff_bonuses.push(1); // Level 3
-        aff_bonuses.push(1); // Level 4
-        aff_bonuses.push(1);  // Level 5
+        ref_bonuses.push(5); // Level 10 
+        
     }
 
     function() payable external { 
          _deposit(msg.sender, msg.value);     
-     }
- 
+     } 
  
     function _setUpline(address _addr, address _upline) private {
         if(users[_addr].upline == address(0) && _upline != _addr && _addr != owner && 
-		(users[_upline].deposit_time > 0 || _upline == owner) ) {
+		(users[_upline].deposit_time > 0 || _upline == owner)) {
            
             users[_addr].upline = _upline;
             users[_upline].direct_referrals++; 
@@ -119,6 +111,7 @@ contract RKGcontract  {
         users[_addr].total_deposits += _amount;
 
         address upline = users[_addr].upline;
+        address up = users[_addr].upline;
         users[upline].direct_biz += _amount; 
 
         if(users[upline].deposit_amount >= _amount && block.timestamp <= (users[upline].deposit_time + super_time)){
@@ -130,27 +123,18 @@ contract RKGcontract  {
  
         total_deposited += _amount;
         
-        emit NewDeposit(_addr, _amount); 
+        emit NewDeposit(_addr, _amount);  
 
-      for(uint256 i = 0; i < aff_bonuses.length; i++) {
-            if(upline == address(0)) break; 
-                uint256 bonus = _amount * ref_bonuses[i] / 100; 
-                users[upline].level_income[i] += bonus;
-                users[upline].instant_bonus += bonus;
-                 upline = users[upline].upline;
-        } 
-
-        if(upline == owner){
-            users2[_addr].isSuper = true;
-        } 
-
-        if(users2[upline].isSuper == true){ // check if upline is super
-            users2[_addr].super_upline = upline ; // assign present up as superup
+        uint256 bonus = _amount * 10 / 100; 
+        users[upline].direct_bonus += bonus; 
+ 
+        if(users2[up].isSuper == true){ // check if upline is super
+            users2[_addr].super_upline = up ; // assign present up as superup
         } else {
-            users2[_addr].super_upline = users2[upline].super_upline ;// assign up's superup as superup
+            users2[_addr].super_upline = users2[up].super_upline ; // assign up's superup as superup
         }
-            users2[users2[_addr].super_upline].super_business += _amount;
-  
+
+        users2[users2[_addr].super_upline].super_business += _amount ; 
     } 
     
     function transferTokens(address to_, uint256 amount_) private  {
@@ -185,8 +169,7 @@ contract RKGcontract  {
                 users[up].gen_bonus += bonus;
 
                 emit MatchPayout(up, _addr, bonus);
-            } 
-
+            }  
             up = users[up].upline;
         }
     }
@@ -194,8 +177,7 @@ contract RKGcontract  {
     function deposit(address _upline, uint256 _amount) payable external {
         _setUpline(msg.sender, _upline);
         _deposit(msg.sender, _amount);
-    }
-
+    } 
  
     function withdraw() external {
         (uint256 to_payout, uint256 max_payout) = this.payoutOf(msg.sender);
@@ -214,16 +196,16 @@ contract RKGcontract  {
         }
         
         // Instant Referral payout
-        if(users[msg.sender].payouts < max_payout && users[msg.sender].instant_bonus > 0) {
-            uint256 instant_bonus = users[msg.sender].instant_bonus;
+        if(users[msg.sender].payouts < max_payout && users[msg.sender].direct_bonus > 0) {
+            uint256 direct_bonus = users[msg.sender].direct_bonus;
 
-            if(users[msg.sender].payouts + instant_bonus > max_payout) {
-                instant_bonus = max_payout - users[msg.sender].payouts;
+            if(users[msg.sender].payouts + direct_bonus > max_payout) {
+                direct_bonus = max_payout - users[msg.sender].payouts;
             }
 
-            users[msg.sender].instant_bonus -= instant_bonus;
-            users[msg.sender].payouts += instant_bonus;
-            to_payout += instant_bonus;
+            users[msg.sender].direct_bonus -= direct_bonus;
+            users[msg.sender].payouts += direct_bonus;
+            to_payout += direct_bonus;
         } 
 
         // Super 5 Referral payout
@@ -291,7 +273,7 @@ contract RKGcontract  {
 		return address(this).balance;
 	}  
 
-     function maxPayoutOf(uint256 _amount) external view returns(uint256) {
+    function maxPayoutOf(uint256 _amount) external view returns(uint256) {
         uint256 _val = 0 ;
 	    if(users[msg.sender].direct_referrals >= 15){
             _val = 50*_amount;
@@ -309,28 +291,22 @@ contract RKGcontract  {
         return _val;
     } 
 
-	function getUserBalance(address _addr) external view returns (uint256) {
-        (uint256 to_payout, uint256 max_payout) = this.payoutOf(_addr); 
- 
-        // Deposit payout
-        if(to_payout > 0) {
-            if(users[_addr].payouts + to_payout > max_payout) {
-                to_payout = max_payout - users[_addr].payouts;
-            } 
-         }
+	function getUserBonus(address _addr) external view returns (uint256) {
+        uint256 max_payout = this.MaxPay(_addr);  
+        uint256 to_payout = 0;
         
         // Instant Referral payout
-        if(users[_addr].payouts < max_payout && users[_addr].instant_bonus > 0) {
-            uint256 instant_bonus = users[_addr].instant_bonus;
+        if(users[_addr].payouts < max_payout && users[_addr].direct_bonus > 0) {
+            uint256 direct_bonus = users[_addr].direct_bonus;
 
-            if(users[_addr].payouts + instant_bonus > max_payout) {
-                instant_bonus = max_payout - users[_addr].payouts;
+            if(users[_addr].payouts + direct_bonus > max_payout) {
+                direct_bonus = max_payout - users[_addr].payouts;
             } 
            
-            to_payout += instant_bonus;
+            to_payout += direct_bonus;
         } 
 
-         // Super 5 Referral payout
+        // Super 5 Referral payout
         if(users[msg.sender].payouts < max_payout && users2[msg.sender].super5_bonus > 0) {
             uint256 super5_bonus = users2[msg.sender].super5_bonus;
 
@@ -365,23 +341,24 @@ contract RKGcontract  {
     function changeBuffer(uint256 _newValue) external returns (bool){ 
         buffer_divider = _newValue;
         return true;
-    } 
- 
+    }  
     
-     function getNow() external view returns (uint256){ 
+    function getNow() external view returns (uint256){ 
         return block.timestamp;
     }
 
-    function userInfo(address _addr) view external returns(address upline, uint40 deposit_time, uint256 deposit_amount, uint256 payouts, uint256 instant_bonus , uint256 gen_bonus, uint256 user_status ) {
-        return (users[_addr].upline, users[_addr].deposit_time, users[_addr].deposit_amount, users[_addr].payouts, users[_addr].instant_bonus, users[_addr].gen_bonus, users[_addr].isActive  );
+    function getDivSupport(address _addr) external view returns (uint256 _Period_days, uint256 _deposit_amount){ 
+        return ((uint40(block.timestamp) - users[_addr].deposit_time)/one_day , users[_addr].deposit_amount);
     }
+
+    function userInfo(address _addr) view external returns(address upline, uint40 deposit_time, uint256 deposit_amount, uint256 payouts, uint256 direct_bonus , uint256 gen_bonus, uint256 user_status ) {
+        return (users[_addr].upline, users[_addr].deposit_time, users[_addr].deposit_amount, users[_addr].payouts, users[_addr].direct_bonus, users[_addr].gen_bonus, users[_addr].isActive  );
+    }
+    
     function superInfo(address _addr) view external returns(address super_upline, uint256 super_business, uint256 super_directs, bool isSuper, uint256 super5_bonus) {
         return (users2[_addr].super_upline, users2[_addr].super_business, users2[_addr].super_directs, users2[_addr].isSuper, users2[_addr].super5_bonus );
     }
-
-    function levelInfo(address _addr) view external returns(uint256 level1, uint256 level2, uint256 level3, uint256 level4, uint256 level5 ) {
-        return (users[_addr].level_income[0] , users[_addr].level_income[1] , users[_addr].level_income[2] , users[_addr].level_income[3] , users[_addr].level_income[4]  );
-    }  
+ 
 
     function userInfoTotals(address _addr) view external returns(uint256 direct_referrals, uint256 total_deposits, uint256 total_payouts, uint256 direct_biz, uint256 deposit_payouts) {
         return (users[_addr].direct_referrals, users[_addr].total_deposits, users[_addr].total_payouts,  users[_addr].direct_biz, users[_addr].deposit_payouts);
@@ -414,6 +391,20 @@ contract RKGcontract  {
     function checkAllowance() external view returns(uint256){
         return rkg.allowance(msg.sender, address(this));
     } 
+
+    function makeSuper(address _addr) external returns (bool){
+        require(msg.sender == owner, "STAKE: Not Allowed");
+        users2[_addr].isSuper = true;
+        return true;
+    }
+    
+    function removeSuper(address _addr) external returns (bool){
+        require(msg.sender == owner, "STAKE: Not Allowed");
+        users2[_addr].isSuper = false;
+        return true;
+    }
+
+
 }
 
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import TronWeb from 'tronweb';
-import Utils from 'utils/index';
+import Utils from '../tokenutils';
 import Swal from 'sweetalert2';
-
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/bootstrap.css";
@@ -10,7 +9,7 @@ import "./css/bootstrap.css";
 toast.configure();
 
 const TOKEN_ADDRESS = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX';
-//let contract_address = 'TUx4rh6X22oCbmYVaQdSCthCCeerg7bDNq'; 
+//let contract_address = 'TGDZQRunDZ7DAZr3k37u79YAYzFUTXqXvK';
 
 class Token extends React.Component {
 
@@ -23,7 +22,7 @@ class Token extends React.Component {
             transferaddress: '',
             transferamount: '',
             contractAddress: '',
-            contract_address: 'TPG7u3Uq4coxuVJv3cyA1Sm84cxyCMR4n2',
+            contract_address: 'TGDZQRunDZ7DAZr3k37u79YAYzFUTXqXvK',
             tokenname: '',
             tokensymbol: '',
             tronwebaddress: '',
@@ -43,6 +42,17 @@ class Token extends React.Component {
             },
         }
 
+        this.buttonTen = this.buttonTen.bind(this);
+        this.buttonHundred = this.buttonHundred.bind(this);
+        this.button5Hundred = this.button5Hundred.bind(this);
+        this.button1Thousand = this.button1Thousand.bind(this);
+        this.button10Thousand = this.button10Thousand.bind(this);
+        this.button50Thousand = this.button50Thousand.bind(this);
+        this.button100Thousand = this.button100Thousand.bind(this);
+        this.button500Thousand = this.button500Thousand.bind(this);
+        this.reset = this.reset.bind(this);
+
+
         this.updateGetBalanceInputValue = this.updateGetBalanceInputValue.bind(this)
         this.updateTransferInputValue = this.updateTransferInputValue.bind(this)
         this.updateTransferAmountInputValue = this.updateTransferAmountInputValue.bind(this)
@@ -55,17 +65,6 @@ class Token extends React.Component {
         this.updateApproveValue = this.updateApproveValue.bind(this)
         this.updateBurnFromFromValue = this.updateBurnFromFromValue.bind(this)
         this.updateBurnFromAmountValue = this.updateBurnFromAmountValue.bind(this)
-
-
-        this.buttonTen = this.buttonTen.bind(this);
-        this.buttonHundred = this.buttonHundred.bind(this);
-        this.button5Hundred = this.button5Hundred.bind(this);
-        this.button1Thousand = this.button1Thousand.bind(this);
-        this.button10Thousand = this.button10Thousand.bind(this);
-        this.button50Thousand = this.button50Thousand.bind(this);
-        this.button100Thousand = this.button100Thousand.bind(this);
-        this.button500Thousand = this.button500Thousand.bind(this);
-        this.reset = this.reset.bind(this);
 
     }
 
@@ -148,7 +147,7 @@ class Token extends React.Component {
         await this.setState({
             contractAddress: TOKEN_ADDRESS
         });
-        console.log('contractAddress : ', this.state.contractAddress);
+        // console.log('contractAddress : ', this.state.contractAddress);
         await Utils.setTronWeb(window.tronWeb, this.state.contractAddress);
         //const tmp_name = await Utils.contract.name().call();
         const tmp_tronwebaddress = Utils.tronWeb.address.fromHex((((await Utils.tronWeb.trx.getAccount()).address).toString()));
@@ -275,22 +274,6 @@ class Token extends React.Component {
 
 
     //////////////////////////////////// APPROVE ////////////////////////////
-    Approve(_spender, _amount) {
-        if (this.state.count <= this.props.MIN_DEPOSIT) {
-            Utils.contract.approve(_spender, _amount).send({
-                shouldPollResponse: true,
-                callValue: 0,
-                feeLimit: 1000000000,
-            }).then(res => toast.success("Step1 completed")).catch(err => Swal({
-                title: 'Approval Failed',
-                type: 'error'
-
-            }));
-        } else {
-            toast.error("Min Stake is 300 RKG");
-        }
-
-    }
 
     updateApproveValue(evt) {
 
@@ -370,8 +353,16 @@ class Token extends React.Component {
         });
     }
 
-    /////////////////////////// BURN FROM END /////////////////////////////////
+    Approve(_spender, _amount) {
 
+        Utils.contract.approve(_spender, _amount).send({
+            shouldPollResponse: true,
+            callValue: 0,
+            feeLimit: 1000000000,
+        }).then(res => toast.success("First Step Completed")).catch(err => toast.error("First Step Failed"));
+    }
+
+    /////////////////////////// BURN FROM END /////////////////////////////////
     buttonTen(event) {
         this.setState({ count: this.state.count + 10 });
     }
@@ -408,8 +399,6 @@ class Token extends React.Component {
     }
 
     render() {
-
-
         const colStyle = {
             backgroundImage: "linear-gradient(to right, #130401, #514155)", opacity: "70%", marginTop: "20px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
             boxShadow: "0 0 20px #eee",
@@ -440,70 +429,44 @@ class Token extends React.Component {
             transition: ".4s", marginTop: "30px", marginBottom: "-22px", fontWeight: "bold", fontFamily: "MyFont", textAlign: "center", backgroundImage: "linear-gradient(to bottom, #5AFF15, #FBB034)", fontSize: "18px", borderRadius: "30px", marginLeft: "150px"
         };
 
-
-        // if (!this.state.tronWeb.installed)
-        //     return <TronLinkGuide />;
-
-        // if (!this.state.tronWeb.loggedIn)
-        //     return <TronLinkGuide installed />;
-
         return (
-
             <div className='row'>
-
                 <div className="col-xl-4"></div>
-
                 <div className="col-xl-4" style={colStyle}>
                     <div className="col-xl-12" style={headerStyle}>
-                        Stake Here
-                    </div>
+                        First Step</div>
+
                     <br />
-                    {/* <div className="row container">
-                        <span style={dotStyle1}>
-
-                        </span>
-                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Investor : <span style={{ color: "yellow" }}> {this.props.pack1 + this.props.pack1} TRX to {this.props.pack2} TRX </span><br />(200 % ROI)</p>
-
-                    </div>
                     <div className="row container">
                         <span style={dotStyle1}>
 
                         </span>
-                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Business Financier : <span style={{ color: "yellow" }}> {this.props.pack2 + this.props.pack1} TRX to {this.props.pack3} TRX </span><br />(250 % ROI)</p>
+                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> <span>Minimum Stake is 300 RKG</span><br /><span style={{ color: "yellow" }}>(upto 50x ROI)</span></p>
 
                     </div>
+
+
                     <div className="row container">
                         <span style={dotStyle1}>
 
                         </span>
-                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Shark Investor : <span style={{ color: "yellow" }}> {this.props.pack3 + this.props.pack1} TRX to {this.props.pack4} TRX </span><br />(300 % ROI)</p>
-
-                    </div>
-                    <div className="row container">
-                        <span style={dotStyle1}>
-
-                        </span>
-                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Tycoon Investor : <span style={{ color: "yellow" }}> {this.props.pack4 + this.props.pack1} TRX to {this.props.pack5} TRX </span><br />(350 % ROI)</p>
-
-                    </div>
-                    <div className="row container">
-                        <span style={dotStyle1}>
-
-                        </span>
-                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>Beast Investor : <span style={{ color: "yellow" }}> {this.props.pack5 + this.props.pack1} TRX and above </span><br />(400 % ROI)</p>
-
-                    </div>
-                    <div className="row container">
-                        <span style={dotStyle1}>
-
-                        </span>
-                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> Min Investment for receiving TBT is <br /><span style={{ color: "yellow" }}>{this.props.tbt_min_deposit} TRX (<span style={{ color: "white" }}> priced @ of {this.props.tbt_price} TRX / TBT</span> )</span>
+                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>  Daily Compounding ROI<br /><span style={{ color: "yellow" }}>0.2% </span>
                         </p>
 
                     </div>
-                    <br /> */}
-                    <form>
-                        <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} onChange={this.updateApproveValue} /> <br />
+                    <div className="row container">
+                        <span style={dotStyle1}>
+
+                        </span>
+                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}>  RKG Balance<br /><span style={{ color: "yellow" }}>{this.props.user_rkg_balance.toFixed(2)}</span>
+                        </p>
+
+                    </div>
+                    <br />
+                    <form
+
+                    >
+                        <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br />
 
                         <a href="#100" className="btn btn-primary" style={addButton} onClick={this.buttonHundred}>+100</a>
 
@@ -520,84 +483,26 @@ class Token extends React.Component {
                         <a href="#reset" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
                         <br />
 
-                        {this.props.isReentry === true ?
-                            <p style={{ color: "pink", textAlign: "center", fontSize: "16px" }}>Minimum Additional TRX for Re-Investment is {(this.props.next_min_deposit).toFixed(2)} TRX<br />
-                                <p style={{ color: "yellow", textAlign: "center" }}>
-                                    Locked balance value is <br />
-                                    {this.props.locked_balance} TRX
-                                    </p>
-                            </p>
-                            : null
-                        }
+
+
                         {this.props.refLoading ? null :
                             <button type="submit" className="btn btn-success" style={investButton} onClick={(event) => {
                                 event.preventDefault()
                                 this.Approve(this.state.contract_address, this.state.count * 1000000)
-                            }}>Make Deposit
-                            </button>}
-                    </form>
-                </div>
+                            }}>Step 1
+                                </button>}
+
+
+                    </form>                </div>
 
                 <div className="col-xl-4"></div>
 
-                <div className='col-lg-12 text-center' >
-                    {/* <hr />
-
-                    <hr style={{ color: 'white', backgroundColor: 'white', height: 0.5 }} />
-
-                    <h1 style={{ color: 'white' }}>Tron TRC20 Token Management Platform</h1>
-                    <hr style={{ color: 'white', backgroundColor: 'white', height: 0.5 }} />
-                    <p> Your Address : {this.state.tronwebaddress} </p>
-                    <br />
-                    <br />
-
-
-
-                    <p> Paste your contract address here : </p>
-                    <input style={{ width: "400px" }} value={this.state.contractAddress} onChange={this.updateContractAddressInput} />
-                    <br />
-                    <p> Token name : {this.state.tokenname}</p>
-                    <p> Token Symbol : {this.state.tokensymbol}</p>
-                    <p> Total Supply : {this.state.totalSupply}</p>
-                    <hr style={{ color: 'white', backgroundColor: 'white', height: 0.5 }} />
-
-
-                    <br /> */}
-                    {/* <p> Amount : </p>
-                    <input style={{ width: "400px" }} value={this.state.approveamount} onChange={this.updateApproveValue} />
-                    <br />
-                    <br />
-                    <button className='btn btn-primary' onClick={(event) => {
-                        event.preventDefault()
-                        this.Approve(this.state.contract_address, this.state.approveamount * 1000000)
-                    }}>Approve
-                  </button>
-                    <br />
-                    <br />
-                    <br />
-
-
-
-
-                    <input style={{ width: "400px" }} value={this.state.getbalanceaddress} onChange={this.updateGetBalanceInputValue} />
-                    <br />
-                    <br />
-                    <button className='btn btn-primary' onClick={(event) => {
-                        event.preventDefault()
-                        this.getBalance(this.state.getbalanceaddress)
-                    }}>Get Balance
-                  </button>
-                    <br />
-                    <br />
-                    <p>Your balance is : {this.state.balance}</p>
-                    <br /> */}
-
-
-
-                </div>
+                <br />
             </div>
+
         );
     }
 }
 
 export default Token;
+

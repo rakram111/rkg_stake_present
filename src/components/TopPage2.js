@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 import back from "./Image1/thunder.jpg"
 import TronWeb from 'tronweb';
-import Utils from './utils';
+import Utils from '../utils';
 import SmartInfo from "./SmartInfo";
 import Invest from "./Invest";
 import LevelStats from "./LevelStats";
@@ -14,7 +14,7 @@ import IncomeandTeamStats from "./IncomeandTeamStats.js";
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 
-let url = "http://localhost:3000/"; // http://localhost:3000/
+let url = "https://rkgstaking.com/"; // https://rkgstaking.com/
 let contract_address = 'TTRX6WPpHfV3xDsk1B4Yxo6Ex3aUjsu4vh';
 let tbt_address = 'TJEDMQLLkGC3frpSnEhJes8fTWHPpQ5C6P';
 let owner = 'TRBrNmrmX1T4BoUodhWwChRrad1sd5fus5';

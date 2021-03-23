@@ -1,7 +1,7 @@
 {
-  "name": "tron-beast",
+  "name": "rkg-staking",
   "version": "0.1.0",
-  "homepage": "http://localhost:3000/",
+  "homepage": "https://rkgstaking.com/",
   "private": true,
   "dependencies": {
     "axios": "^0.19.2",

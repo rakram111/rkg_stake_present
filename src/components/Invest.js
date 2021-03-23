@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Utils from './utils';
+import Utils from '../utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/bootstrap.css";
@@ -15,7 +15,6 @@ export class Invest extends Component {
             count: 0,
         }
         this.invest = this.invest.bind(this);
-
     }
 
     async invest(refid, amount) {
@@ -26,7 +25,7 @@ export class Invest extends Component {
                 from: this.state.account,
                 callValue: 0,
                 feeLimit: 1000000000
-            }).then(res => toast.success(amount + ' RKG processing', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
+            }).then(res => toast.success(amount / 1000000 + ' RKG stake in process', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
 
             ).then(res => {
                 setInterval(() => {
@@ -44,21 +43,6 @@ export class Invest extends Component {
         };
 
         const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
-
-        const addButton = {
-            display: "inline-block",
-            padding: "0.5em 1em",
-            textDecoration: "none",
-            color: "#FFF",
-            transition: ".4s", marginTop: "10px", marginLeft: "10px", marginBottom: "10px", fontWeight: "3px", border: "3px solid white", backgroundColor: "black"
-        }
-        const dotStyle1 = {
-            height: "20px",
-            width: "20px",
-            backgroundColor: "#bbb",
-            borderRadius: "50%",
-            display: "inline-block",
-        };
 
         const investButton = {
             display: "inline-block",
@@ -82,7 +66,7 @@ export class Invest extends Component {
 
                                 event.preventDefault();
                                 const refid = this.props.refid;
-                                const amount = this.props.allowed;
+                                const amount = this.props.allowed * 1000000;
                                 const balance = this.props.balance;
                                 if (balance >= 100) {
 
@@ -94,7 +78,8 @@ export class Invest extends Component {
 
                             }}
                         >
-
+                            <p style={{ textAlign: "center", color: "white" }}>Your upline</p>
+                            <p style={{ textAlign: "center", color: "orange" }}>{this.props.refid}</p>
 
                             {this.props.refLoading ? null :
                                 <button type="submit" className="btn btn-success" style={investButton}>Complete Deposit

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Utils from '../utils';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -33,29 +32,29 @@ class SuperStats extends Component {
                         <div className="col-xl-12" >
 
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Your Address</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Super Upline </p>
                             <a href={addressTronScan + this.props.account} style={{ color: "white", fontSize: "17px", float: "right", textDecoration: "underline" }}>
                                 {this.props.sub_super_upline}...</a>
 
                             <br /><br />
 
-
-
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Super Business </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.super_business} RKG </p>
-                            <br /><br />
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Super Directs</p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.super_directs}   </p>
+                            <br /> <br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Super 5 Bonus</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.super5_bonus} RKG </p>
                             <br /> <br />
 
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Am I Super</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.isSuper}  </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.isSuper === true ? "Yes" : "No"}  </p>
                             <br /> <br />
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Super Directs</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.super_directs}   </p>
-                            <br /> <br />
+
+                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Super Business </p>
+                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.super_business} RKG </p>
+                            <br /><br />
+
 
 
                         </div>
