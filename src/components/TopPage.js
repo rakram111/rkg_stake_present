@@ -232,6 +232,12 @@ class TopPage extends Component {
         this.setState({ total_bonus: Number(total_bonus) / sunny });
         console.log("total_bonus " + this.state.total_bonus);
 
+        // var net_draw = 0;
+        // net_draw = this.state.total_bonus + this.state.net_dividends ;
+        // if()
+
+
+
 
     }
 

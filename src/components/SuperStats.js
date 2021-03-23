@@ -45,15 +45,21 @@ class SuperStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", float: "left" }}>Super 5 Bonus</p>
                             <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.super5_bonus} RKG </p>
                             <br /> <br />
+                            {this.props.isSuper === true ?
+                                <div>
+                                    <p style={{ color: "white", fontSize: "17px", float: "left" }}>Am I Super</p>
+                                    <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.isSuper === true ? "Yes" : "No"}  </p>
+                                    <br /> <br />
+                                </div> : null}
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Am I Super</p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.isSuper === true ? "Yes" : "No"}  </p>
-                            <br /> <br />
 
 
-                            <p style={{ color: "white", fontSize: "17px", float: "left" }}>Super Business </p>
-                            <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.super_business} RKG </p>
-                            <br /><br />
+                            {this.props.isSuper === true ?
+                                <div>
+                                    <p style={{ color: "white", fontSize: "17px", float: "left" }}>Super Business </p>
+                                    <p style={{ color: "white", fontSize: "17px", float: "right" }}> {this.props.super_business} RKG </p>
+                                    <br /> <br />
+                                </div> : null}
 
 
 

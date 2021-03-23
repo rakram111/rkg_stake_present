@@ -69,12 +69,12 @@ export class Invest extends Component {
                                 const refid = this.props.refid;
                                 const amount = this.props.allowed * 1000000;
                                 const balance = this.props.balance;
-                                if (balance >= 100) {
+                                if (balance >= 40) {
 
                                     this.invest(refid, amount);
 
                                 } else {
-                                    toast.error("Keep atleast ~ 10 TRX extra for GAS fee");
+                                    toast.error("Keep atleast ~ 40 TRX extra for GAS fee");
                                 }
 
                             }}
