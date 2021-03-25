@@ -4,8 +4,10 @@ const contract_address = 'TAikPRC3DKme6ksGUY2Xmp8XAKedmG6uvC';
 // const tbt_address = 'TJEDMQLLkGC3frpSnEhJes8fTWHPpQ5C6P';
 
 let contract_url = "https://shasta.tronscan.org/#/contract/" + contract_address;
+let url = "https://shasta.tronscan.org/#/contract/";
 
-export class SmartInfo extends Component {
+
+export class BuyStats extends Component {
 
     render() {
 
@@ -24,7 +26,7 @@ export class SmartInfo extends Component {
                     <div className="col-xl-6" style={colStyle}>
 
                         <div className="col-xl-6" style={headerStyle}>
-                            Smart Contract</div>
+                            Buy Stats</div>
                         <br />
 
                         <div className="col-xl-12" style={{ textAlign: "center" }}>
@@ -34,8 +36,21 @@ export class SmartInfo extends Component {
                             <a href={contract_url} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center", paddingTop: "110px" }} target="_blank" rel="noopener noreferrer">{this.props.subContract}...</a>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Deposits</p>
-                            <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.totalInvested} RKG</a>
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Upline</p>
+                            <a href={url + this.props.upline} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center" }}> {this.props.strUpline}...  </a>
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Super Upline</p>
+                            <a href={url + this.props.super_upline} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center" }}> {this.props.strSuperUpline}...  </a>
+                            <br /><br />
+
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Super Business</p>
+                            <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.super_business}  </a>
+                            <br /><br />
+
+
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Am i Super</p>
+                            <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.isSuper == true ? "YES" : "NO"}  </a>
                             <br /><br />
 
 
@@ -62,4 +77,4 @@ export class SmartInfo extends Component {
     }
 }
 
-export default SmartInfo
+export default BuyStats

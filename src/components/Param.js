@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import Top from "./TopPage";
+import Top from "./TradePage";
 
 class Param2 extends Component {
     render() {
-   //      console.log('param ' + this.props);
+        //      console.log('param ' + this.props);
         return (
             <div>
                 <Top

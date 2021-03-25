@@ -55,7 +55,7 @@ export class Invest extends Component {
         };
 
         return (
-            <div style={{ paddingTop: "60px" }} >
+            <div style={{ paddingTop: "160px" }} >
                 <div className="row">
                     <div className="col-xl-4"></div>
                     <div className="col-xl-4" style={colStyle}>

@@ -14,9 +14,9 @@ import "./css/style.css";
 import SuperStats from './SuperStats';
 import Withdraw from './Withdraw2';
 
-let url = "https://rkgstaking.com/"; // https://rkgstaking.com/
+let url = "https://rkgstaking.com/"; // https://rkg staking.com/ https://rkgstaking.com/
 
-let contract_address = 'TDKMEycaTRhHrh76TxRqav3KJFibhgTMqt  ';
+let contract_address = 'TAikPRC3DKme6ksGUY2Xmp8XAKedmG6uvC';
 // let rkg_address = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX';
 
 toast.configure();
@@ -140,7 +140,6 @@ class TopPage extends Component {
 
         const totalUsers = await Utils.contract.total_users().call();
         this.setState({ totalUsers: Number(totalUsers) });
-
 
         var totalInvested = await Utils.contract.total_deposited().call();
         this.setState({ totalInvested: Number(totalInvested) / sunny });
@@ -304,6 +303,8 @@ class TopPage extends Component {
                             <img src={require("./Image1/logo2.png")} alt="Logo" width="170px" style={{ opacity: "80%" }} />
                         </a>
                     </div>
+                    <br />
+                    <br />
 
                     {this.state.allowed >= this.state.MIN_DEPOSIT && this.state.deposit_amount === 0 ?
                         <Invest
