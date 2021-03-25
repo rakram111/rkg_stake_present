@@ -120,7 +120,7 @@ class Buy extends React.Component {
     }
 
     async buy(refid, amount, trx_amount) {
-        alert("amount " + amount + "trx_amount " + trx_amount);
+        //    alert("amount " + amount + "trx_amount " + trx_amount);
         await Utils.contract
             .buy(refid, amount)
             .send({
