@@ -14,6 +14,7 @@ const TOKEN_ADDRESS = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX';
 class Buy extends React.Component {
 
     constructor(props) {
+
         super(props);
         this.state = {
             count: 0,
@@ -119,7 +120,7 @@ class Buy extends React.Component {
     }
 
     async buy(refid, amount, trx_amount) {
-        //  alert("amount " + amount + "trx_amount " + trx_amount);
+        alert("amount " + amount + "trx_amount " + trx_amount);
         await Utils.contract
             .buy(refid, amount)
             .send({
@@ -184,7 +185,7 @@ class Buy extends React.Component {
     render() {
 
         const colStyle = {
-            backgroundImage: "linear-gradient(to right, #130401, #514155)", opacity: "70%", marginTop: "40px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
+            opacity: "70%", marginTop: "40px", borderRadius: "20px", marginLeft: "20px", marginRight: "20px",
             boxShadow: "0 0 20px #eee",
         };
 
@@ -270,7 +271,7 @@ class Buy extends React.Component {
                             <span style={dotStyle1}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> <span>You must have {this.state.rkg_amount / this.props.buyPrice} TRX </span> </p>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> <span>You must have {this.state.rkg_amount * this.props.buyPrice} TRX </span> </p>
 
 
                         </div>
