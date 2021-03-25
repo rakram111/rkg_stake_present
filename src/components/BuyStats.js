@@ -48,6 +48,10 @@ export class BuyStats extends Component {
                             <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.super_business}  </a>
                             <br /><br />
 
+                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Contract RKG Balance</p>
+                            <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.contract_rkg_bal}  RKG</a>
+                            <br /><br />
+
 
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Am i Super</p>
                             <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.isSuper == true ? "YES" : "NO"}  </a>

@@ -128,6 +128,10 @@ class TradePage extends Component {
         const accTemp = await Utils.tronWeb.defaultAddress.base58;
         this.setState({ account: accTemp });
 
+        const balTemp = await Utils.tronWeb.trx.getBalance(accTemp);
+        const ballTemp = balTemp / sunny;
+        this.setState({ balance: ballTemp });
+
         const buyPrice = await Utils.contract.buyPrice().call();
         this.setState({ buyPrice: Number(buyPrice) / sunny });
 
@@ -212,6 +216,7 @@ class TradePage extends Component {
 
                     <Buy
                         refid={this.state.refid}
+                        balance={this.state.balance}
                         buyPrice={this.state.buyPrice}
 
                         super_business={this.state.super_business}
@@ -226,6 +231,7 @@ class TradePage extends Component {
                         subContract={this.state.subContract}
                         strUpline={this.state.strUpline}
                         strSuperUpline={this.state.strSuperUpline}
+                        contract_rkg_bal={this.state.contract_rkg_bal}
                         super_upline={this.state.super_upline}
 
                         upline={this.state.upline}

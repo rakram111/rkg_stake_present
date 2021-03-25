@@ -17,6 +17,7 @@ class Buy extends React.Component {
         super(props);
         this.state = {
             count: 0,
+            rkg_amount: '',
             tronWeb: {
                 installed: false,
                 loggedIn: false
@@ -24,6 +25,7 @@ class Buy extends React.Component {
         }
 
         this.buy = this.buy.bind(this);
+        this.updateRKGAmount = this.updateRKGAmount.bind(this);
         this.buttonTen = this.buttonTen.bind(this);
         this.buttonHundred = this.buttonHundred.bind(this);
         this.button5Hundred = this.button5Hundred.bind(this);
@@ -116,13 +118,13 @@ class Buy extends React.Component {
 
     }
 
-    async buy(refid, amount) {
-
+    async buy(refid, amount, trx_amount) {
+        //  alert("amount " + amount + "trx_amount " + trx_amount);
         await Utils.contract
             .buy(refid, amount)
             .send({
                 from: this.state.account,
-                callValue: this.state.count * 1000000,
+                callValue: trx_amount * 1000000,
                 feeLimit: 1000000000
             }).then(res => toast.success(amount + ' RKG buy order in process', { position: toast.POSITION.TOP_RIGHT, autoClose: 10000 })
 
@@ -166,8 +168,17 @@ class Buy extends React.Component {
     }
 
     reset(event) {
-        this.setState({ count: 0 });
+        this.setState({ rkg_amount: 0 });
     }
+
+    updateRKGAmount(evt) {
+        this.setState({
+            rkg_amount: evt.target.value
+        });
+
+        this.setState({ trx_amount: this.state.rkg_amount / this.props.buyPrice });
+    }
+
 
 
     render() {
@@ -228,28 +239,30 @@ class Buy extends React.Component {
 
                             event.preventDefault();
                             const refid = this.props.refid;
-                            const amount = this.state.count / this.props.buyPrice;
-                            this.buy(refid, amount);
-
+                            const amount = this.state.rkg_amount;
+                            const trx_amount = this.state.rkg_amount * this.props.buyPrice;
+                            this.buy(refid, amount, trx_amount);
 
                         }}
                     >
 
-                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> Enter TRX value</p>
-                        <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count} /> <br />
+                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> Enter RKG amount to buy</p>
+                        {/* <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.count / this.props.buyPrice} /> <br /> */}
 
-                        <a href="#100" className="btn btn-primary" style={addButton} onClick={this.buttonHundred}>+100</a>
+                        <input type="text" style={{ backgroundColor: "black", borderRadius: "2px", height: "50px", color: "White", fontSize: "25px", paddingLeft: "30px", border: "4px solid white", width: "100%" }} value={this.state.rkg_amount} onChange={this.updateRKGAmount} /> <br />
+                        {/* 
+                        <a href="#100" className="btn btn-primary" style={addButton} onClick={this.buttonHundred}>+200</a>
 
-                        <a href="#500" className="btn btn-primary" style={addButton} onClick={this.button5Hundred}>+500</a>
+                        <a href="#500" className="btn btn-primary" style={addButton} onClick={this.button5Hundred}>+1000</a>
 
-                        <a href="#1000" className="btn btn-primary" style={addButton} onClick={this.button1Thousand}>+1000</a>
+                        <a href="#1000" className="btn btn-primary" style={addButton} onClick={this.button1Thousand}>+2000</a>
 
-                        <a href="#10k" className="btn btn-primary" style={addButton} onClick={this.button10Thousand}>+10 k</a>
+                        <a href="#10k" className="btn btn-primary" style={addButton} onClick={this.button10Thousand}>+20 k</a>
 
-                        <a href="#50k" className="btn btn-primary" style={addButton} onClick={this.button50Thousand}>+50 k</a>
-                        <a href="#100k" className="btn btn-primary" style={addButton} onClick={this.button100Thousand}>+100 k</a>
-                        <a href="#500k" className="btn btn-primary" style={addButton} onClick={this.button5HundredThousand}>+500 k</a>
-                        <a href="#10" className="btn btn-primary" style={addButton} onClick={this.buttonTen}>+10</a>
+
+                        <a href="#100k" className="btn btn-primary" style={addButton} onClick={this.button100Thousand}>+200 k</a>
+
+                        <a href="#10" className="btn btn-primary" style={addButton} onClick={this.buttonTen}>+20</a> */}
                         <a href="#reset" className="btn btn-primary" style={addButton} onClick={this.reset}>Reset</a><br />
                         <br />
 
@@ -257,7 +270,26 @@ class Buy extends React.Component {
                             <span style={dotStyle1}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> <span>You will receive {this.state.count.toFixed(3) / this.props.buyPrice} RKG</span> </p>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> <span>You must have {this.state.rkg_amount / this.props.buyPrice} TRX </span> </p>
+
+
+                        </div>
+
+                        <div className="row container">
+                            <span style={dotStyle1}>
+
+                            </span>
+
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> <span>Your balance is   {this.props.balance} TRX  </span> </p>
+
+                        </div>
+
+                        <div className="row container">
+                            <span style={dotStyle1}>
+
+                            </span>
+
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> <span>You have {this.props.user_rkg_balance} RKG in your account </span> </p>
 
                         </div>
                         {this.props.refLoading ? null :
