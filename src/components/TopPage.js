@@ -16,8 +16,8 @@ import Withdraw from './Withdraw2';
 
 let url = "https://rkgstaking.com/"; // https://rkg staking.com/ https://rkgstaking.com/
 
-let contract_address = 'TAikPRC3DKme6ksGUY2Xmp8XAKedmG6uvC';
-// let rkg_address = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX';
+let contract_address = 'TKgnEfAMQ7vuqiPCKtqLkc4rLMxrrQ2ZUu';
+// let rkg_address = 'TP8pbrEDLFgetKrGwWtSzYMFvWGa5jmico';
 
 toast.configure();
 

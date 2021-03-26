@@ -8,7 +8,7 @@ import "./css/bootstrap.css";
 
 toast.configure();
 
-const TOKEN_ADDRESS = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX';
+const TOKEN_ADDRESS = 'TP8pbrEDLFgetKrGwWtSzYMFvWGa5jmico';
 
 // let contract_address = 'TUx4rh6X22oCbmYVaQdSCthCCeerg7bDNq'; 
 

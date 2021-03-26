@@ -7,7 +7,7 @@ import "./css/bootstrap.css";
 
 toast.configure();
 
-const TOKEN_ADDRESS = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX';
+const TOKEN_ADDRESS = 'TP8pbrEDLFgetKrGwWtSzYMFvWGa5jmico';
 
 // let contract_address = 'TUx4rh6X22oCbmYVaQdSCthCCeerg7bDNq'; 
 
@@ -234,6 +234,15 @@ class Buy extends React.Component {
 
                     </div>
 
+                    <br />
+                    <div className="row container">
+                        <span style={dotStyle1}>
+
+                        </span>
+
+                        <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> <span>You can buy a maximum of {this.props.contract_rkg_bal} RKG from here</span> </p>
+
+                    </div>
                     <br />
                     <form
                         onSubmit={(event) => {

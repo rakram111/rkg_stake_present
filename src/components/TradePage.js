@@ -14,8 +14,8 @@ import ReferralLink from './ReferralLink';
 
 let url = "https://rkgstaking.com/"; // https://rkg staking.com/ http://local host:3000/
 
-let contract_address = 'TAikPRC3DKme6ksGUY2Xmp8XAKedmG6uvC';
-// let rkg_address = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX';
+let contract_address = 'TKgnEfAMQ7vuqiPCKtqLkc4rLMxrrQ2ZUu';
+// let rkg_address = 'TP8pbrEDLFgetKrGwWtSzYMFvWGa5jmico';
 
 toast.configure();
 
@@ -219,6 +219,7 @@ class TradePage extends Component {
                         balance={this.state.balance}
                         buyPrice={this.state.buyPrice}
 
+                        contract_rkg_bal={this.state.contract_rkg_bal}
                         super_business={this.state.super_business}
                         total_buy={this.state.total_buy}
                         user_rkg_balance={this.state.user_rkg_balance}
@@ -247,7 +248,7 @@ class TradePage extends Component {
                         account={this.state.account}
                     />
                         : null}
-
+                    {/* 
                     {this.state.isSuper === false ? <MakeSuper
                         account={this.state.account}
                     />
@@ -256,7 +257,7 @@ class TradePage extends Component {
                     {this.state.isSuper === true ? <RemoveSuper
                         account={this.state.account}
                     />
-                        : null}
+                        : null} */}
                     <div style={{ paddingBottom: "20px" }}></div>
 
                     <div style={{ paddingBottom: "50px" }}></div>

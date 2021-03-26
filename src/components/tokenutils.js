@@ -1,4 +1,4 @@
-const tokenAddress = 'TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX'
+const tokenAddress = 'TP8pbrEDLFgetKrGwWtSzYMFvWGa5jmico'
 
 const utils = {
     tronWeb: false,

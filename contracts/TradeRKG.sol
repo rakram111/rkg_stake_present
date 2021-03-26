@@ -1,5 +1,6 @@
+// RKG Coin Mainnet address TP8pbrEDLFgetKrGwWtSzYMFvWGa5jmico
 pragma solidity 0.5.4; 
-import "./RKG.sol";  // TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX 
+import "./RKG.sol";  // TP8pbrEDLFgetKrGwWtSzYMFvWGa5jmico 
 
 contract TradeRKG{
     
@@ -113,13 +114,13 @@ contract TradeRKG{
     }
 
         function makeSuper(address _addr) external returns (bool){
-        // require(msg.sender == owner, "STAKE: Not Allowed");
+        require(msg.sender == owner, "STAKE: Not Allowed");
         users[_addr].isSuper = true;
         return true;
     }
     
     function removeSuper(address _addr) external returns (bool){
-        // require(msg.sender == owner, "STAKE: Not Allowed");
+        require(msg.sender == owner, "STAKE: Not Allowed");
         users[_addr].isSuper = false;
         return true;
     }

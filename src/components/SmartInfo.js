@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-const contract_address = 'TAikPRC3DKme6ksGUY2Xmp8XAKedmG6uvC';
+const contract_address = 'TKgnEfAMQ7vuqiPCKtqLkc4rLMxrrQ2ZUu';
 // const tbt_address = 'TJEDMQLLkGC3frpSnEhJes8fTWHPpQ5C6P';
 
-let contract_url = "https://shasta.tronscan.org/#/contract/" + contract_address;
+let contract_url = "https://tronscan.org/#/contract/" + contract_address;
 
 export class SmartInfo extends Component {
 

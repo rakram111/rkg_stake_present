@@ -152,7 +152,7 @@
   "deployedBytecode": "0x608060405234801561001057600080fd5b50d3801561001d57600080fd5b50d2801561002a57600080fd5b5060043610610078576000357c0100000000000000000000000000000000000000000000000000000000900480630f59968a1461007d578063a87430ba146100c7578063b6b55f25146101a6575b600080fd5b6100856101d4565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610109600480360360208110156100dd57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506101f9565b604051808d73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018c81526020018b81526020018a81526020018981526020018881526020018781526020018664ffffffffff1664ffffffffff1681526020018581526020018481526020018381526020018281526020019c5050505050505050505050505060405180910390f35b6101d2600480360360208110156101bc57600080fd5b810190808035906020019092919050505061028a565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60016020528060005260406000206000915090508060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169080600101549080600201549080600801549080600901549080600a01549080600b01549080600c0160009054906101000a900464ffffffffff169080600d01549080600e01549080600f015490806010015490508c565b6102943382610297565b50565b6000811115156102a657600080fd5b6102b0308261035e565b80600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600a018190555042600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600c0160006101000a81548164ffffffffff021916908364ffffffffff1602179055505050565b60003390506000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663dd62ed3e82306040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060206040518083038186803b15801561045157600080fd5b505afa158015610465573d6000803e3d6000fd5b505050506040513d602081101561047b57600080fd5b81019080805190602001909291905050508211156104fd578273ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff167fbf182be802245e8ed88e4b8d3e4344c0863dd2a70334f089fd07265389306fcf846040518082815260200191505060405180910390a3600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166323b872dd8285856040518463ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019350505050602060405180830381600087803b1580156105f557600080fd5b505af1158015610609573d6000803e3d6000fd5b505050506040513d602081101561061f57600080fd5b8101908080519060200190929190505050508273ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff167fd6d3eb25a413c05d8107fc49deb2789bef7f612582b2482804c0b0423b6638ee846040518082815260200191505060405180910390a350505056fea165627a7a7230582088c4fd127a38e8033b39c6d6f963859ffd5fb42fdbd3f9afe65c7c26910a5f230029",
   "sourceMap": "89:1660:3:-;;;630:58;8:9:-1;5:2;;;30:1;27;20:12;5:2;630:58:3;;8:9:-1;5:2;;;30:1;27;20:12;5:2;630:58:3;;8:9:-1;5:2;;;30:1;27;20:12;5:2;630:58:3;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;630:58:3;;;;;;;;;;;;;;;;676:4;670:3;;:10;;;;;;;;;;;;;;;;;;630:58;89:1660;;;;;;",
   "deployedSourceMap": "89:1660:3:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;89:1660:3;;8:9:-1;5:2;;;30:1;27;20:12;5:2;89:1660:3;;8:9:-1;5:2;;;30:1;27;20:12;5:2;89:1660:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;118:14;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;582:37;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;582:37:3;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;880:89;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;880:89:3;;;;;;;;;;;;;;;;;:::i;:::-;;118:14;;;;;;;;;;;;;:::o;582:37::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;880:89::-;932:29;941:10;953:7;932:8;:29::i;:::-;880:89;:::o;977:266::-;1068:1;1058:7;:11;1050:20;;;;;;;;1082:38;1105:4;1112:7;1082:14;:38::i;:::-;1163:7;1133:5;:12;1139:5;1133:12;;;;;;;;;;;;;;;:27;;:37;;;;1217:15;1182:5;:12;1188:5;1182:12;;;;;;;;;;;;;;;:25;;;:51;;;;;;;;;;;;;;;;;;977:266;;:::o;1250:374::-;1328:13;1344:10;1328:26;;1381:3;;;;;;;;;;;:13;;;1395:5;1410:4;1381:35;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1381:35:3;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1381:35:3;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1381:35:3;;;;;;;;;;;;;;;;1371:7;:45;1368:140;;;1460:3;1438:35;;1453:5;1438:35;;;1465:7;1438:35;;;;;;;;;;;;;;;;;;1488:8;;;1368:140;1520:3;;;;;;;;;;;:16;;;1537:5;1544:3;1549:7;1520:37;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1520:37:3;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1520:37:3;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1520:37:3;;;;;;;;;;;;;;;;;1603:3;1577:39;;1596:5;1577:39;;;1608:7;1577:39;;;;;;;;;;;;;;;;;;1250:374;;;:::o",
-  "source": "pragma solidity 0.5.4; \r\nimport \"./RKG.sol\";  // TA2EDEgytsPYu27kkZtDpFBz85as8vPqsX\r\n\r\n\r\ncontract TokenTransfer{\r\n    RKG public rkg; \r\n\r\n    struct User{\r\n        address upline ;\r\n        uint256 direct_referrals ;\r\n        uint256 payouts ;\r\n        uint256[5] level_income;\r\n        uint256 gen_bonus ;\r\n        uint256 instant_bonus ;\r\n        uint256 deposit_amount ;\r\n        uint256 deposit_payouts ;\r\n        uint40 deposit_time ;\r\n        uint256 total_deposits ;\r\n        uint256 total_payouts ;\r\n        uint256 isActive ;\r\n        uint256 direct_biz ;\r\n    }\r\n   \r\n    mapping(address => User) public users ;\r\n \r\n    constructor(RKG _rkg) public {\r\n        rkg = _rkg;\r\n    }\r\n\r\n    event TransferSuccessful(address indexed from_, address indexed to_, uint256 amount_);\r\n\r\n    event TransferFailed(address indexed from_, address indexed to_, uint256 amount_);\r\n\r\n    function deposit(uint256 _amount) public {\r\n        _deposit(msg.sender, _amount);\r\n    }\r\n\r\n    function _deposit(address _addr, uint256 _amount) private { \r\n\r\n         require(_amount > 0);\r\n         transferTokens(address(this), _amount); \r\n         users[_addr].deposit_amount = _amount;\r\n         users[_addr].deposit_time = uint40(block.timestamp);\r\n\r\n    }\r\n\r\n   function transferTokens(address to_, uint256 amount_) private  {\r\n \r\n         address from_ = msg.sender;\r\n \r\n        if(amount_ > rkg.allowance(from_, address(this))) {\r\n            emit TransferFailed(from_, to_, amount_);\r\n            revert();\r\n        }\r\n\r\n        rkg.transferFrom(from_, to_, amount_); \r\n \r\n        emit TransferSuccessful(from_, to_, amount_);\r\n    }\r\n\r\n\r\n    // function deposit(uint256 _amount) payable external   { \r\n    //     _deposit(msg.sender, _amount); \r\n    // }\r\n}",
+  "source": "pragma solidity 0.5.4; \r\nimport \"./RKG.sol\";  // TP8pbrEDLFgetKrGwWtSzYMFvWGa5jmico\r\n\r\n\r\ncontract TokenTransfer{\r\n    RKG public rkg; \r\n\r\n    struct User{\r\n        address upline ;\r\n        uint256 direct_referrals ;\r\n        uint256 payouts ;\r\n        uint256[5] level_income;\r\n        uint256 gen_bonus ;\r\n        uint256 instant_bonus ;\r\n        uint256 deposit_amount ;\r\n        uint256 deposit_payouts ;\r\n        uint40 deposit_time ;\r\n        uint256 total_deposits ;\r\n        uint256 total_payouts ;\r\n        uint256 isActive ;\r\n        uint256 direct_biz ;\r\n    }\r\n   \r\n    mapping(address => User) public users ;\r\n \r\n    constructor(RKG _rkg) public {\r\n        rkg = _rkg;\r\n    }\r\n\r\n    event TransferSuccessful(address indexed from_, address indexed to_, uint256 amount_);\r\n\r\n    event TransferFailed(address indexed from_, address indexed to_, uint256 amount_);\r\n\r\n    function deposit(uint256 _amount) public {\r\n        _deposit(msg.sender, _amount);\r\n    }\r\n\r\n    function _deposit(address _addr, uint256 _amount) private { \r\n\r\n         require(_amount > 0);\r\n         transferTokens(address(this), _amount); \r\n         users[_addr].deposit_amount = _amount;\r\n         users[_addr].deposit_time = uint40(block.timestamp);\r\n\r\n    }\r\n\r\n   function transferTokens(address to_, uint256 amount_) private  {\r\n \r\n         address from_ = msg.sender;\r\n \r\n        if(amount_ > rkg.allowance(from_, address(this))) {\r\n            emit TransferFailed(from_, to_, amount_);\r\n            revert();\r\n        }\r\n\r\n        rkg.transferFrom(from_, to_, amount_); \r\n \r\n        emit TransferSuccessful(from_, to_, amount_);\r\n    }\r\n\r\n\r\n    // function deposit(uint256 _amount) payable external   { \r\n    //     _deposit(msg.sender, _amount); \r\n    // }\r\n}",
   "sourcePath": "C:/Users/RAAKESH/Desktop/Coding/TronDapp/AATRON BEAST/Code/contracts/TokenTransfer.sol",
   "ast": {
     "absolutePath": "/C/Users/RAAKESH/Desktop/Coding/TronDapp/AATRON BEAST/Code/contracts/TokenTransfer.sol",
@@ -972,7 +972,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3115,
+                          "referencedDeclaration": 3120,
                           "src": "941:3:3",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1173,10 +1173,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        3118,
-                        3119
+                        3123,
+                        3124
                       ],
-                      "referencedDeclaration": 3118,
+                      "referencedDeclaration": 3123,
                       "src": "1050:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -1214,7 +1214,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3141,
+                            "referencedDeclaration": 3146,
                             "src": "1105:4:3",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_TokenTransfer_$2621",
@@ -1476,7 +1476,7 @@
                             "name": "block",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3105,
+                            "referencedDeclaration": 3110,
                             "src": "1217:5:3",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_block",
@@ -1671,7 +1671,7 @@
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3115,
+                      "referencedDeclaration": 3120,
                       "src": "1344:3:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
@@ -1747,7 +1747,7 @@
                               "name": "this",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 3141,
+                              "referencedDeclaration": 3146,
                               "src": "1410:4:3",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_TokenTransfer_$2621",
@@ -1955,10 +1955,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3120,
-                              3121
+                              3125,
+                              3126
                             ],
-                            "referencedDeclaration": 3120,
+                            "referencedDeclaration": 3125,
                             "src": "1488:6:3",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$__$returns$__$",
@@ -3084,7 +3084,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3115,
+                          "referencedDeclaration": 3120,
                           "src": "941:3:3",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -3285,10 +3285,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        3118,
-                        3119
+                        3123,
+                        3124
                       ],
-                      "referencedDeclaration": 3118,
+                      "referencedDeclaration": 3123,
                       "src": "1050:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -3326,7 +3326,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3141,
+                            "referencedDeclaration": 3146,
                             "src": "1105:4:3",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_TokenTransfer_$2621",
@@ -3588,7 +3588,7 @@
                             "name": "block",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3105,
+                            "referencedDeclaration": 3110,
                             "src": "1217:5:3",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_block",
@@ -3783,7 +3783,7 @@
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3115,
+                      "referencedDeclaration": 3120,
                       "src": "1344:3:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
@@ -3859,7 +3859,7 @@
                               "name": "this",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 3141,
+                              "referencedDeclaration": 3146,
                               "src": "1410:4:3",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_contract$_TokenTransfer_$2621",
@@ -4067,10 +4067,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3120,
-                              3121
+                              3125,
+                              3126
                             ],
-                            "referencedDeclaration": 3120,
+                            "referencedDeclaration": 3125,
                             "src": "1488:6:3",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$__$returns$__$",
@@ -4384,5 +4384,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2021-03-25T13:25:46.656Z"
+  "updatedAt": "2021-03-26T06:24:22.813Z"
 }

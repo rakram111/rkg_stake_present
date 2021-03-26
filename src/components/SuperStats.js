@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-let addressTronScan = "https://shasta.tronscan.org/#/address/";
+let addressTronScan = "https://tronscan.org/#/address/";
 
 toast.configure();
 
