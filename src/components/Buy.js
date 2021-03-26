@@ -234,7 +234,7 @@ class Buy extends React.Component {
 
                     </div>
 
-                    <br />
+                    {/* <br />
                     <div className="row container">
                         <span style={dotStyle1}>
 
@@ -243,7 +243,7 @@ class Buy extends React.Component {
                         <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> <span>You can buy a maximum of {this.props.contract_rkg_bal} RKG from here</span> </p>
 
                     </div>
-                    <br />
+                    <br /> */}
                     <form
                         onSubmit={(event) => {
 

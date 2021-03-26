@@ -7,7 +7,7 @@ let contract_url = "https://tronscan.org/#/contract/" + contract_address;
 let url = "https://tronscan.org/#/contract/";
 
 
-export class BuyStats extends Component {
+export class BuyStatsDemo extends Component {
 
     render() {
 
@@ -39,7 +39,7 @@ export class BuyStats extends Component {
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Upline</p>
                             <a href={url + this.props.upline} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center" }}> {this.props.strUpline}...  </a>
                             <br /><br />
-                            {/* 
+
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Super Upline</p>
                             <a href={url + this.props.super_upline} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center" }}> {this.props.strSuperUpline}...  </a>
                             <br /><br />
@@ -55,7 +55,7 @@ export class BuyStats extends Component {
 
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Am i Super</p>
                             <a href="#1" style={{ color: "#18E55F", fontSize: "27px", textAlign: "center" }}> {this.props.isSuper == true ? "YES" : "NO"}  </a>
-                            <br /><br /> */}
+                            <br /><br />
 
 
                             {/* <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Total Paid</p> 
@@ -81,4 +81,4 @@ export class BuyStats extends Component {
     }
 }
 
-export default BuyStats
+export default BuyStatsDemo
