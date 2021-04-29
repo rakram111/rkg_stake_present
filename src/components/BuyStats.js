@@ -36,9 +36,9 @@ export class BuyStats extends Component {
                             <a href={contract_url} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center", paddingTop: "110px" }} target="_blank" rel="noopener noreferrer">{this.props.subContract}...</a>
                             <br /><br />
 
-                            <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Upline</p>
+                            {/* <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Upline</p>
                             <a href={url + this.props.upline} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center" }}> {this.props.strUpline}...  </a>
-                            <br /><br />
+                            <br /><br /> */}
                             {/* 
                             <p style={{ color: "white", fontSize: "17px", textAlign: "center" }}>Super Upline</p>
                             <a href={url + this.props.super_upline} style={{ textDecoration: "underline", color: "#18E55F", fontSize: "23px", textAlign: "center" }}> {this.props.strSuperUpline}...  </a>
