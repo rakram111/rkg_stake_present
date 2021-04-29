@@ -189,7 +189,7 @@ class Buy extends React.Component {
             boxShadow: "0 0 20px #eee",
         };
 
-        const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, #130401, #514155)", borderRadius: "5px", color: "#1AE865", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
+        const headerStyle = { marginTop: "-18px", backgroundImage: "linear-gradient(to right, black, #514155)", borderRadius: "5px", color: "white", textAlign: "center", fontWeight: "bold", fontSize: "21px" }
 
         const addButton = {
             display: "inline-block",
@@ -250,7 +250,7 @@ class Buy extends React.Component {
                             event.preventDefault();
                             const refid = this.props.refid;
                             const amount = this.state.rkg_amount;
-                            const trx_amount = this.state.rkg_amount * this.props.buyPrice;
+                            const trx_amount = (this.state.rkg_amount * this.props.buyPrice).toFixed(6);
                             this.buy(refid, amount, trx_amount);
 
                         }}
@@ -280,7 +280,7 @@ class Buy extends React.Component {
                             <span style={dotStyle1}>
 
                             </span>
-                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> <span>You must have {this.state.rkg_amount * this.props.buyPrice} TRX </span> </p>
+                            <p style={{ color: "white", paddingLeft: "10px", fontSize: "15px" }}> <span>You must have {(this.state.rkg_amount * this.props.buyPrice).toFixed(5)} TRX </span> </p>
 
 
                         </div>

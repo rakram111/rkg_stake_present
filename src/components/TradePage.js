@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
-import back from "./Image1/thunder.jpg"
+import back from "./Image1/b1.jpg"
 import TronWeb from 'tronweb';
 import Utils from '../utils';
 // import Sell from "./Sell";
@@ -210,7 +210,7 @@ class TradePage extends Component {
                     <hr />
                     <div style={{ textAlign: "center" }}>
                         <a href={url} >
-                            <img src={require("./Image1/logo2.png")} alt="Logo" width="170px" style={{ opacity: "80%" }} />
+                            <img src={require("./Image1/rkgcoin.png")} alt="Logo" width="370px" style={{ opacity: "80%" }} />
                         </a>
                     </div>
 
