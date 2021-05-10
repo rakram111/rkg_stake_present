@@ -82,7 +82,7 @@ class TradePage extends Component {
             }, 100);
         });
 
-       toast.info("Tron blockchain support needed for the use of this website, Try using Tron Wallet/ Tron Link Pro for Mobile OR Tron Link chrome extension for PC");
+       toast.info("Tron blockchain support needed for the use of this website, Try using Klever Wallet/ Tron Link Pro for Mobile OR Tron Link chrome extension for PC");
          
  
 
