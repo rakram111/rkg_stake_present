@@ -87,7 +87,7 @@ class TopPage extends Component {
         });
 
         if (!this.state.tronWeb.installed) {
-            toast.error("Tron blockchain support not enabled, Try using Token Pocket/ Tron Wallet/ Tron Link Pro for Mobile OR Tron Link chrome extension for PC");
+            toast.error("Tron blockchain support not enabled, Try using Tron Wallet/ Tron Link Pro for Mobile OR Tron Link chrome extension for PC");
         }
 
         if (!this.state.tronWeb.loggedIn) {

@@ -82,20 +82,9 @@ class TradePage extends Component {
             }, 100);
         });
 
-        if (!this.state.tronWeb.installed) {
-            toast.error("Tron blockchain support not enabled, Try using Token Pocket/ Tron Wallet/ Tron Link Pro for Mobile OR Tron Link chrome extension for PC");
-        }
-
-        if (!this.state.tronWeb.loggedIn) {
-            window.tronWeb.on('addressChanged', () => {
-                this.setState({
-                    tronWeb: {
-                        installed: true,
-                        loggedIn: true
-                    }
-                });
-            });
-        }
+       toast.info("Tron blockchain support needed for the use of this website, Try using Tron Wallet/ Tron Link Pro for Mobile OR Tron Link chrome extension for PC");
+         
+ 
 
         await Utils.setTronWeb(window.tronWeb);
     }
